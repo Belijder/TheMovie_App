@@ -16,27 +16,21 @@ struct MainView: View {
     var body: some View {
         VStack {
             Text("Popular Movies")
-//            switch mainViewVM.popularMovies {
-//            case .success(let movies):
-//                List(movies, id:\.id) { movie in
-//                    Text(movie.title)
-//                }
-//            case .failure(let error):
-//                Text(error.localizedDescription)
-//            case .none:
-//                ProgressView()
-//            }
-            
-            AsyncImage(url: url) { image in
-                image.resizable()
-            } placeholder: {
+            switch mainViewVM.popularMovies {
+            case .success(let movies):
+                ScrollView(.horizontal) {
+                    HStack {
+                        ForEach(movies) { movie in
+                            PortraitStyleMovieCell(movie: movie)
+                        }
+                    }
+                }
+            case .failure(let error):
+                Text(error.localizedDescription)
+            case .none:
                 ProgressView()
             }
-        }.task {
-            url = await FetchManager.shared.makePosterImageURL(movie: 324668)
         }
-        
-        
     }
 }
 

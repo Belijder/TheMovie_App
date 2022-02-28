@@ -46,18 +46,20 @@ struct FetchManager {
         return url!
     }
     
-    func makePosterImageURL(movie id: Int) async -> URL
+    func makePosterImageURL(movieId id: Int) async -> URL
     {
         var endpointPath = ""
         var images: Images
         let url = makeURL(with: .images, id: id)
-        print("URL is: \(url)")
+//        print("URL is: \(url)")
         
         do {
             let response = try await URLSession.shared.decode(Images.self, from: url)
             images = response
             let posters = images.posters
-            var englishPosters = posters.filter { $0.isoCode == "en" }
+            var englishPosters = posters.filter { $0.isoCode == "en" //&& $0.aspectRatio == 0.667
+            }
+            
             englishPosters.sort {
                 $0.voteAverage > $1.voteAverage
             }
@@ -71,7 +73,6 @@ struct FetchManager {
                 endpointPath = englishPosters[1].filePath
             }
         } catch {
-            print("Tu się sypie")
             print(error.localizedDescription)
         }
         

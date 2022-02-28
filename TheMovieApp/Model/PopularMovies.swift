@@ -12,7 +12,7 @@ struct PopularMovies: Decodable {
     let results: [PopularMovie]
 }
 
-struct PopularMovie: Decodable {
+struct PopularMovie: Decodable, Identifiable {
     
     enum CodingKeys: String, CodingKey {
         case posterPath = "poster_path"
