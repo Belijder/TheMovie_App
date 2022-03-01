@@ -18,10 +18,16 @@ struct PortraitStyleMovieCell: View {
                 AsyncImage(url: url) { image in
                     image
                         .resizable()
-                        .frame(width: 100, height: 150)
+                        .frame(width: 180, height: 270)
                         .scaledToFill()
                 } placeholder: {
-                    ProgressView()
+                    ZStack {
+                        Rectangle()
+                            .foregroundColor(Color.secondary)
+                            .frame(width: 180, height: 270)
+                        ProgressView()
+                    }
+                    
                 }
                 HStack(alignment: .center) {
                     VStack(alignment: .leading, spacing: 5) {
@@ -31,21 +37,25 @@ struct PortraitStyleMovieCell: View {
                                 .font(.caption)
                             Text("\(String(format: "%.1f", movie.voteAverage))")
                                 .foregroundColor(.primary)
-                                .font(.caption)
+                                .font(.footnote)
                         }
                         Text(movie.title)
                             .foregroundColor(.primary)
-                            .font(.caption)
+                            .font(.subheadline)
                             .fontWeight(.bold)
                             .lineLimit(1)
                             
                     }
-                    .padding(.leading, 4)
+                    .padding(.leading, 8)
                     .padding(.vertical, 8)
                     Spacer()
                 }
-                .frame(width: 100)
-                .background(Color.secondary.opacity(0.1))
+                .frame(width: 180)
+                .background(alignment: .center) {
+                    UITraitCollection.current.userInterfaceStyle == .dark ?
+                    Color.black.cornerRadius(10, corners: [.bottomLeft, .bottomRight]) :
+                    Color.white.cornerRadius(10, corners: [.bottomLeft, .bottomRight])
+                }
                 
             }
         }.task {

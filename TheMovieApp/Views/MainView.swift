@@ -14,23 +14,32 @@ struct MainView: View {
     @State var url = URL(string: "")
     
     var body: some View {
-        VStack {
-            Text("Popular Movies")
-            switch mainViewVM.popularMovies {
-            case .success(let movies):
-                ScrollView(.horizontal) {
-                    HStack {
-                        ForEach(movies) { movie in
-                            PortraitStyleMovieCell(movie: movie)
+        ScrollView {
+            VStack(spacing: 10) {
+                Text("Popular Movies")
+                switch mainViewVM.popularMovies {
+                case .success(let movies):
+                    ScrollView(.horizontal) {
+                        LazyHStack {
+                            ForEach(movies) { movie in
+                                PortraitStyleMovieCell(movie: movie)
+                            }
                         }
+                        .padding(.leading, 8)
                     }
+                case .failure(let error):
+                    Text(error.localizedDescription)
+                case .none:
+                    ProgressView()
                 }
-            case .failure(let error):
-                Text(error.localizedDescription)
-            case .none:
-                ProgressView()
             }
+            .padding(.vertical, 15)
+            .background(alignment: .center) {
+                Color.secondary.opacity(0.1)
+            }
+            
         }
+        
     }
 }
 

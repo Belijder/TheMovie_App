@@ -17,6 +17,7 @@
 		23F903F527CA7A9900A9FE58 /* MainViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F903F427CA7A9900A9FE58 /* MainViewViewModel.swift */; };
 		23F903FA27CC036800A9FE58 /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F903F927CC036800A9FE58 /* Images.swift */; };
 		23F903FC27CD422D00A9FE58 /* PortraitStyleMovieCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F903FB27CD422D00A9FE58 /* PortraitStyleMovieCell.swift */; };
+		23F9040027CEA26B00A9FE58 /* RoundedCorner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F903FF27CEA26B00A9FE58 /* RoundedCorner.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 		23F903F427CA7A9900A9FE58 /* MainViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewViewModel.swift; sourceTree = "<group>"; };
 		23F903F927CC036800A9FE58 /* Images.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
 		23F903FB27CD422D00A9FE58 /* PortraitStyleMovieCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortraitStyleMovieCell.swift; sourceTree = "<group>"; };
+		23F903FF27CEA26B00A9FE58 /* RoundedCorner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedCorner.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +70,7 @@
 				23F903F627CA7EA200A9FE58 /* ViewModels */,
 				23F903F127CA760F00A9FE58 /* Model */,
 				23F903EE27CA4D1400A9FE58 /* Utilitis */,
+				23F9040127CEA27800A9FE58 /* Custom Shapes */,
 				236D35D127CA49A400955726 /* Assets.xcassets */,
 				236D35D327CA49A400955726 /* Preview Content */,
 			);
@@ -123,6 +126,14 @@
 				23F903F427CA7A9900A9FE58 /* MainViewViewModel.swift */,
 			);
 			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		23F9040127CEA27800A9FE58 /* Custom Shapes */ = {
+			isa = PBXGroup;
+			children = (
+				23F903FF27CEA26B00A9FE58 /* RoundedCorner.swift */,
+			);
+			path = "Custom Shapes";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -198,6 +209,7 @@
 				23F903F327CA76FF00A9FE58 /* PopularMovies.swift in Sources */,
 				23F903FC27CD422D00A9FE58 /* PortraitStyleMovieCell.swift in Sources */,
 				236D35D027CA49A100955726 /* MainView.swift in Sources */,
+				23F9040027CEA26B00A9FE58 /* RoundedCorner.swift in Sources */,
 				23F903F527CA7A9900A9FE58 /* MainViewViewModel.swift in Sources */,
 				236D35CE27CA49A100955726 /* TheMovieAppApp.swift in Sources */,
 				23F903FA27CC036800A9FE58 /* Images.swift in Sources */,
