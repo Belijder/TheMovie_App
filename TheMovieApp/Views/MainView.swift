@@ -16,7 +16,8 @@ struct MainView: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 10) {
-                Text("Popular Movies")
+                HeadLineRow(context: "Popular Movies")
+                    .padding(.leading, 8)
                 switch mainViewVM.popularMovies {
                 case .success(let movies):
                     ScrollView(.horizontal) {
@@ -33,7 +34,7 @@ struct MainView: View {
                     ProgressView()
                 }
             }
-            .padding(.vertical, 15)
+            .padding(.init(top: 5, leading: 0, bottom: 15, trailing: 0))
             .background(alignment: .center) {
                 Color.secondary.opacity(0.1)
             }

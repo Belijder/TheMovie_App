@@ -51,12 +51,18 @@ struct PortraitStyleMovieCell: View {
                     Spacer()
                 }
                 .frame(width: 180)
+//                .background(alignment: .center) {
+//                    UITraitCollection.current.userInterfaceStyle == .dark ?
+//                    Color.black
+//                        .cornerRadius(10, corners: [.bottomLeft, .bottomRight])
+//                    :
+//                    Color.white.cornerRadius(10, corners: [.bottomLeft, .bottomRight])
+//                }
                 .background(alignment: .center) {
-                    UITraitCollection.current.userInterfaceStyle == .dark ?
-                    Color.black.cornerRadius(10, corners: [.bottomLeft, .bottomRight]) :
-                    Color.white.cornerRadius(10, corners: [.bottomLeft, .bottomRight])
+                    Rectangle()
+                        .cornerRadius(10, corners: [.bottomLeft, .bottomRight])
+                        .foregroundColor(UITraitCollection.current.userInterfaceStyle == .dark ? Color.black : Color.white)
                 }
-                
             }
         }.task {
             url = await FetchManager.shared.makePosterImageURL(movieId: movie.id)
