@@ -9,9 +9,13 @@ import SwiftUI
 
 @main
 struct TheMovieAppApp: App {
+    
+    @StateObject var favoritesItems = FavoriteItems()
+    
     var body: some Scene {
         WindowGroup {
             MainView()
+                .environmentObject(favoritesItems)
         }
     }
 }

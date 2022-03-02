@@ -13,7 +13,7 @@ struct PortraitStyleMovieCell: View {
     @State private var url = URL(string: "")
     
     var body: some View {
-        VStack {
+        ZStack {
             VStack(spacing: 0) {
                 AsyncImage(url: url) { image in
                     image
@@ -51,19 +51,15 @@ struct PortraitStyleMovieCell: View {
                     Spacer()
                 }
                 .frame(width: 180)
-//                .background(alignment: .center) {
-//                    UITraitCollection.current.userInterfaceStyle == .dark ?
-//                    Color.black
-//                        .cornerRadius(10, corners: [.bottomLeft, .bottomRight])
-//                    :
-//                    Color.white.cornerRadius(10, corners: [.bottomLeft, .bottomRight])
-//                }
                 .background(alignment: .center) {
                     Rectangle()
                         .cornerRadius(10, corners: [.bottomLeft, .bottomRight])
                         .foregroundColor(UITraitCollection.current.userInterfaceStyle == .dark ? Color.black : Color.white)
                 }
             }
+            
+            FavoriteCornerButton(itemId: movie.id)
+            
         }.task {
             url = await FetchManager.shared.makePosterImageURL(movieId: movie.id)
         }
@@ -75,3 +71,5 @@ struct PortraitStyleMovieCell_Previews: PreviewProvider {
         PortraitStyleMovieCell(movie: PopularMovie.example)
     }
 }
+
+

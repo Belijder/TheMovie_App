@@ -19,6 +19,8 @@
 		23F903FC27CD422D00A9FE58 /* PortraitStyleMovieCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F903FB27CD422D00A9FE58 /* PortraitStyleMovieCell.swift */; };
 		23F9040027CEA26B00A9FE58 /* RoundedCorner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F903FF27CEA26B00A9FE58 /* RoundedCorner.swift */; };
 		23F9040327CEAB1D00A9FE58 /* HeadLineRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F9040227CEAB1D00A9FE58 /* HeadLineRow.swift */; };
+		23F9040527CFEDEC00A9FE58 /* FavoriteItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F9040427CFEDEC00A9FE58 /* FavoriteItems.swift */; };
+		23F9040727CFFE4C00A9FE58 /* FavoriteCornerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F9040627CFFE4C00A9FE58 /* FavoriteCornerButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +37,8 @@
 		23F903FB27CD422D00A9FE58 /* PortraitStyleMovieCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortraitStyleMovieCell.swift; sourceTree = "<group>"; };
 		23F903FF27CEA26B00A9FE58 /* RoundedCorner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedCorner.swift; sourceTree = "<group>"; };
 		23F9040227CEAB1D00A9FE58 /* HeadLineRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadLineRow.swift; sourceTree = "<group>"; };
+		23F9040427CFEDEC00A9FE58 /* FavoriteItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteItems.swift; sourceTree = "<group>"; };
+		23F9040627CFFE4C00A9FE58 /* FavoriteCornerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteCornerButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +105,7 @@
 				236D35CF27CA49A100955726 /* MainView.swift */,
 				23F903FB27CD422D00A9FE58 /* PortraitStyleMovieCell.swift */,
 				23F9040227CEAB1D00A9FE58 /* HeadLineRow.swift */,
+				23F9040627CFFE4C00A9FE58 /* FavoriteCornerButton.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -119,6 +124,7 @@
 			children = (
 				23F903F227CA76FF00A9FE58 /* PopularMovies.swift */,
 				23F903F927CC036800A9FE58 /* Images.swift */,
+				23F9040427CFEDEC00A9FE58 /* FavoriteItems.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -209,7 +215,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				23F9040527CFEDEC00A9FE58 /* FavoriteItems.swift in Sources */,
 				23F903F327CA76FF00A9FE58 /* PopularMovies.swift in Sources */,
+				23F9040727CFFE4C00A9FE58 /* FavoriteCornerButton.swift in Sources */,
 				23F903FC27CD422D00A9FE58 /* PortraitStyleMovieCell.swift in Sources */,
 				236D35D027CA49A100955726 /* MainView.swift in Sources */,
 				23F9040027CEA26B00A9FE58 /* RoundedCorner.swift in Sources */,
