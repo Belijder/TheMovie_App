@@ -9,19 +9,29 @@ import Foundation
 
 class WatchlistItems: ObservableObject {
     
-    @Published var arrayOfIds: [Int] = []
+    @Published var items: [PopularMovie] = []
                       
-    func addToFavorite(id: Int) {
-        arrayOfIds.append(id)
+    func addToWatchlist(item: PopularMovie) {
+        items.append(item)
     }
     
-    func removeFromFavorite(id: Int) {
-        if arrayOfIds.contains(id) {
-            if let index = arrayOfIds.firstIndex(of: id) {
-                arrayOfIds.remove(at: index)
+    func removeFromWatchlist(item: PopularMovie) {
+        if items.contains(where: { element in
+            if element.id == item.id {
+                return true
+            } else {
+                return false
+            }
+        }) {
+            if let index = items.firstIndex(of: item) {
+                items.remove(at: index)
             }
         } else {
             return
         }
+    }
+    
+    func addItemToArray(id: Int) async throws {
+        
     }
 }

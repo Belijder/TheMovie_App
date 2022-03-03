@@ -11,14 +11,14 @@ struct WatchlistCornerButton: View {
     
     @EnvironmentObject var watchlistItems: WatchlistItems
     
-    let itemId: Int
+    let item: PopularMovie
     
     var body: some View {
         VStack {
             HStack {
-                if watchlistItems.arrayOfIds.contains(itemId) {
+                if watchlistItems.items.contains(item) {
                     Button {
-                        watchlistItems.removeFromFavorite(id: itemId)
+                        watchlistItems.removeFromWatchlist(item: item)
                     } label: {
                         ZStack {
                             Image(systemName: "rectangle.portrait.fill")
@@ -32,7 +32,7 @@ struct WatchlistCornerButton: View {
 
                 } else {
                     Button  {
-                        watchlistItems.addToFavorite(id: itemId)
+                        watchlistItems.addToWatchlist(item: item)
                     } label: {
                         ZStack {
                             Image(systemName: "rectangle.portrait.fill")
@@ -54,6 +54,6 @@ struct WatchlistCornerButton: View {
 
 struct FavoriteCornerButton_Previews: PreviewProvider {
     static var previews: some View {
-        WatchlistCornerButton(itemId: 634649)
+        WatchlistCornerButton(item: PopularMovie.example)
     }
 }
