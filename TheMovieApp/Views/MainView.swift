@@ -15,6 +15,8 @@ struct MainView: View {
     
     var body: some View {
         ScrollView {
+            WatchlistViewSegment()
+                .padding(.bottom, 10)
             VStack(spacing: 10) {
                 HeadLineRow(context: "Popular Movies")
                     .padding(.leading, 8)

@@ -13,15 +13,52 @@ struct WatchlistViewSegment: View {
     
     var body: some View {
         VStack(spacing: 10) {
-            HeadLineRow(context: "WatchList")
+            HeadLineRow(context: "From your Watchlist")
                 .padding(.leading, 8)
             if watchlistItems.items.isEmpty {
-                
+                VStack {
+                    ZStack {
+                        Image(systemName: "rectangle.portrait.fill")
+                            .font(.largeTitle)
+                            .foregroundColor(Color.black.opacity(0.3))
+                        Image(systemName: "plus")
+                            .font(.title3)
+                            .foregroundColor(.white)
+                    }.padding(.vertical, 15)
+                    
+                    Text("No available releases")
+                        .font(.headline)
+                        .foregroundColor(.primary)
+                        .padding(.bottom, 8)
+                    
+                    Text("Add more shows and movies to keep track of what you want to watch")
+                        .font(.subheadline)
+                        .foregroundColor(.secondary)
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal, 40)
+                        .padding(.bottom, 10)
+                    
+                    Button {
+                        //action here
+                    } label: {
+                        Text("Browse popular movies")
+                            .font(.subheadline)
+                            .foregroundColor(.blue)
+                            .padding(20)
+                    }
+
+                    
+                }
+                .background(alignment: .center) {
+                    Color.secondary.opacity(0.2)
+                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                }
+                .padding(.horizontal, 8)
             } else {
                 ScrollView(.horizontal) {
                     LazyHStack {
                         ForEach(watchlistItems.items) { movie in
-                            
+                            PortraitStyleMovieCell(movie: movie)
                         }
                     }
                     .padding(.leading, 8)
