@@ -7,18 +7,18 @@
 
 import SwiftUI
 
-struct FavoriteCornerButton: View {
+struct WatchlistCornerButton: View {
     
-    @EnvironmentObject var favoriteItems: FavoriteItems
+    @EnvironmentObject var watchlistItems: WatchlistItems
     
     let itemId: Int
     
     var body: some View {
         VStack {
             HStack {
-                if favoriteItems.arrayOfIds.contains(itemId) {
+                if watchlistItems.arrayOfIds.contains(itemId) {
                     Button {
-                        favoriteItems.removeFromFavorite(id: itemId)
+                        watchlistItems.removeFromFavorite(id: itemId)
                     } label: {
                         ZStack {
                             Image(systemName: "rectangle.portrait.fill")
@@ -32,7 +32,7 @@ struct FavoriteCornerButton: View {
 
                 } else {
                     Button  {
-                        favoriteItems.addToFavorite(id: itemId)
+                        watchlistItems.addToFavorite(id: itemId)
                     } label: {
                         ZStack {
                             Image(systemName: "rectangle.portrait.fill")
@@ -54,6 +54,6 @@ struct FavoriteCornerButton: View {
 
 struct FavoriteCornerButton_Previews: PreviewProvider {
     static var previews: some View {
-        FavoriteCornerButton(itemId: 634649)
+        WatchlistCornerButton(itemId: 634649)
     }
 }

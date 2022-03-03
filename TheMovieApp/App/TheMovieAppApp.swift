@@ -10,7 +10,7 @@ import SwiftUI
 @main
 struct TheMovieAppApp: App {
     
-    @StateObject var favoritesItems = FavoriteItems()
+    @StateObject var favoritesItems = WatchlistItems()
     
     var body: some Scene {
         WindowGroup {

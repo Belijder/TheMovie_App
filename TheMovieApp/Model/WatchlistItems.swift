@@ -7,7 +7,7 @@
 
 import Foundation
 
-class FavoriteItems: ObservableObject {
+class WatchlistItems: ObservableObject {
     
     @Published var arrayOfIds: [Int] = []
                       
