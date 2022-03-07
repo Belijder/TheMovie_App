@@ -41,8 +41,7 @@ struct MainView: View {
                 Color.secondary.opacity(0.1)
             }
             
-        }
-        
+        } 
     }
 }
 

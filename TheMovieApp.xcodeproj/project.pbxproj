@@ -22,6 +22,8 @@
 		23F9040527CFEDEC00A9FE58 /* WatchlistItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F9040427CFEDEC00A9FE58 /* WatchlistItems.swift */; };
 		23F9040727CFFE4C00A9FE58 /* WatchlistCornerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F9040627CFFE4C00A9FE58 /* WatchlistCornerButton.swift */; };
 		23F9040927D130D200A9FE58 /* WatchlistViewSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F9040827D130D200A9FE58 /* WatchlistViewSegment.swift */; };
+		23F9042C27D68C9600A9FE58 /* ShortDetailItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F9042B27D68C9500A9FE58 /* ShortDetailItemView.swift */; };
+		23F9042E27D68F7D00A9FE58 /* ItemDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F9042D27D68F7D00A9FE58 /* ItemDetails.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +43,8 @@
 		23F9040427CFEDEC00A9FE58 /* WatchlistItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistItems.swift; sourceTree = "<group>"; };
 		23F9040627CFFE4C00A9FE58 /* WatchlistCornerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistCornerButton.swift; sourceTree = "<group>"; };
 		23F9040827D130D200A9FE58 /* WatchlistViewSegment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistViewSegment.swift; sourceTree = "<group>"; };
+		23F9042B27D68C9500A9FE58 /* ShortDetailItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortDetailItemView.swift; sourceTree = "<group>"; };
+		23F9042D27D68F7D00A9FE58 /* ItemDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetails.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +109,7 @@
 			isa = PBXGroup;
 			children = (
 				236D35CF27CA49A100955726 /* MainView.swift */,
+				23F9042B27D68C9500A9FE58 /* ShortDetailItemView.swift */,
 				23F9040827D130D200A9FE58 /* WatchlistViewSegment.swift */,
 				23F903FB27CD422D00A9FE58 /* PortraitStyleMovieCell.swift */,
 				23F9040227CEAB1D00A9FE58 /* HeadLineRow.swift */,
@@ -127,6 +132,7 @@
 			children = (
 				23F903F227CA76FF00A9FE58 /* PopularMovies.swift */,
 				23F903F927CC036800A9FE58 /* Images.swift */,
+				23F9042D27D68F7D00A9FE58 /* ItemDetails.swift */,
 				23F9040427CFEDEC00A9FE58 /* WatchlistItems.swift */,
 			);
 			path = Model;
@@ -229,6 +235,8 @@
 				23F903F527CA7A9900A9FE58 /* MainViewViewModel.swift in Sources */,
 				236D35CE27CA49A100955726 /* TheMovieAppApp.swift in Sources */,
 				23F903FA27CC036800A9FE58 /* Images.swift in Sources */,
+				23F9042C27D68C9600A9FE58 /* ShortDetailItemView.swift in Sources */,
+				23F9042E27D68F7D00A9FE58 /* ItemDetails.swift in Sources */,
 				23F903F027CA52F300A9FE58 /* FetchManager.swift in Sources */,
 				23F903EB27CA4CE100A9FE58 /* Extentions.swift in Sources */,
 			);

@@ -14,9 +14,9 @@ struct FetchManager {
     
     enum EndPoints: String {
         case genre = "/genre/movie/list"
-        case movie = "/movie/"
         case popularMovies = "/movie/popular"
         case images
+        case details = "/movie/"
     }
     
     private let apiKey = "?api_key=1d1526d2d72c80f3656b73b8eeea4ee0"
@@ -30,15 +30,16 @@ struct FetchManager {
         var url = URL(string: "")
         
         switch endPoint {
-        case .movie:
-            if let id = id {
-                url = URL(string:"\(baseURL + endPoint.rawValue + String(id) + apiKey)")!
-            }
-            
         case .images:
             if let id = id {
                 url = URL(string: "\(baseURL)/movie/\(id)/images\(apiKey)")
             }
+            
+        case .details:
+            if let id = id {
+                url = URL(string:"\(baseURL + endPoint.rawValue + String(id) + apiKey)")!
+            }
+            
         default:
             url = URL(string:"\(baseURL + endPoint.rawValue + apiKey)")!
         }
@@ -64,13 +65,14 @@ struct FetchManager {
                 $0.voteAverage > $1.voteAverage
             }
             
+            
             if englishPosters.isEmpty {
-                endpointPath = posters[1].filePath
+                endpointPath = posters[0].filePath
             } else {
 //                DO TESTÓW
 //                print("Votes: \(englishPosters[1].voteCount), Average: \(englishPosters[1].voteAverage)")
 //                print("English posters count: \(englishPosters.count)")
-                endpointPath = englishPosters[1].filePath
+                endpointPath = englishPosters[0].filePath
             }
         } catch {
             print(error.localizedDescription)
