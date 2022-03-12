@@ -12,6 +12,8 @@ import SwiftUI
     
     @Published var popularMovies: Result<[PopularMovie], Error>?
     
+    @Published var popularMoviesIDs = [Int]()
+    
     func fetchPopularMovies() async -> Result<[PopularMovie], Error> {
         do {
             let url = FetchManager.shared.makeURL(with: .popularMovies, id: 1)
@@ -20,6 +22,20 @@ import SwiftUI
             return .success(movies)
         } catch {
             return .failure(error)
+        }
+    }
+    
+    func getPopularMoviesIDs() {
+        popularMoviesIDs = []
+        switch popularMovies {
+        case .success(let movies):
+            for movie in movies {
+                popularMoviesIDs.append(movie.id)
+            }
+        case .failure(_):
+            return
+        case .none:
+            return
         }
     }
 

@@ -40,7 +40,6 @@ struct MainView: View {
             .background(alignment: .center) {
                 Color.secondary.opacity(0.1)
             }
-            
         } 
     }
 }

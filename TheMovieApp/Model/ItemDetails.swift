@@ -55,6 +55,8 @@ struct ItemDetails: Decodable, Identifiable, Equatable {
         case voteCount = "vote_count"
     }
     
+    static let example = ItemDetails(adult: false, backdropPath: "BackdropPath", budget: 3000000, genres: [Genre(id: 1, name: "Horror")], homepage: "", id: 1, originalLanguage: "England", originalTitle: "Superman", overview: "Superman is best movie ever. Oh wait this is not true. The best movie is Harry Potter", productionCompanies: [ProductionCompany(name: "Warner Bros", id: 1, logoPath: "logoPath", originCountry: "USA")], productionCountries: [Country(isoCode: "es_EN", name: "England")], releaseDate: "20.12.2022", revenue: 10000000, runtime: 134, spokenLanguages: [Language(isoCode: "en_EN", name: "England")], status: "Cancelled", tagline: "tagline", title: "Superman", video: false, voteAverage: 7.3, voteCount: 3245)
+    
     
 }
 
