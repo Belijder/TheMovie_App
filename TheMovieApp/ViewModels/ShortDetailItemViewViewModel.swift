@@ -24,6 +24,7 @@ class ShortDetailItemViewViewModel: ObservableObject {
             }
             return .success(results)
         } catch {
+            print(error)
             return .failure(error)
         }
     }

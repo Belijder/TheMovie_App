@@ -23,6 +23,7 @@ struct ShortDetailItemCell: View {
                 }
             }
             .background(Color.yellow.opacity(0.5))
+            .frame(width: UIScreen.main.bounds.width * 0.9)
                 
                 
         }

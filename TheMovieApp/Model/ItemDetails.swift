@@ -43,7 +43,7 @@ struct ItemDetails: Decodable, Identifiable, Equatable {
         case overview
         case productionCompanies = "production_companies"
         case productionCountries = "production_countries"
-        case releaseDate = ""
+        case releaseDate = "release_date"
         case revenue
         case runtime
         case spokenLanguages = "spoken_languages"

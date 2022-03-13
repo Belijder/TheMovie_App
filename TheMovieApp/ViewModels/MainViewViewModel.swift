@@ -33,9 +33,9 @@ import SwiftUI
                 popularMoviesIDs.append(movie.id)
             }
         case .failure(_):
-            return
+            return popularMoviesIDs = []
         case .none:
-            return
+            return popularMoviesIDs = []
         }
     }
 
@@ -43,6 +43,6 @@ import SwiftUI
     init() {
         Task {
             popularMovies = await fetchPopularMovies()
-        }      
+        }
     }
 }

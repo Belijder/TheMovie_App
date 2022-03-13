@@ -26,6 +26,7 @@
 		23F9042E27D68F7D00A9FE58 /* ItemDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F9042D27D68F7D00A9FE58 /* ItemDetails.swift */; };
 		23F9043027D91E2400A9FE58 /* ShortDetailItemViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F9042F27D91E2400A9FE58 /* ShortDetailItemViewViewModel.swift */; };
 		23F9043227D92AD500A9FE58 /* ShortDetailItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F9043127D92AD500A9FE58 /* ShortDetailItemView.swift */; };
+		23F9045327DE07B800A9FE58 /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = 23F9045227DE07B800A9FE58 /* Introspect */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +57,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				23F9045327DE07B800A9FE58 /* Introspect in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -176,6 +178,9 @@
 			dependencies = (
 			);
 			name = TheMovieApp;
+			packageProductDependencies = (
+				23F9045227DE07B800A9FE58 /* Introspect */,
+			);
 			productName = TheMovieApp;
 			productReference = 236D35CA27CA49A100955726 /* TheMovieApp.app */;
 			productType = "com.apple.product-type.application";
@@ -204,6 +209,9 @@
 				Base,
 			);
 			mainGroup = 236D35C127CA49A100955726;
+			packageReferences = (
+				23F9045127DE07B800A9FE58 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
+			);
 			productRefGroup = 236D35CB27CA49A100955726 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -449,6 +457,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		23F9045127DE07B800A9FE58 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/siteline/SwiftUI-Introspect.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		23F9045227DE07B800A9FE58 /* Introspect */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 23F9045127DE07B800A9FE58 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */;
+			productName = Introspect;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 236D35C227CA49A100955726 /* Project object */;
 }

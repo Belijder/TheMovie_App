@@ -12,6 +12,8 @@ struct MainView: View {
     @StateObject var mainViewVM = MainViewViewModel()
     
     @State var url = URL(string: "")
+    @State var selectedItem = 1
+    @State var showShortDetailItemView = false
     
     var body: some View {
         ScrollView {
@@ -24,8 +26,16 @@ struct MainView: View {
                 case .success(let movies):
                     ScrollView(.horizontal) {
                         LazyHStack {
-                            ForEach(movies) { movie in
-                                PortraitStyleMovieCell(movie: movie)
+                            ForEach(0..<movies.count) { index in
+                                PortraitStyleMovieCell(movie: movies[index])
+                                    .onTapGesture {
+                                        mainViewVM.getPopularMoviesIDs()
+                                        selectedItem = index
+                                        showShortDetailItemView = true
+                                    }
+                            }
+                            .fullScreenCover(isPresented: $showShortDetailItemView) {
+                                ShortDetailItemView(itemIds: mainViewVM.popularMoviesIDs, currentItem: selectedItem)
                             }
                         }
                         .padding(.leading, 8)
