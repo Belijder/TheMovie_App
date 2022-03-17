@@ -18,6 +18,8 @@ struct ItemDetails: Decodable, Identifiable, Equatable {
     let originalLanguage: String
     let originalTitle: String
     let overview: String?
+    let popularity: Double
+    let posterPath: String?
     let productionCompanies: [ProductionCompany]
     let productionCountries: [Country]
     let releaseDate: String
@@ -41,6 +43,8 @@ struct ItemDetails: Decodable, Identifiable, Equatable {
         case originalLanguage = "original_language"
         case originalTitle = "original_title"
         case overview
+        case popularity
+        case posterPath = "poster_path"
         case productionCompanies = "production_companies"
         case productionCountries = "production_countries"
         case releaseDate = "release_date"
@@ -55,7 +59,15 @@ struct ItemDetails: Decodable, Identifiable, Equatable {
         case voteCount = "vote_count"
     }
     
-    static let example = ItemDetails(adult: false, backdropPath: "BackdropPath", budget: 3000000, genres: [Genre(id: 1, name: "Horror")], homepage: "", id: 1, originalLanguage: "England", originalTitle: "Superman", overview: "Superman is best movie ever. Oh wait this is not true. The best movie is Harry Potter", productionCompanies: [ProductionCompany(name: "Warner Bros", id: 1, logoPath: "logoPath", originCountry: "USA")], productionCountries: [Country(isoCode: "es_EN", name: "England")], releaseDate: "20.12.2022", revenue: 10000000, runtime: 134, spokenLanguages: [Language(isoCode: "en_EN", name: "England")], status: "Cancelled", tagline: "tagline", title: "Superman", video: false, voteAverage: 7.3, voteCount: 3245)
+    func makeGenresNamesArray() -> [String] {
+        var genresNames = [String]()
+        for genre in genres {
+            genresNames.append(genre.name)
+        }
+        return genresNames
+    }
+    
+    static let example = ItemDetails(adult: false, backdropPath: "BackdropPath", budget: 3000000, genres: [Genre(id: 1, name: "Horror")], homepage: "", id: 1, originalLanguage: "England", originalTitle: "Superman", overview: "Superman is best movie ever. Oh wait this is not true. The best movie is Harry Potter", popularity: 0.5, posterPath: nil, productionCompanies: [ProductionCompany(name: "Warner Bros", id: 1, logoPath: "logoPath", originCountry: "USA")], productionCountries: [Country(isoCode: "es_EN", name: "England")], releaseDate: "20.12.2022", revenue: 10000000, runtime: 134, spokenLanguages: [Language(isoCode: "en_EN", name: "England")], status: "Cancelled", tagline: "tagline", title: "Superman", video: false, voteAverage: 7.3, voteCount: 3245)
     
     
 }

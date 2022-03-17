@@ -31,7 +31,17 @@ class WatchlistItems: ObservableObject {
         }
     }
     
-    func addItemToArray(id: Int) async throws {
+    func addItemToArray(id: Int) {
         
+    }
+    
+    func checkIfItemIsInArray(id: Int) -> Bool {
+        items.contains(where: { element in
+            if element.id == id {
+                return true
+            } else {
+                return false
+            }
+        })
     }
 }

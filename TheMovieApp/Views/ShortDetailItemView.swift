@@ -17,37 +17,44 @@ struct ShortDetailItemView: View {
     @StateObject var shortDetailItemViewViewModel = ShortDetailItemViewViewModel()
 
     var body: some View {
-        VStack {
-            switch shortDetailItemViewViewModel.items {
-            case .success(let items):
-                ScrollView(.horizontal) {
-                    ScrollViewReader { proxy in
-                        HStack {
-                            ForEach(0..<items.count) { index in
-                                ShortDetailItemCell(item: items[index])
-                                    .id(index)
+        ZStack {
+            Color.secondary.opacity(0.1)
+                .ignoresSafeArea(.all)
+            VStack {
+                switch shortDetailItemViewViewModel.items {
+                case .success(let items):
+                    ScrollView(.horizontal) {
+                        ScrollViewReader { proxy in
+                            LazyHStack(spacing:0) {
+                                ForEach(0..<items.count) { index in
+                                    ShortDetailItemCell(backdropPath: items[index].backdropPath, item: items[index])
+                                        .id(index)
+                                }
+                                .onChange(of: scrolltoItem) { value in
+                                    proxy.scrollTo(value, anchor: .center)
+                                }
+                                .onAppear {
+                                    scrolltoItem = currentItem
+                                }
+                                .padding(.horizontal, UIScreen.main.bounds.width * 0.05)
                                 
                             }
-                            .onChange(of: scrolltoItem) { value in
-                                proxy.scrollTo(value, anchor: .center)
-                            }
-                            .onAppear {
-                                scrolltoItem = currentItem
-                            }
-                            
                             
                         }
                     }
+                    .introspectScrollView { scrollView in
+                        scrollView.isPagingEnabled = true
+                    }
+                    //.padding(.leading, currentItem == 0 ? UIScreen.main.bounds.width * 0.05 : 0)
+                case .none:
+                    ProgressView()
+                case .failure(let error):
+                    Text("Nie działa bo: \(error.localizedDescription)")
                 }
-                .padding(.leading, currentItem == 0 ? UIScreen.main.bounds.width * 0.05 : 0)
-            case .none:
-                ProgressView()
-            case .failure(let error):
-                Text("Nie działa bo: \(error.localizedDescription)")
-            }
-            
-        }.task {
-            shortDetailItemViewViewModel.items = await shortDetailItemViewViewModel.fetchitems(for: itemIds)
+                
+            }.task {
+                shortDetailItemViewViewModel.items = await shortDetailItemViewViewModel.fetchitems(for: itemIds)
+        }
         }
     }
 }

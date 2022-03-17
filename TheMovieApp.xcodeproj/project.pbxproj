@@ -7,10 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2303DA7627E10F4200FF648F /* BackdropCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2303DA7527E10F4200FF648F /* BackdropCell.swift */; };
 		236D35CE27CA49A100955726 /* TheMovieAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236D35CD27CA49A100955726 /* TheMovieAppApp.swift */; };
 		236D35D027CA49A100955726 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236D35CF27CA49A100955726 /* MainView.swift */; };
 		236D35D227CA49A400955726 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 236D35D127CA49A400955726 /* Assets.xcassets */; };
 		236D35D527CA49A400955726 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 236D35D427CA49A400955726 /* Preview Assets.xcassets */; };
+		23A0DAC027E3AF9300F3D878 /* GenresCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A0DABF27E3AF9300F3D878 /* GenresCell.swift */; };
 		23F903EB27CA4CE100A9FE58 /* Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F903EA27CA4CE100A9FE58 /* Extentions.swift */; };
 		23F903F027CA52F300A9FE58 /* FetchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F903EF27CA52F300A9FE58 /* FetchManager.swift */; };
 		23F903F327CA76FF00A9FE58 /* PopularMovies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F903F227CA76FF00A9FE58 /* PopularMovies.swift */; };
@@ -27,14 +29,17 @@
 		23F9043027D91E2400A9FE58 /* ShortDetailItemViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F9042F27D91E2400A9FE58 /* ShortDetailItemViewViewModel.swift */; };
 		23F9043227D92AD500A9FE58 /* ShortDetailItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F9043127D92AD500A9FE58 /* ShortDetailItemView.swift */; };
 		23F9045327DE07B800A9FE58 /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = 23F9045227DE07B800A9FE58 /* Introspect */; };
+		23F9045B27DFAEF800A9FE58 /* VideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F9045A27DFAEF700A9FE58 /* VideoView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2303DA7527E10F4200FF648F /* BackdropCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackdropCell.swift; sourceTree = "<group>"; };
 		236D35CA27CA49A100955726 /* TheMovieApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TheMovieApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		236D35CD27CA49A100955726 /* TheMovieAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheMovieAppApp.swift; sourceTree = "<group>"; };
 		236D35CF27CA49A100955726 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		236D35D127CA49A400955726 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		236D35D427CA49A400955726 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		23A0DABF27E3AF9300F3D878 /* GenresCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenresCell.swift; sourceTree = "<group>"; };
 		23F903EA27CA4CE100A9FE58 /* Extentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extentions.swift; sourceTree = "<group>"; };
 		23F903EF27CA52F300A9FE58 /* FetchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchManager.swift; sourceTree = "<group>"; };
 		23F903F227CA76FF00A9FE58 /* PopularMovies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularMovies.swift; sourceTree = "<group>"; };
@@ -50,6 +55,7 @@
 		23F9042D27D68F7D00A9FE58 /* ItemDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetails.swift; sourceTree = "<group>"; };
 		23F9042F27D91E2400A9FE58 /* ShortDetailItemViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortDetailItemViewViewModel.swift; sourceTree = "<group>"; };
 		23F9043127D92AD500A9FE58 /* ShortDetailItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortDetailItemView.swift; sourceTree = "<group>"; };
+		23F9045A27DFAEF700A9FE58 /* VideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +123,9 @@
 				236D35CF27CA49A100955726 /* MainView.swift */,
 				23F9043127D92AD500A9FE58 /* ShortDetailItemView.swift */,
 				23F9042B27D68C9500A9FE58 /* ShortDetailItemCell.swift */,
+				2303DA7527E10F4200FF648F /* BackdropCell.swift */,
+				23A0DABF27E3AF9300F3D878 /* GenresCell.swift */,
+				23F9045A27DFAEF700A9FE58 /* VideoView.swift */,
 				23F9040827D130D200A9FE58 /* WatchlistViewSegment.swift */,
 				23F903FB27CD422D00A9FE58 /* PortraitStyleMovieCell.swift */,
 				23F9040227CEAB1D00A9FE58 /* HeadLineRow.swift */,
@@ -244,13 +253,16 @@
 				23F903FC27CD422D00A9FE58 /* PortraitStyleMovieCell.swift in Sources */,
 				23F9040927D130D200A9FE58 /* WatchlistViewSegment.swift in Sources */,
 				236D35D027CA49A100955726 /* MainView.swift in Sources */,
+				23F9045B27DFAEF800A9FE58 /* VideoView.swift in Sources */,
 				23F9040027CEA26B00A9FE58 /* RoundedCorner.swift in Sources */,
 				23F9040327CEAB1D00A9FE58 /* HeadLineRow.swift in Sources */,
 				23F903F527CA7A9900A9FE58 /* MainViewViewModel.swift in Sources */,
 				236D35CE27CA49A100955726 /* TheMovieAppApp.swift in Sources */,
+				23A0DAC027E3AF9300F3D878 /* GenresCell.swift in Sources */,
 				23F903FA27CC036800A9FE58 /* Images.swift in Sources */,
 				23F9042C27D68C9600A9FE58 /* ShortDetailItemCell.swift in Sources */,
 				23F9042E27D68F7D00A9FE58 /* ItemDetails.swift in Sources */,
+				2303DA7627E10F4200FF648F /* BackdropCell.swift in Sources */,
 				23F9043227D92AD500A9FE58 /* ShortDetailItemView.swift in Sources */,
 				23F903F027CA52F300A9FE58 /* FetchManager.swift in Sources */,
 				23F9043027D91E2400A9FE58 /* ShortDetailItemViewViewModel.swift in Sources */,

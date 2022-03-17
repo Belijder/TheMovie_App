@@ -23,6 +23,8 @@ struct FetchManager {
     let baseURL = "https://api.themoviedb.org/3"
     
     let imageBaseURL = "https://image.tmdb.org/t/p/original"
+    let youTubeBaseURL = "https://www.youtube.com/watch?v="
+    let vimeoBaseURL = "https://vimeo.com/"
     
     
     func makeURL(with endPoint: EndPoints, id: Int?) -> URL {
@@ -47,8 +49,7 @@ struct FetchManager {
         return url!
     }
     
-    func makePosterImageURL(movieId id: Int) async -> URL
-    {
+    func makePosterImageURL(movieId id: Int) async -> URL {
         var endpointPath = ""
         var images: Images
         let url = makeURL(with: .images, id: id)
@@ -81,8 +82,41 @@ struct FetchManager {
         let posterURL = URL(string: imageBaseURL + endpointPath)!
         
         return  posterURL
-       
+    }
     
+    func makeBackdropImageURL(movieId id: Int) async -> URL {
+        var endpointPath = ""
+        var images: Images
+        let url = makeURL(with: .images, id: id)
+//        print("URL is: \(url)")
+        
+        do {
+            let response = try await URLSession.shared.decode(Images.self, from: url)
+            images = response
+            let backdrops = images.backdrops
+            var englishBackdrops = backdrops.filter { $0.isoCode == "en" //&& $0.aspectRatio == 0.667
+            }
+            
+            englishBackdrops.sort {
+                $0.voteAverage > $1.voteAverage
+            }
+            
+            
+            if englishBackdrops.isEmpty {
+                endpointPath = backdrops[0].filePath
+            } else {
+//                DO TESTÓW
+//                print("Votes: \(englishPosters[1].voteCount), Average: \(englishPosters[1].voteAverage)")
+//                print("English posters count: \(englishPosters.count)")
+                endpointPath = englishBackdrops[0].filePath
+            }
+        } catch {
+            print(error.localizedDescription)
+        }
+        
+        let posterURL = URL(string: imageBaseURL + endpointPath)!
+        
+        return  posterURL
     }
     
     
