@@ -11,7 +11,7 @@ struct WatchlistCornerButton: View {
     
     @EnvironmentObject var watchlistItems: WatchlistItems
     
-    let item: PopularMovie
+    let item: ItemDetails
     
     var body: some View {
         VStack {
@@ -32,7 +32,9 @@ struct WatchlistCornerButton: View {
 
                 } else {
                     Button  {
-                        watchlistItems.addToWatchlist(item: item)
+                        Task {
+                            await watchlistItems.addToWatchlist(itemId: item.id)
+                        }
                     } label: {
                         ZStack {
                             Image(systemName: "rectangle.portrait.fill")
@@ -54,6 +56,6 @@ struct WatchlistCornerButton: View {
 
 struct FavoriteCornerButton_Previews: PreviewProvider {
     static var previews: some View {
-        WatchlistCornerButton(item: PopularMovie.example)
+        WatchlistCornerButton(item: ItemDetails.example)
     }
 }

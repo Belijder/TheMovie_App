@@ -7,7 +7,7 @@
 import SwiftUI
 
 struct ShortDetailItemCell: View {
-    
+
     @EnvironmentObject var watchlistItems: WatchlistItems
     
     let backdropPath: String?
@@ -15,8 +15,7 @@ struct ShortDetailItemCell: View {
     let item: ItemDetails
     
     @State private var showVideoView = false
-    
-    
+
     var body: some View {
         ScrollView() {
             VStack(alignment: .leading, spacing: 10) {
@@ -79,41 +78,34 @@ struct ShortDetailItemCell: View {
                                 .lineLimit(5)
                         } else {
                             Text("This material does not have a description added yet")
-
+                            
                         }
                         Spacer()
                     }
                 }
                 .padding(.horizontal)
                 
-                HStack(spacing: 10) {
-                    Button {
-                        //Watch options
-                    } label: {
-                        Text("Watch options")
+                // Add to Watchlist Button
+                Button {
+                    if watchlistItems.checkIfItemIsInArray(id: item.id) {
+                        watchlistItems.removeFromWatchlist(item: item)
+                    } else {
+                        watchlistItems.addToWatchlist(item: item)
+                    }
+                } label: {
+                    HStack(spacing: 5) {
+                        Image(systemName: watchlistItems.checkIfItemIsInArray(id: item.id) ? "checkmark" : "plus")
+                            .foregroundColor(.white)
+                        Text("WatchList")
                             .font(.headline)
                             .foregroundColor(.white)
                             .padding(.vertical, 6)
-                            .frame(maxWidth: .infinity)
-                            .background(Color.gray.cornerRadius(5))
                     }
-                    
-                    Button {
-                        //Watch options
-                    } label: {
-                        HStack(spacing: 5) {
-                            Image(systemName: watchlistItems.checkIfItemIsInArray(id: item.id) ? "checkmark" : "plus")
-                                .foregroundColor(.white)
-                            Text("WatchList")
-                                .font(.headline)
-                                .foregroundColor(.white)
-                                .padding(.vertical, 6)
-                        }
-                            .frame(maxWidth: .infinity)
-                            .background(Color.gray.cornerRadius(5))
-                    }
+                    .frame(maxWidth: .infinity)
+                    .background(Color.gray.cornerRadius(5))
+                    .padding()
                 }
-                .padding()
+                
                 
             }
             .frame(width: UIScreen.main.bounds.size.width * 0.9)

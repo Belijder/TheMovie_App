@@ -10,7 +10,7 @@ import AVKit
 
 struct PortraitStyleMovieCell: View {
     
-    let movie: PopularMovie
+    let movie: ItemDetails
     @State private var url = URL(string: "")
     
     var body: some View {
@@ -71,7 +71,7 @@ struct PortraitStyleMovieCell: View {
 
 struct PortraitStyleMovieCell_Previews: PreviewProvider {
     static var previews: some View {
-        PortraitStyleMovieCell(movie: PopularMovie.example)
+        PortraitStyleMovieCell(movie: ItemDetails.example)
     }
 }
 

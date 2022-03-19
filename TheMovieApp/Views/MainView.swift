@@ -35,7 +35,7 @@ struct MainView: View {
                                     }
                             }
                             .fullScreenCover(isPresented: $showShortDetailItemView) {
-                                ShortDetailItemView(itemIds: mainViewVM.popularMoviesIDs, currentItem: selectedItem)
+                                ShortDetailItemView(title: "Popular Movies", itemIds: mainViewVM.popularMoviesIDs, currentItem: selectedItem)
                             }
                         }
                         .padding(.leading, 8)

@@ -10,9 +10,13 @@ import Introspect
 
 struct ShortDetailItemView: View {
     
+    let title: String
+    
     var itemIds: [Int]
     @State var currentItem: Int
     @State var scrolltoItem = 0
+    @Environment(\.dismiss) var dismiss
+    
     
     @StateObject var shortDetailItemViewViewModel = ShortDetailItemViewViewModel()
 
@@ -21,6 +25,27 @@ struct ShortDetailItemView: View {
             Color.secondary.opacity(0.1)
                 .ignoresSafeArea(.all)
             VStack {
+                ZStack(alignment: .leading) {
+                    HStack {
+                        Spacer()
+                        Text(title)
+                            .foregroundColor(.primary)
+                            .font(.headline)
+                            .frame(maxWidth: .infinity)
+                            .padding(6)
+                        Spacer()
+                    }
+                    
+                    Button {
+                        dismiss()
+                    } label: {
+                        Image(systemName: "xmark")
+                            .foregroundColor(.primary)
+                            .font(.title3)
+                            .padding(.leading)
+                    }
+                    
+                }
                 switch shortDetailItemViewViewModel.items {
                 case .success(let items):
                     ScrollView(.horizontal) {
@@ -45,7 +70,6 @@ struct ShortDetailItemView: View {
                     .introspectScrollView { scrollView in
                         scrollView.isPagingEnabled = true
                     }
-                    //.padding(.leading, currentItem == 0 ? UIScreen.main.bounds.width * 0.05 : 0)
                 case .none:
                     ProgressView()
                 case .failure(let error):
@@ -54,13 +78,14 @@ struct ShortDetailItemView: View {
                 
             }.task {
                 shortDetailItemViewViewModel.items = await shortDetailItemViewViewModel.fetchitems(for: itemIds)
+            }
         }
-        }
+        
     }
 }
 
 struct ShortDetailItemView_Previews: PreviewProvider {
     static var previews: some View {
-        ShortDetailItemView(itemIds: [1, 2], currentItem: 1)
+        ShortDetailItemView(title: "Popular Movies", itemIds: [1, 2], currentItem: 1)
     }
 }

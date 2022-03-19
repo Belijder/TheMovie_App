@@ -7,15 +7,24 @@
 
 import Foundation
 
-class WatchlistItems: ObservableObject {
+@MainActor class WatchlistItems: ObservableObject {
     
-    @Published var items: [PopularMovie] = []
+    @Published var items: [ItemDetails] = []
                       
-    func addToWatchlist(item: PopularMovie) {
-        items.append(item)
+    func addToWatchlist(itemId: Int) async {
+        let item = await fetchItemDetails(from: itemId)
+        if item != nil {
+            items.append(item!)
+        } else {
+            return
+        }
     }
     
-    func removeFromWatchlist(item: PopularMovie) {
+    func addToWatchlist(item: ItemDetails) {
+            items.append(item)
+    }
+    
+    func removeFromWatchlist(item: ItemDetails) {
         if items.contains(where: { element in
             if element.id == item.id {
                 return true
@@ -31,8 +40,15 @@ class WatchlistItems: ObservableObject {
         }
     }
     
-    func addItemToArray(id: Int) {
-        
+    func fetchItemDetails(from id: Int) async -> ItemDetails? {
+        do {
+            let url = FetchManager.shared.makeURL(with: .details, id: id)
+            let response = try await URLSession.shared.decode(ItemDetails.self, from: url)
+            return response
+        } catch {
+            print(error.localizedDescription)
+            return nil
+        }
     }
     
     func checkIfItemIsInArray(id: Int) -> Bool {
