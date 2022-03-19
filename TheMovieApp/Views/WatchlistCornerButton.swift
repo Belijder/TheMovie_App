@@ -21,12 +21,18 @@ struct WatchlistCornerButton: View {
                         watchlistItems.removeFromWatchlist(item: item)
                     } label: {
                         ZStack {
-                            Image(systemName: "rectangle.portrait.fill")
-                                .font(.largeTitle)
+                            WatchlistShape()
+                                .frame(width: UIScreen.main.bounds.width / 14, height: UIScreen.main.bounds.height / 23)
                                 .foregroundColor(Color.yellow)
+                                .overlay(
+                                    WatchlistShape()
+                                        .stroke(Color.white.opacity(0.5), lineWidth: 0.5)
+                                )
+                            
                             Image(systemName: "checkmark")
-                                .font(.title3)
+                                .font(.headline)
                                 .foregroundColor(.white)
+                                .offset(y: -(UIScreen.main.bounds.height / 23 / 9))
                         }
                     }
 
@@ -37,12 +43,18 @@ struct WatchlistCornerButton: View {
                         }
                     } label: {
                         ZStack {
-                            Image(systemName: "rectangle.portrait.fill")
-                                .font(.largeTitle)
+                            WatchlistShape()
+                                .frame(width: UIScreen.main.bounds.width / 14, height: UIScreen.main.bounds.height / 23)
                                 .foregroundColor(Color.black.opacity(0.3))
+                                .overlay(
+                                    WatchlistShape()
+                                        .stroke(Color.white.opacity(0.5), lineWidth: 0.5)
+                                )
+                                
                             Image(systemName: "plus")
-                                .font(.title3)
+                                .font(.headline)
                                 .foregroundColor(.white)
+                                .offset(y: -(UIScreen.main.bounds.height / 23 / 9))
                         }
                     }
                 }
