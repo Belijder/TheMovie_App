@@ -103,8 +103,57 @@ struct ShortDetailItemCell: View {
                     }
                     .frame(maxWidth: .infinity)
                     .background(Color.gray.cornerRadius(5))
-                    .padding()
+                    .padding(.horizontal)
+                    .padding(.top, 8)
                 }
+                
+                //Rate Button and VoteAverange
+                ZStack(alignment: .center) {
+                    HStack(spacing: 5) {
+                        Image(systemName: "star.fill")
+                            .foregroundColor(.yellow)
+                        HStack(alignment: .bottom, spacing: 0) {
+                            Text("\(String(format: "%.1f", item.voteAverage))")
+                                .font(.headline)
+                            Text("/10")
+                                .foregroundColor(.primary)
+                                .font(.subheadline)
+                                .fontWeight(.thin)
+                        }
+                        Spacer()
+                    }
+                    
+                    VStack() {
+                        Button {
+                            //RateItemView
+                        } label: {
+                            HStack(spacing: 5) {
+                                Image(systemName: "star")
+                                Text("Rate")
+                            }
+                        }
+                    }
+                }
+                .padding(.horizontal)
+                .padding(.vertical, 8)
+                
+                Divider()
+                
+                Button {
+                    //Show full detail view
+                } label: {
+                    Text("See full details")
+                        .font(.headline)
+                        .foregroundColor(.black)
+                        .padding(.vertical, 6)
+                        .frame(maxWidth: .infinity)
+                        .background(Color.yellow.cornerRadius(5))
+                        .padding(.horizontal)
+                        .padding(.vertical, 8)
+                }
+                Divider()
+                
+                topCast
                 
                 
             }
@@ -113,7 +162,7 @@ struct ShortDetailItemCell: View {
                             .cornerRadius(20, corners: [.bottomLeft, .bottomRight])
             )
         }
-        //.clipShape(RoundedRectangle(cornerRadius: 20))
+        .clipShape(RoundedRectangle(cornerRadius: 20))
         .fullScreenCover(isPresented: $showVideoView) {
             VideoView()
         }
@@ -124,5 +173,38 @@ struct ShortDetailItemCell: View {
 struct ShortDetailItemCell_Previews: PreviewProvider {
     static var previews: some View {
         ShortDetailItemCell(backdropPath: "", item: ItemDetails.example)
+    }
+}
+
+
+extension ShortDetailItemCell {
+    
+    private var topCast: some View {
+        VStack {
+            HStack(alignment: .center) {
+                Text("Top Cast")
+                    .font(.title2)
+                    .bold()
+                    .foregroundColor(.primary)
+                Spacer()
+                Button {
+                    //Show all cast
+                } label: {
+                    Text("See All")
+                        .font(.headline)
+                        .foregroundColor(.blue)
+                        .fontWeight(.light)
+                }
+                
+                ScrollView(.horizontal) {
+                    LazyHStack {
+                        
+                    }
+                }
+
+            }
+        }
+        .padding(.horizontal)
+        
     }
 }

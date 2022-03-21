@@ -13,7 +13,7 @@ struct GenresCell: View {
     
     
     var body: some View {
-        ScrollView(.horizontal) {
+        ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 5) {
                 ForEach(genresNames, id: \.self) { genre in
                     Text(genre)
@@ -24,6 +24,7 @@ struct GenresCell: View {
                 }
             }
         }
+        
     }
     
 }

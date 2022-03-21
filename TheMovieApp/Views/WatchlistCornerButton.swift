@@ -22,7 +22,7 @@ struct WatchlistCornerButton: View {
                     } label: {
                         ZStack {
                             WatchlistShape()
-                                .frame(width: UIScreen.main.bounds.width / 14, height: UIScreen.main.bounds.height / 23)
+                                .frame(width: UIScreen.main.bounds.width / 13, height: UIScreen.main.bounds.height / 19)
                                 .foregroundColor(Color.yellow)
                                 .overlay(
                                     WatchlistShape()
@@ -32,7 +32,7 @@ struct WatchlistCornerButton: View {
                             Image(systemName: "checkmark")
                                 .font(.headline)
                                 .foregroundColor(.white)
-                                .offset(y: -(UIScreen.main.bounds.height / 23 / 9))
+                                .offset(y: -(UIScreen.main.bounds.height / 23 / 7))
                         }
                     }
 
@@ -44,7 +44,7 @@ struct WatchlistCornerButton: View {
                     } label: {
                         ZStack {
                             WatchlistShape()
-                                .frame(width: UIScreen.main.bounds.width / 14, height: UIScreen.main.bounds.height / 23)
+                                .frame(width: UIScreen.main.bounds.width / 13, height: UIScreen.main.bounds.height / 19)
                                 .foregroundColor(Color.black.opacity(0.3))
                                 .overlay(
                                     WatchlistShape()
