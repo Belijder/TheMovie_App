@@ -13,6 +13,8 @@ struct Credits: Codable, Identifiable, Equatable {
     let id: Int
     let cast: [CastMember]
     let crew: [CrewMember]
+    
+    static let example = Credits(id: 1, cast: [], crew: [])
 }
 
 struct CastMember: Codable, Identifiable, Equatable {

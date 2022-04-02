@@ -17,6 +17,8 @@ struct FetchManager {
         case popularMovies = "/movie/popular"
         case images
         case details = "/movie/"
+        case credits
+        case reviews
     }
     
     private let apiKey = "?api_key=1d1526d2d72c80f3656b73b8eeea4ee0"
@@ -42,6 +44,16 @@ struct FetchManager {
                 url = URL(string:"\(baseURL + endPoint.rawValue + String(id) + apiKey)")!
             }
             
+        case .credits:
+            if let id = id {
+                url = URL(string: "\(baseURL)/movie/\(id)/credits\(apiKey)")
+            }
+            
+        case .reviews:
+            if let id = id {
+                url = URL(string: "\(baseURL)/movie/\(id)/reviews\(apiKey)")
+            }
+            
         default:
             url = URL(string:"\(baseURL + endPoint.rawValue + apiKey)")!
         }
@@ -62,9 +74,7 @@ struct FetchManager {
             var englishPosters = posters.filter { $0.isoCode == "en" //&& $0.aspectRatio == 0.667
             }
             
-            englishPosters.sort {
-                $0.voteAverage > $1.voteAverage
-            }
+            englishPosters.sort { $0.voteAverage > $1.voteAverage }
             
             
             if englishPosters.isEmpty {
@@ -118,6 +128,39 @@ struct FetchManager {
         
         return  posterURL
     }
+    
+    func fetchCreditsfor(movie: Int) async -> Credits {
+        do {
+            let url = FetchManager.shared.makeURL(with: .credits, id: movie)
+            let response = try await URLSession.shared.decode(Credits.self, from: url)
+            return response
+        } catch {
+            print("Error when try to fetch PopularMovie array: \(error)")
+            return Credits.example
+        }
+    }
+    
+    func makeTopCast(for movie: Int) async -> [CastMember] {
+        let credits = await fetchCreditsfor(movie: movie)
+        var cast = credits.cast
+        cast.sort { $0.order < $1.order}
+        let top4 = cast.prefix(4)
+        let returnValue = Array(top4)
+        return returnValue
+  
+    }
+    
+    func fetchReviews(movieID: Int) async -> Reviews {
+        do {
+            let url = FetchManager.shared.makeURL(with: .reviews, id: movieID)
+            let response = try await URLSession.shared.decode(Reviews.self, from: url)
+            return response
+        } catch {
+            print("Error when try to fetch Reviews: \(error.localizedDescription)")
+            return Reviews.example
+        }
+    }
+    
     
     
 }

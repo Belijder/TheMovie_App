@@ -52,7 +52,7 @@ struct ShortDetailItemView: View {
                         ScrollViewReader { proxy in
                             LazyHStack(spacing:0) {
                                 ForEach(0..<items.count) { index in
-                                    ShortDetailItemCell(backdropPath: items[index].backdropPath, item: items[index])
+                                    ShortDetailItemCell(topCastArray: shortDetailItemViewViewModel.topCasts[index], backdropPath: items[index].backdropPath, item: items[index], reviews: shortDetailItemViewViewModel.reviews[items[index].title] ?? Reviews.example)
                                         .id(index)
                                 }
                                 .onChange(of: scrolltoItem) { value in
@@ -71,7 +71,11 @@ struct ShortDetailItemView: View {
                         scrollView.isPagingEnabled = true
                     }
                 case .none:
+                    VStack{
+                    Spacer()
                     ProgressView()
+                    Spacer()
+                    }
                 case .failure(let error):
                     Text("Nie działa bo: \(error.localizedDescription)")
                 }

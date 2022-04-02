@@ -25,7 +25,8 @@ struct BackdropCell: View {
                         } placeholder: {
                             ZStack {
                                 Rectangle()
-                                    .foregroundColor(Color.secondary) 
+                                    .foregroundColor(Color.secondary)
+                                    .frame(width: UIScreen.main.bounds.width * 0.9, height: UIScreen.main.bounds.width * 0.9 / 1.77777777777778)
                                 ProgressView()
                             }
                             
@@ -33,7 +34,7 @@ struct BackdropCell: View {
                         LinearGradient(colors: [.black.opacity(0.5), .clear], startPoint: .bottom, endPoint: .top)
                             .frame(width: UIScreen.main.bounds.width * 0.9, height: UIScreen.main.bounds.width * 0.9 / 1.77777777777778 / 2)
                     }
-                    if !isVideoAnable {
+                    if isVideoAnable {
                         Button {
                             showVideoView = true
                         } label: {

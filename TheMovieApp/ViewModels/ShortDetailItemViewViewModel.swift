@@ -7,11 +7,13 @@
 
 import Foundation
 
-class ShortDetailItemViewViewModel: ObservableObject {
+@MainActor class ShortDetailItemViewViewModel: ObservableObject {
     
     var itemIDs = [Int]()
     
     @Published var items: Result<[ItemDetails], Error>?
+    @Published var topCasts = [[CastMember]]()
+    @Published var reviews: [String:Reviews] = [:]
     
     func fetchitems(for ids: [Int]) async -> Result<[ItemDetails], Error> {
         do {
@@ -21,6 +23,8 @@ class ShortDetailItemViewViewModel: ObservableObject {
                 let url = FetchManager.shared.makeURL(with: .details, id: id)
                 let response = try await URLSession.shared.decode(ItemDetails.self, from: url)
                 results.append(response)
+                await topCasts.append(FetchManager.shared.makeTopCast(for: response.id))
+                await reviews[response.title] = FetchManager.shared.fetchReviews(movieID: response.id)
             }
             return .success(results)
         } catch {
