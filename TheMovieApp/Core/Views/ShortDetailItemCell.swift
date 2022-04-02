@@ -17,65 +17,103 @@ struct ShortDetailItemCell: View {
     @State private var showVideoView = false
 
     var body: some View {
-        ScrollView() {
-            VStack(alignment: .leading, spacing: 10) {
-                
-                Group {
-                    BackdropCell(backdropPath: backdropPath, showVideoView: $showVideoView, isVideoAnable: item.video)
-                    
-                    basicInforation
-                    
-                    HStack(spacing: 15) {
-                        poster
-                        VStack(alignment: .leading) {
-                            GenresCell(genresNames: item.makeGenresNamesArray())
-                            overview
-                            Spacer()
-                        }
+        ZStack {
+            VStack {
+                if item.posterPath != nil {
+                    AsyncImage(url: URL(string: FetchManager.shared.imageBaseURL + item.posterPath!)) { image in
+                        image
+                            .resizable()
+                            .frame(width: UIScreen.main.bounds.size.width * 0.9)
+                    } placeholder: {
+                        Rectangle().fill(UITraitCollection.current.userInterfaceStyle == .dark ? .black : .white)
+                            .cornerRadius(20, corners: [.bottomLeft, .bottomRight])
                     }
-                    .padding(.horizontal)
                 }
-                
-                addToWatchListButton
-                
-                voteAverageAndRateButtonRow
-                
-                Divider()
-                
-                seeFullDetailsButton
-                
-                Divider()
-                
-                topCast
-                
-                Divider()
-                
-                if reviews.results.isEmpty {
-                    Text("There are no reviews for this material yet")
-                } else {
-                    ScrollView(.horizontal) {
-                        LazyHStack(spacing: 10) {
-                            ForEach(reviews.results) { review in
-                                ShortReviewCell(review: review)
+            }
+            
+            ScrollView() {
+                ZStack {
+                    VStack(alignment: .leading, spacing: 10) {
+                        
+                        Group {
+                            BackdropCell(backdropPath: backdropPath, showVideoView: $showVideoView, isVideoAnable: item.video)
+                            
+                            basicInforation
+                            
+                            HStack(spacing: 15) {
+                                poster
+                                VStack(alignment: .leading) {
+                                    GenresCell(genresNames: item.makeGenresNamesArray())
+                                    overview
+                                    Spacer()
+                                }
+                            }
+                            .padding(.horizontal)
+                        }
+                        
+                        addToWatchListButton
+                        
+                        voteAverageAndRateButtonRow
+                        
+                        Divider()
+                        
+                        seeFullDetailsButton
+                        
+                        Divider()
+                        
+                        topCast
+                        
+                        Divider()
+                        
+                        VStack {
+                            HStack(alignment: .center) {
+                                Text("From top reviewers")
+                                    .font(.title2)
+                                    .bold()
+                                    .foregroundColor(.primary)
+                                Spacer()
+                                Button {
+                                    // see all reviews
+                                } label: {
+                                    Text("See All")
+                                        .font(.headline)
+                                        .foregroundColor(.blue)
+                                        .fontWeight(.light)
+                                }
+
+                            }
+                            .padding(.horizontal)
+                            
+                            if reviews.results.isEmpty {
+                                Text("This movie has no reviews yet")
+                                    .foregroundColor(.secondary)
+                                    .font(.subheadline)
+                                    .padding()
+                            } else {
+                                ScrollView(.horizontal) {
+                                    LazyHStack(spacing: 10) {
+                                        ForEach(reviews.results) { review in
+                                            ShortReviewCell(review: review)
+                                        }
+                                    }
+                                    .padding([.horizontal, .bottom])
+                                }
                             }
                         }
-                        .padding(.horizontal)
                     }
+                    .frame(width: UIScreen.main.bounds.size.width * 0.9)
+                    //                .background(Rectangle().fill(UITraitCollection.current.userInterfaceStyle == .dark ? .black : .red)
+                    //                                .cornerRadius(20, corners: [.bottomLeft, .bottomRight])
+                    //                )
+                    .background(.regularMaterial)
                 }
-                
-                
-                
             }
-            .frame(width: UIScreen.main.bounds.size.width * 0.9)
-            .background(Rectangle().fill(UITraitCollection.current.userInterfaceStyle == .dark ? .black : .red)
-                            .cornerRadius(20, corners: [.bottomLeft, .bottomRight])
-            )
         }
         .clipShape(RoundedRectangle(cornerRadius: 20))
+        .padding(.bottom)
         .fullScreenCover(isPresented: $showVideoView) {
             VideoView()
         }
-        
     }
 }
 
@@ -242,10 +280,4 @@ extension ShortDetailItemCell {
         }
         
     }
-}
-
-struct VisualEffectView: UIViewRepresentable {
-    var effect: UIVisualEffect?
-    func makeUIView(context: UIViewRepresentableContext<Self>) -> UIVisualEffectView { UIVisualEffectView() }
-    func updateUIView(_ uiView: UIVisualEffectView, context: UIViewRepresentableContext<Self>) { uiView.effect = effect }
 }

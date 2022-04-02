@@ -34,16 +34,16 @@ struct CastMemberCapsule: View {
                     .foregroundColor(.primary)
                     .padding(.trailing, 10)
             }
-            .background(UITraitCollection.current.userInterfaceStyle == .dark ? Color.secondary.opacity(0.2) : Color.secondary.opacity(0.05))
+            .background(UITraitCollection.current.userInterfaceStyle == .dark ? Color.secondary.opacity(0.2) : Color.white.opacity(0.8))
             .clipShape(Capsule())
-            .padding(6)
+            .padding([.horizontal, .bottom], 6)
         } else {
             Text(castMember.name)
                 .frame(height: 40)
                 .padding(.horizontal)
                 .background(UITraitCollection.current.userInterfaceStyle == .dark ? Color.secondary : Color.white)
                 .clipShape(Capsule())
-                .padding(6)
+                .padding([.horizontal, .bottom], 6)
         }
     }
 }

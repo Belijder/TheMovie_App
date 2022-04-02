@@ -14,7 +14,7 @@ struct ShortReviewCell: View {
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 10)
-                .foregroundColor(UITraitCollection.current.userInterfaceStyle == .dark ? .secondary.opacity(0.2) : .white)
+                .foregroundColor(UITraitCollection.current.userInterfaceStyle == .dark ? .secondary.opacity(0.4) : .white.opacity(0.8))
                 .shadow(color: .secondary.opacity(0.2), radius: 3, x: 0, y: 0)
             HStack {
                 VStack(alignment: .leading, spacing: 4) {
