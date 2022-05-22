@@ -23,8 +23,8 @@ import Foundation
                 let url = FetchManager.shared.makeURL(with: .details, id: id)
                 let response = try await URLSession.shared.decode(ItemDetails.self, from: url)
                 results.append(response)
-                await topCasts.append(FetchManager.shared.makeTopCast(for: response.id))
-                await reviews[response.title] = FetchManager.shared.fetchReviews(movieID: response.id)
+                await topCasts.append(MovieDataService.shared.makeTopCast(for: response.id))
+                await reviews[response.title] = MovieDataService.shared.fetchReviews(movieID: response.id)
             }
             return .success(results)
         } catch {

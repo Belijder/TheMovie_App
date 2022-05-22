@@ -18,28 +18,13 @@ struct ShortDetailItemCell: View {
 
     var body: some View {
         ZStack {
-            VStack {
-                if item.posterPath != nil {
-                    AsyncImage(url: URL(string: FetchManager.shared.imageBaseURL + item.posterPath!)) { image in
-                        image
-                            .resizable()
-                            .frame(width: UIScreen.main.bounds.size.width * 0.9)
-                    } placeholder: {
-                        Rectangle().fill(UITraitCollection.current.userInterfaceStyle == .dark ? .black : .white)
-                            .cornerRadius(20, corners: [.bottomLeft, .bottomRight])
-                    }
-                }
-            }
-            
+            background
             ScrollView() {
                 ZStack {
                     VStack(alignment: .leading, spacing: 10) {
-                        
                         Group {
                             BackdropCell(backdropPath: backdropPath, showVideoView: $showVideoView, isVideoAnable: item.video)
-                            
                             basicInforation
-                            
                             HStack(spacing: 15) {
                                 poster
                                 VStack(alignment: .leading) {
@@ -50,61 +35,16 @@ struct ShortDetailItemCell: View {
                             }
                             .padding(.horizontal)
                         }
-                        
                         addToWatchListButton
-                        
                         voteAverageAndRateButtonRow
-                        
                         Divider()
-                        
                         seeFullDetailsButton
-                        
                         Divider()
-                        
                         topCast
-                        
                         Divider()
-                        
-                        VStack {
-                            HStack(alignment: .center) {
-                                Text("From top reviewers")
-                                    .font(.title2)
-                                    .bold()
-                                    .foregroundColor(.primary)
-                                Spacer()
-                                Button {
-                                    // see all reviews
-                                } label: {
-                                    Text("See All")
-                                        .font(.headline)
-                                        .foregroundColor(.blue)
-                                        .fontWeight(.light)
-                                }
-
-                            }
-                            .padding(.horizontal)
-                            
-                            if reviews.results.isEmpty {
-                                Text("This movie has no reviews yet")
-                                    .foregroundColor(.secondary)
-                                    .font(.subheadline)
-                                    .padding()
-                            } else {
-                                ScrollView(.horizontal) {
-                                    LazyHStack(spacing: 10) {
-                                        ForEach(reviews.results) { review in
-                                            ShortReviewCell(review: review)
-                                        }
-                                    }
-                                    .padding([.horizontal, .bottom])
-                                }
-                            }
-                        }
+                        topReviews
                     }
                     .frame(width: UIScreen.main.bounds.size.width * 0.9)
-                    //                .background(Rectangle().fill(UITraitCollection.current.userInterfaceStyle == .dark ? .black : .red)
-                    //                                .cornerRadius(20, corners: [.bottomLeft, .bottomRight])
-                    //                )
                     .background(.regularMaterial)
                 }
             }
@@ -125,7 +65,23 @@ struct ShortDetailItemCell_Previews: PreviewProvider {
 }
 
 
+
 extension ShortDetailItemCell {
+    
+    private var background: some View {
+        VStack {
+            if item.posterPath != nil {
+                AsyncImage(url: URL(string: FetchManager.shared.imageBaseURL + item.posterPath!)) { image in
+                    image
+                        .resizable()
+                        .frame(width: UIScreen.main.bounds.size.width * 0.9)
+                } placeholder: {
+                    Rectangle().fill(UITraitCollection.current.userInterfaceStyle == .dark ? .black : .white)
+                        .cornerRadius(20, corners: [.bottomLeft, .bottomRight])
+                }
+            }
+        }
+    }
     
     private var basicInforation: some View {
         
@@ -279,5 +235,43 @@ extension ShortDetailItemCell {
             }
         }
         
+    }
+    
+    private var topReviews: some View {
+        VStack {
+            HStack(alignment: .center) {
+                Text("From top reviewers")
+                    .font(.title2)
+                    .bold()
+                    .foregroundColor(.primary)
+                Spacer()
+                Button {
+                    // see all reviews
+                } label: {
+                    Text("See All")
+                        .font(.headline)
+                        .foregroundColor(.blue)
+                        .fontWeight(.light)
+                }
+
+            }
+            .padding(.horizontal)
+            
+            if reviews.results.isEmpty {
+                Text("This movie has no reviews yet")
+                    .foregroundColor(.secondary)
+                    .font(.subheadline)
+                    .padding()
+            } else {
+                ScrollView(.horizontal) {
+                    LazyHStack(spacing: 10) {
+                        ForEach(reviews.results) { review in
+                            ShortReviewCell(review: review)
+                        }
+                    }
+                    .padding([.horizontal, .bottom])
+                }
+            }
+        }
     }
 }

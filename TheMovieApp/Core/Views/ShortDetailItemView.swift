@@ -79,7 +79,6 @@ struct ShortDetailItemView: View {
                 case .failure(let error):
                     Text("Nie działa bo: \(error.localizedDescription)")
                 }
-                
             }.task {
                 shortDetailItemViewViewModel.items = await shortDetailItemViewViewModel.fetchitems(for: itemIds)
             }
