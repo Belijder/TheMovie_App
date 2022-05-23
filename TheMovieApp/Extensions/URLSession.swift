@@ -2,7 +2,7 @@
 //  Extentions.swift
 //  TheMovieApp
 //
-//  Created by Kamila Mroziewska on 26/02/2022.
+//  Created by Jakub Zajda on 26/02/2022.
 //
 
 import Foundation

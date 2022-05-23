@@ -61,7 +61,8 @@ struct PortraitStyleMovieCell: View {
                 
                 WatchlistCornerButton(item: movie)
                 
-            }.task {
+            }
+            .task {
                 url = await MovieDataService.shared.makePosterImageURL(movieId: movie.id)
             }
         

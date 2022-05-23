@@ -18,7 +18,6 @@ struct ShortDetailItemCell: View {
 
     var body: some View {
         ZStack {
-            background
             ScrollView() {
                 ZStack {
                     VStack(alignment: .leading, spacing: 10) {
@@ -46,6 +45,11 @@ struct ShortDetailItemCell: View {
                     }
                     .frame(width: UIScreen.main.bounds.size.width * 0.9)
                     .background(.regularMaterial)
+                    .background(
+                        ZStack {
+                            background
+                        }
+                    )
                 }
             }
         }
