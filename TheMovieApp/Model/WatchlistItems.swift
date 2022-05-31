@@ -7,7 +7,7 @@
 
 import Foundation
 
-@MainActor class WatchlistItems: ObservableObject {
+class WatchlistItems: ObservableObject {
     
     @Published var items: [ItemDetails] = []
                       
@@ -41,12 +41,15 @@ import Foundation
     }
     
     func fetchItemDetails(from id: Int) async -> ItemDetails? {
-        do {
-            let url = FetchManager.shared.makeURL(with: .details, id: id)
-            let response = try await URLSession.shared.decode(ItemDetails.self, from: url)
-            return response
-        } catch {
-            print(error.localizedDescription)
+        if let url = FetchManager.shared.makeURL(with: .details, id: id) {
+            do {
+                let response = try await URLSession.shared.decode(ItemDetails.self, from: url)
+                return response
+            } catch {
+                print(error.localizedDescription)
+                return nil
+            }
+        } else {
             return nil
         }
     }

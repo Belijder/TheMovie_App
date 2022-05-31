@@ -11,10 +11,11 @@ import SwiftUI
 struct TheMovieAppApp: App {
     
     @StateObject var favoritesItems = WatchlistItems()
+    @StateObject var movieDataServis = MovieDataService()
     
     var body: some Scene {
         WindowGroup {
-            MainView()
+            MainView(movieDataSerice: movieDataServis)
                 .environmentObject(favoritesItems)
         }
     }

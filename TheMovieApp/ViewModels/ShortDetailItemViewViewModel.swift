@@ -5,31 +5,31 @@
 //  Created by Kamila Mroziewska on 09/03/2022.
 //
 
-import Foundation
+import SwiftUI
 
 @MainActor class ShortDetailItemViewViewModel: ObservableObject {
     
-    var itemIDs = [Int]()
+    init(items: [ItemDetails]) {
+        _movieDataService = ObservedObject(wrappedValue: MovieDataService())
+        self.items = items
+    }
     
-    @Published var items: Result<[ItemDetails], Error>?
+    @ObservedObject var movieDataService: MovieDataService
+    
+    @Published var items: [ItemDetails]
     @Published var topCasts = [[CastMember]]()
-    @Published var reviews: [String:Reviews] = [:]
+    @Published var reviews: [Int:Reviews] = [:]
     
-    func fetchitems(for ids: [Int]) async -> Result<[ItemDetails], Error> {
-        do {
-            var results = [ItemDetails]()
-            
-            for id in ids {
-                let url = FetchManager.shared.makeURL(with: .details, id: id)
-                let response = try await URLSession.shared.decode(ItemDetails.self, from: url)
-                results.append(response)
-                await topCasts.append(MovieDataService.shared.makeTopCast(for: response.id))
-                await reviews[response.title] = MovieDataService.shared.fetchReviews(movieID: response.id)
-            }
-            return .success(results)
-        } catch {
-            print(error)
-            return .failure(error)
+    @Published var isProgresViewEnabled = true
+    
+    func fetchCastAndReviews() async  {
+        isProgresViewEnabled = true
+        let ids = await movieDataService.fetchPopularMoviesIDs(from: items)
+        for id in ids {
+            await topCasts.append(movieDataService.makeTopCast(for: id))
+            await reviews[id] = movieDataService.fetchReviews(movieID: id)
         }
+        isProgresViewEnabled = false
+        
     }
 }

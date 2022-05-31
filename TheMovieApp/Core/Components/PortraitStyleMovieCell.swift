@@ -10,7 +10,13 @@ import AVKit
 
 struct PortraitStyleMovieCell: View {
     
+    init(movie: ItemDetails, movieDataService: MovieDataService) {
+        self.movie = movie
+        _movieDataService = ObservedObject(wrappedValue: movieDataService)
+    }
+    
     let movie: ItemDetails
+    @ObservedObject var movieDataService: MovieDataService
     @State private var url = URL(string: "")
     
     var body: some View {
@@ -63,7 +69,7 @@ struct PortraitStyleMovieCell: View {
                 
             }
             .task {
-                url = await MovieDataService.shared.makePosterImageURL(movieId: movie.id)
+                url = await movieDataService.makePosterImageURL(movieId: movie.id)
             }
         
         
@@ -72,7 +78,7 @@ struct PortraitStyleMovieCell: View {
 
 struct PortraitStyleMovieCell_Previews: PreviewProvider {
     static var previews: some View {
-        PortraitStyleMovieCell(movie: ItemDetails.example)
+        PortraitStyleMovieCell(movie: ItemDetails.example, movieDataService: MovieDataService())
     }
 }
 

@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-struct FetchManager {
+final class FetchManager {
     
     static let shared = FetchManager()
     
@@ -29,7 +29,7 @@ struct FetchManager {
     let vimeoBaseURL = "https://vimeo.com/"
     
     
-    func makeURL(with endPoint: EndPoints, id: Int?) -> URL {
+    func makeURL(with endPoint: EndPoints, id: Int?) -> URL? {
         
         var url = URL(string: "")
         
@@ -58,7 +58,7 @@ struct FetchManager {
             url = URL(string:"\(baseURL + endPoint.rawValue + apiKey)")!
         }
         
-        return url!
+        return url
     }
     
 

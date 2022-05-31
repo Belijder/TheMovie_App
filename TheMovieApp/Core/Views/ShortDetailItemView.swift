@@ -10,15 +10,24 @@ import Introspect
 
 struct ShortDetailItemView: View {
     
+    init(title: String, items: [ItemDetails], currentItem: Int, movieDataService: MovieDataService) {
+        self.title = title
+        self.items = items
+        _currentItem = State(wrappedValue: currentItem)
+        _shortDetailItemViewViewModel = StateObject(wrappedValue: ShortDetailItemViewViewModel(items: items))
+        _movieDataService = ObservedObject(wrappedValue: movieDataService)
+        
+    }
+    @ObservedObject var movieDataService: MovieDataService
     let title: String
     
-    var itemIds: [Int]
+    let items: [ItemDetails]
     @State var currentItem: Int
     @State var scrolltoItem = 0
     @Environment(\.dismiss) var dismiss
     
     
-    @StateObject var shortDetailItemViewViewModel = ShortDetailItemViewViewModel()
+    @StateObject var shortDetailItemViewViewModel: ShortDetailItemViewViewModel
 
     var body: some View {
         ZStack {
@@ -46,13 +55,15 @@ struct ShortDetailItemView: View {
                     }
                     
                 }
-                switch shortDetailItemViewViewModel.items {
-                case .success(let items):
+                if shortDetailItemViewViewModel.isProgresViewEnabled {
+                    ProgressView()
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                } else {
                     ScrollView(.horizontal) {
                         ScrollViewReader { proxy in
                             LazyHStack(spacing:0) {
-                                ForEach(0..<items.count) { index in
-                                    ShortDetailItemCell(topCastArray: shortDetailItemViewViewModel.topCasts[index], backdropPath: items[index].backdropPath, item: items[index], reviews: shortDetailItemViewViewModel.reviews[items[index].title] ?? Reviews.example)
+                                ForEach(0..<20) { index in
+                                    ShortDetailItemCell(topCastArray: shortDetailItemViewViewModel.topCasts[index], backdropPath: items[index].backdropPath, item: items[index], reviews: shortDetailItemViewViewModel.reviews[items[index].id] ?? Reviews.example)
                                         .id(index)
                                 }
                                 .onChange(of: scrolltoItem) { value in
@@ -70,17 +81,9 @@ struct ShortDetailItemView: View {
                     .introspectScrollView { scrollView in
                         scrollView.isPagingEnabled = true
                     }
-                case .none:
-                    VStack{
-                    Spacer()
-                    ProgressView()
-                    Spacer()
-                    }
-                case .failure(let error):
-                    Text("Nie działa bo: \(error.localizedDescription)")
                 }
             }.task {
-                shortDetailItemViewViewModel.items = await shortDetailItemViewViewModel.fetchitems(for: itemIds)
+                await shortDetailItemViewViewModel.fetchCastAndReviews()
             }
         }
         
@@ -89,6 +92,6 @@ struct ShortDetailItemView: View {
 
 struct ShortDetailItemView_Previews: PreviewProvider {
     static var previews: some View {
-        ShortDetailItemView(title: "Popular Movies", itemIds: [1, 2], currentItem: 1)
+        ShortDetailItemView(title: "Popular Movies", items: [], currentItem: 1, movieDataService: MovieDataService())
     }
 }

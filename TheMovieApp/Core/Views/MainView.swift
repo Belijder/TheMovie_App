@@ -9,7 +9,13 @@ import SwiftUI
 
 struct MainView: View {
     
-    @StateObject var mainViewVM = MainViewViewModel()
+    init(movieDataSerice: MovieDataService) {
+        _mainViewVM = StateObject(wrappedValue: MainViewViewModel(movieDataService: movieDataSerice))
+        _movieDataService = ObservedObject(wrappedValue: movieDataSerice)
+    }
+    
+    @StateObject var mainViewVM: MainViewViewModel
+    @ObservedObject var movieDataService: MovieDataService
     
     @State var url = URL(string: "")
     @State var selectedItem = 1
@@ -17,45 +23,48 @@ struct MainView: View {
     
     var body: some View {
         ScrollView {
-            WatchlistViewSegment()
+            WatchlistViewSegment(movieDataService: movieDataService)
                 .padding(.bottom, 10)
             VStack(spacing: 10) {
                 HeadLineRow(context: "Popular Movies")
                     .padding(.leading, 8)
-                switch mainViewVM.popularMovies {
-                case .success(let movies):
+//                switch mainViewVM.popularMovies {
+//                case .success(let movies):
                     ScrollView(.horizontal) {
                         LazyHStack {
-                            ForEach(0..<movies.count) { index in
-                                PortraitStyleMovieCell(movie: movies[index])
+                            ForEach(0..<mainViewVM.popularMovies.count, id: \.self) { index in
+                                PortraitStyleMovieCell(movie: mainViewVM.popularMovies[index], movieDataService: movieDataService)
                                     .onTapGesture {
-                                        mainViewVM.getPopularMoviesIDs()
+                                        //mainViewVM.getPopularMoviesIDs()
                                         selectedItem = index
                                         showShortDetailItemView = true
                                     }
                             }
                             .fullScreenCover(isPresented: $showShortDetailItemView) {
-                                ShortDetailItemView(title: "Popular Movies", itemIds: mainViewVM.popularMoviesIDs, currentItem: selectedItem)
+                                ShortDetailItemView(title: "Popular Movies", items: mainViewVM.popularMovies, currentItem: selectedItem, movieDataService: movieDataService)
                             }
                         }
                         .padding(.leading, 8)
                     }
-                case .failure(let error):
-                    Text(error.localizedDescription)
-                case .none:
-                    ProgressView()
-                }
+//                case .failure(let error):
+//                    Text(error.localizedDescription)
+//                case .none:
+//                    ProgressView()
+//                }
             }
             .padding(.init(top: 5, leading: 0, bottom: 15, trailing: 0))
             .background(alignment: .center) {
                 Color.secondary.opacity(0.1)
             }
-        } 
+        }
+        .task {
+            await mainViewVM.getPopularMovies()
+        }
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        MainView(url: URL(string: "")!)
+        MainView(movieDataSerice: MovieDataService())
     }
 }

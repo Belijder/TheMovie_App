@@ -9,7 +9,12 @@ import SwiftUI
 
 struct WatchlistViewSegment: View {
     
+    init(movieDataService: MovieDataService) {
+        _movieDataService = ObservedObject(wrappedValue: movieDataService)
+    }
+    
     @EnvironmentObject var watchlistItems: WatchlistItems
+    @ObservedObject var movieDataService: MovieDataService
     
     var body: some View {
         VStack(spacing: 10) {
@@ -58,7 +63,7 @@ struct WatchlistViewSegment: View {
                 ScrollView(.horizontal) {
                     LazyHStack {
                         ForEach(watchlistItems.items) { movie in
-                            PortraitStyleMovieCell(movie: movie)
+                            PortraitStyleMovieCell(movie: movie, movieDataService: movieDataService)
                         }
                     }
                     .padding(.leading, 8)
@@ -75,6 +80,6 @@ struct WatchlistViewSegment: View {
 
 struct WatchlistViewSegment_Previews: PreviewProvider {
     static var previews: some View {
-        WatchlistViewSegment()
+        WatchlistViewSegment(movieDataService: MovieDataService())
     }
 }
