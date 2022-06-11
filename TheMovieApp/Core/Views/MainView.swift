@@ -28,14 +28,11 @@ struct MainView: View {
             VStack(spacing: 10) {
                 HeadLineRow(context: "Popular Movies")
                     .padding(.leading, 8)
-//                switch mainViewVM.popularMovies {
-//                case .success(let movies):
                     ScrollView(.horizontal) {
                         LazyHStack {
                             ForEach(0..<mainViewVM.popularMovies.count, id: \.self) { index in
                                 PortraitStyleMovieCell(movie: mainViewVM.popularMovies[index], movieDataService: movieDataService)
                                     .onTapGesture {
-                                        //mainViewVM.getPopularMoviesIDs()
                                         selectedItem = index
                                         showShortDetailItemView = true
                                     }
@@ -46,11 +43,6 @@ struct MainView: View {
                         }
                         .padding(.leading, 8)
                     }
-//                case .failure(let error):
-//                    Text(error.localizedDescription)
-//                case .none:
-//                    ProgressView()
-//                }
             }
             .padding(.init(top: 5, leading: 0, bottom: 15, trailing: 0))
             .background(alignment: .center) {

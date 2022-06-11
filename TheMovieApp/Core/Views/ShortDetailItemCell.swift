@@ -9,12 +9,14 @@ import SwiftUI
 struct ShortDetailItemCell: View {
     
     @EnvironmentObject var watchlistItems: WatchlistItems
+    @ObservedObject var movieDataService: MovieDataService
     let topCastArray: [CastMember]
     let backdropPath: String?
-    let credits = Credits.example
+    let credits: Credits
     let item: ItemDetails
     let reviews: Reviews
     @State private var showVideoView = false
+    @State private var showAllCastView = false
 
     var body: some View {
         ZStack {
@@ -58,13 +60,14 @@ struct ShortDetailItemCell: View {
         .fullScreenCover(isPresented: $showVideoView) {
             VideoView()
         }
+        .navigationBarHidden(true)
     }
 }
 
 
 struct ShortDetailItemCell_Previews: PreviewProvider {
     static var previews: some View {
-        ShortDetailItemCell(topCastArray: [], backdropPath: "", item: ItemDetails.example, reviews: Reviews.example)
+        ShortDetailItemCell(movieDataService: MovieDataService(), topCastArray: [], backdropPath: "", credits: Credits.example, item: ItemDetails.example, reviews: Reviews.example)
     }
 }
 
@@ -220,11 +223,15 @@ extension ShortDetailItemCell {
                 Spacer()
                 Button {
                     //Show all cast
+                    self.showAllCastView = true
                 } label: {
                     Text("See All")
                         .font(.headline)
                         .foregroundColor(.blue)
                         .fontWeight(.light)
+                }
+                .fullScreenCover(isPresented: $showAllCastView) {
+                    AllCastView(cast: credits.cast, crew: credits.crew, title: item.title, date: item.releaseDate)
                 }
             }
             .padding(.horizontal)
@@ -238,7 +245,6 @@ extension ShortDetailItemCell {
                 .padding(.horizontal)
             }
         }
-        
     }
     
     private var topReviews: some View {
@@ -257,7 +263,6 @@ extension ShortDetailItemCell {
                         .foregroundColor(.blue)
                         .fontWeight(.light)
                 }
-
             }
             .padding(.horizontal)
             

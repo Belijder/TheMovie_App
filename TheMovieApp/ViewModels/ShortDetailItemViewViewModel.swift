@@ -19,6 +19,7 @@ import SwiftUI
     @Published var items: [ItemDetails]
     @Published var topCasts = [[CastMember]]()
     @Published var reviews: [Int:Reviews] = [:]
+    @Published var credits: [Credits] = []
     
     @Published var isProgresViewEnabled = true
     
@@ -28,6 +29,7 @@ import SwiftUI
         for id in ids {
             await topCasts.append(movieDataService.makeTopCast(for: id))
             await reviews[id] = movieDataService.fetchReviews(movieID: id)
+            await credits.append(movieDataService.fetchCreditsfor(movieID: id))
         }
         isProgresViewEnabled = false
         

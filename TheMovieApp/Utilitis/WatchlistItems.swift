@@ -14,7 +14,9 @@ class WatchlistItems: ObservableObject {
     func addToWatchlist(itemId: Int) async {
         let item = await fetchItemDetails(from: itemId)
         if item != nil {
-            items.append(item!)
+            await MainActor.run(body: {
+                items.append(item!)
+            })
         } else {
             return
         }

@@ -53,6 +53,9 @@ actor MovieDataService: ObservableObject {
         return result
     }
     
+    /**
+            This function fetch all posters from endpoint path. Then filters them linguistically, selecting only the ones in English, then sorts them from the highest ranked and returns the first result. If there is no poster in English, it returns the highest ranked poster in any language.
+     */
     func makePosterImageURL(movieId id: Int) async -> URL? {
         var endpointPath = ""
         var images: Images
@@ -60,7 +63,7 @@ actor MovieDataService: ObservableObject {
             do {
                 let response = try await URLSession.shared.decode(Images.self, from: url)
                 images = response
-                let posters = images.posters
+                var posters = images.posters
                 var englishPosters = posters.filter { $0.isoCode == "en" //&& $0.aspectRatio == 0.667
                 }
                 
@@ -68,6 +71,7 @@ actor MovieDataService: ObservableObject {
                 
                 
                 if englishPosters.isEmpty {
+                    posters.sort { $0.voteAverage > $1.voteAverage }
                     endpointPath = posters[0].filePath
                 } else {
                     endpointPath = englishPosters[0].filePath
@@ -131,7 +135,6 @@ actor MovieDataService: ObservableObject {
         let top4 = cast.prefix(4)
         let returnValue = Array(top4)
         return returnValue
-  
     }
     
     func fetchReviews(movieID: Int) async -> Reviews {

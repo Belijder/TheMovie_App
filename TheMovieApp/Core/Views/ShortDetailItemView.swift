@@ -63,7 +63,7 @@ struct ShortDetailItemView: View {
                         ScrollViewReader { proxy in
                             LazyHStack(spacing:0) {
                                 ForEach(0..<20) { index in
-                                    ShortDetailItemCell(topCastArray: shortDetailItemViewViewModel.topCasts[index], backdropPath: items[index].backdropPath, item: items[index], reviews: shortDetailItemViewViewModel.reviews[items[index].id] ?? Reviews.example)
+                                    ShortDetailItemCell(movieDataService: movieDataService, topCastArray: shortDetailItemViewViewModel.topCasts[index], backdropPath: items[index].backdropPath, credits: shortDetailItemViewViewModel.credits[index], item: items[index], reviews: shortDetailItemViewViewModel.reviews[items[index].id] ?? Reviews.example)
                                         .id(index)
                                 }
                                 .onChange(of: scrolltoItem) { value in
