@@ -231,7 +231,7 @@ extension ShortDetailItemCell {
                         .fontWeight(.light)
                 }
                 .fullScreenCover(isPresented: $showAllCastView) {
-                    AllCastView(cast: credits.cast, crew: credits.crew, title: item.title, date: item.releaseDate)
+                    AllCastView(movieDataService: movieDataService, cast: credits.cast, crew: credits.crew, title: item.title, date: item.releaseDate)
                 }
             }
             .padding(.horizontal)

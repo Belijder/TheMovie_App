@@ -30,6 +30,8 @@
 		23DF0D542854DDAE0051A787 /* PersonDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DF0D532854DDAE0051A787 /* PersonDetails.swift */; };
 		23DF0D562854E2660051A787 /* FavoritePersons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DF0D552854E2660051A787 /* FavoritePersons.swift */; };
 		23DF0D582854EF430051A787 /* AllCastViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DF0D572854EF430051A787 /* AllCastViewModel.swift */; };
+		23DF0D5A2855E33E0051A787 /* CastCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DF0D592855E33E0051A787 /* CastCellView.swift */; };
+		23DF0D5C2855E5800051A787 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DF0D5B2855E5800051A787 /* Person.swift */; };
 		23F903EB27CA4CE100A9FE58 /* URLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F903EA27CA4CE100A9FE58 /* URLSession.swift */; };
 		23F903F027CA52F300A9FE58 /* FetchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F903EF27CA52F300A9FE58 /* FetchManager.swift */; };
 		23F903F327CA76FF00A9FE58 /* PopularMovies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F903F227CA76FF00A9FE58 /* PopularMovies.swift */; };
@@ -73,6 +75,8 @@
 		23DF0D532854DDAE0051A787 /* PersonDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonDetails.swift; sourceTree = "<group>"; };
 		23DF0D552854E2660051A787 /* FavoritePersons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritePersons.swift; sourceTree = "<group>"; };
 		23DF0D572854EF430051A787 /* AllCastViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllCastViewModel.swift; sourceTree = "<group>"; };
+		23DF0D592855E33E0051A787 /* CastCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastCellView.swift; sourceTree = "<group>"; };
+		23DF0D5B2855E5800051A787 /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
 		23F903EA27CA4CE100A9FE58 /* URLSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSession.swift; sourceTree = "<group>"; };
 		23F903EF27CA52F300A9FE58 /* FetchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchManager.swift; sourceTree = "<group>"; };
 		23F903F227CA76FF00A9FE58 /* PopularMovies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularMovies.swift; sourceTree = "<group>"; };
@@ -177,6 +181,7 @@
 			isa = PBXGroup;
 			children = (
 				2303DA7527E10F4200FF648F /* BackdropCell.swift */,
+				23DF0D592855E33E0051A787 /* CastCellView.swift */,
 				23A0DABF27E3AF9300F3D878 /* GenresCell.swift */,
 				23F903FB27CD422D00A9FE58 /* PortraitStyleMovieCell.swift */,
 				23F9040627CFFE4C00A9FE58 /* WatchlistCornerButton.swift */,
@@ -227,6 +232,7 @@
 				23F903F227CA76FF00A9FE58 /* PopularMovies.swift */,
 				23DF0D532854DDAE0051A787 /* PersonDetails.swift */,
 				23F903F927CC036800A9FE58 /* Images.swift */,
+				23DF0D5B2855E5800051A787 /* Person.swift */,
 				23F9042D27D68F7D00A9FE58 /* ItemDetails.swift */,
 				23DB0A6027E906C5003FFADF /* Credits.swift */,
 				23DB0A6827F65527003FFADF /* reviews.swift */,
@@ -344,6 +350,7 @@
 				230DA48E27FB669F0091EBCD /* AllCastView.swift in Sources */,
 				230DA48727FB5F8E0091EBCD /* LongDetailView.swift in Sources */,
 				23F9045B27DFAEF800A9FE58 /* VideoView.swift in Sources */,
+				23DF0D5C2855E5800051A787 /* Person.swift in Sources */,
 				23F9040027CEA26B00A9FE58 /* RoundedCorner.swift in Sources */,
 				23DF0D542854DDAE0051A787 /* PersonDetails.swift in Sources */,
 				23F9040327CEAB1D00A9FE58 /* HeadLineRow.swift in Sources */,
@@ -362,6 +369,7 @@
 				2303DA7627E10F4200FF648F /* BackdropCell.swift in Sources */,
 				23F9043227D92AD500A9FE58 /* ShortDetailItemView.swift in Sources */,
 				23F903F027CA52F300A9FE58 /* FetchManager.swift in Sources */,
+				23DF0D5A2855E33E0051A787 /* CastCellView.swift in Sources */,
 				23F9043027D91E2400A9FE58 /* ShortDetailItemViewViewModel.swift in Sources */,
 				230DA49027FB696E0091EBCD /* PreviewProvider.swift in Sources */,
 				230DA48C27FB65E80091EBCD /* PeopleDataService.swift in Sources */,

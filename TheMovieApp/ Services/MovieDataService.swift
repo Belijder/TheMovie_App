@@ -152,4 +152,49 @@ actor MovieDataService: ObservableObject {
             return Reviews(id: 1, page: 1, results: [], totalPages: 1, totalResults: 1)
         }
     }
+    
+    func fetchPersonProfileImages(id: Int) async -> Person? {
+        if let url = FetchManager.shared.makeURL(with: .personProfiles, id: id) {
+            do {
+                let response = try await URLSession.shared.decode(Person.self, from: url)
+                return response
+            } catch let error {
+                print(error)
+                return nil
+            }
+        } else {
+            print("Bad URL \(URLError.badURL)")
+            return nil
+        }
+    }
+    
+    func getPathToProfileImageFor(id: Int) async -> URL? {
+        if let person = await fetchPersonProfileImages(id: id) {
+            var profiles = person.profiles
+            profiles.sort {
+                $0.voteAverage > $1.voteAverage
+            }
+            
+            let filteredProfiles = profiles.filter {
+                $0.aspectRatio == 0.666666666666667
+            }
+            
+            var endpointPath = ""
+            
+            if !filteredProfiles.isEmpty {
+                endpointPath = filteredProfiles[0].filePath
+            } else if !profiles.isEmpty {
+                endpointPath = profiles[0].filePath
+            } else {
+                return nil
+            }
+            
+            let url = URL(string: FetchManager.shared.imageBaseURL + endpointPath)
+            return url
+            
+        } else {
+            return nil
+        }
+        
+    }
 }

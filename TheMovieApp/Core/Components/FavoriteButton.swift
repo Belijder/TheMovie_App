@@ -14,40 +14,40 @@ struct FavoriteButton: View {
     let person: PersonDetails
     
     var body: some View {
-        VStack {
-            Spacer()
-            HStack {
-                if favoritePersons.items.contains(person) {
-                    Button {
-                        favoritePersons.removeFromFavorite(item: person)
-                    } label: {
+        if person.id > 0 {
+            if favoritePersons.items.contains(person) {
+                Button {
+                    favoritePersons.removeFromFavorite(item: person)
+                } label: {
+                    ZStack {
+                        Circle()
+                            .frame(width: 30, height: 30)
+                            .foregroundColor(Color.black.opacity(0.5))
                         Image(systemName: "heart.fill")
                             .font(.headline)
                             .foregroundColor(.yellow)
-                            .background(Color.black.opacity(0.3))
-                            .padding(5)
-                            .clipShape(Circle())
-                            .padding()
                     }
-                } else {
-                    Button  {
-                        Task {
-                            favoritePersons.addToFavorite(item: person)
-                        }
-                    } label: {
+                    .padding(5)
+                }
+            } else {
+                Button  {
+                    Task {
+                        favoritePersons.addToFavorite(item: person)
+                    }
+                } label: {
+                    ZStack {
+                        Circle()
+                            .frame(width: 30, height: 30)
+                            .foregroundColor(Color.black.opacity(0.5))
                         Image(systemName: "heart")
                             .font(.headline)
                             .foregroundColor(.white)
-                            .background(Color.black.opacity(0.3))
-                            .padding(5)
-                            .clipShape(Circle())
-                            .padding()
                     }
+                    .padding(5)
                 }
-
-                Spacer()
             }
         }
+        
     }
 
 

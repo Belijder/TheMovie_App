@@ -10,6 +10,7 @@ import SwiftUI
 struct AllCastView: View {
     
     @Environment(\.dismiss) var dismiss
+    @ObservedObject var movieDataService: MovieDataService
     
     let cast: [CastMember]
     let crew: [CrewMember]
@@ -22,6 +23,9 @@ struct AllCastView: View {
             navigationBar
             peopleCounter
             ScrollView {
+                ForEach(cast) { person in
+                    CastCellView(movieDataService: movieDataService, person: person)
+                }
                 
             }
         }
@@ -31,7 +35,7 @@ struct AllCastView: View {
 
 struct AllCastView_Previews: PreviewProvider {
     static var previews: some View {
-        AllCastView(cast: [dev.castMember, dev.castMember, dev.castMember], crew: [dev.crewMember, dev.crewMember, dev.crewMember], title: "Movie", date: "")
+        AllCastView(movieDataService: MovieDataService(), cast: [dev.castMember, dev.castMember, dev.castMember], crew: [dev.crewMember, dev.crewMember, dev.crewMember], title: "Movie", date: "")
     }
 }
 

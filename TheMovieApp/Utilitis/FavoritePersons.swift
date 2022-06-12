@@ -26,7 +26,7 @@ class FavoritePersons: ObservableObject {
     }
     
     func fetchPersonDetailsfor(id: Int) async -> PersonDetails? {
-        if let url = FetchManager.shared.makeURL(with: .person, id: id) {
+        if let url = FetchManager.shared.makeURL(with: .personDetails, id: id) {
             do {
                 let response = try await URLSession.shared.decode(PersonDetails.self, from: url)
                 return response
