@@ -31,7 +31,7 @@ class FavoritePersons: ObservableObject {
                 let response = try await URLSession.shared.decode(PersonDetails.self, from: url)
                 return response
             } catch let error {
-                print(error.localizedDescription)
+                print("\(error.localizedDescription) ⚡️")
                 return nil
             }
         } else {

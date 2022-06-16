@@ -13,7 +13,6 @@ struct CastCellView: View {
     
     let movieDataService: MovieDataService
     let person: CastMember
-    @State private var personDetails = PersonDetails.empty
    
     @State private var url = URL(string: "")
     
@@ -36,8 +35,7 @@ struct CastCellView: View {
                             .font(.largeTitle)
                     }
                 }
-                FavoriteButton(person: personDetails)
-                }
+            }
             VStack(alignment: .leading) {
                 Text(person.name)
                     .bold()
@@ -46,20 +44,14 @@ struct CastCellView: View {
                     .foregroundColor(.secondary)
             }
             Spacer()
-            if personDetails.id > 0 {
-                Image.init(systemName: "chevron.forward")
-                    .foregroundColor(.primary)
-                    .font(.headline)
-                    .padding(8)
-            }
         }
         .padding(8)
         .task {
             url = await movieDataService.getPathToProfileImageFor(id: person.id)
         }
-        .task {
-            personDetails = await favoritePersons.fetchPersonDetailsfor(id: person.id) ?? PersonDetails.empty
-        }
+//        .task {
+//            personDetails = await favoritePersons.fetchPersonDetailsfor(id: person.id) ?? PersonDetails.empty
+//        }
     }
 }
 

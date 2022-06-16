@@ -10,7 +10,18 @@ import SwiftUI
 struct AllCastView: View {
     
     @Environment(\.dismiss) var dismiss
-    @ObservedObject var movieDataService: MovieDataService
+   
+    
+    @StateObject var vm: AllCastViewModel
+    
+    init(movieDataService: MovieDataService, cast: [CastMember], crew: [CrewMember], title: String, date: String) {
+        self.cast = cast
+        self.crew = crew
+        self.title = title
+        self.date = date
+        self._vm = StateObject(wrappedValue: AllCastViewModel(movieDataService: movieDataService, cast: cast, crew: crew, date: date))
+    
+    }
     
     let cast: [CastMember]
     let crew: [CrewMember]
@@ -18,18 +29,41 @@ struct AllCastView: View {
     let date: String
     
     var body: some View {
-        
-        VStack {
-            navigationBar
-            peopleCounter
-            ScrollView {
-                ForEach(cast) { person in
-                    CastCellView(movieDataService: movieDataService, person: person)
-                }
+        NavigationView {
+            VStack {
+                navigationBar
+                peopleCounter
+                TextField("Search person...", text: $vm.searchText)
+                    .padding(.horizontal)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
                 
+                ScrollView {
+                    ForEach(vm.filteredCast) { castMember in
+                        if let index = vm.findIndexForPersonDetails(id: castMember.id) {
+                            NavigationLink {
+                                CastMemberDetailView(person: vm.personsDetailsWithCharacters[index])
+                            } label: {
+                                ZStack(alignment: .trailing) {
+                                    ZStack(alignment: .bottomLeading) {
+                                        CastCellView(movieDataService: vm.movieDataService, person: castMember)
+                                        FavoriteButton(person: vm.personsDetailsWithCharacters[index])
+                                            .padding(5)
+                                    }
+                                    Image(systemName: "chevron.forward")
+                                        .font(.headline)
+                                        .foregroundColor(.primary)
+                                        .padding()
+                                }
+                            }
+                        } else {
+                            CastCellView(movieDataService: vm.movieDataService, person: castMember)
+                        }
+                    }
+                }
             }
+            .navigationBarTitle("All Cast")
+            .navigationBarHidden(true)
         }
-
     }
 }
 
