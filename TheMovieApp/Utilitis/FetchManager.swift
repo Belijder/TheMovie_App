@@ -21,6 +21,7 @@ final class FetchManager {
         case reviews
         case personDetails = "/person/"
         case personProfiles
+        case movieCreditsforPerson = "/movie_credits"
     }
     
     private let apiKey = "?api_key=1d1526d2d72c80f3656b73b8eeea4ee0"
@@ -64,6 +65,10 @@ final class FetchManager {
         case .personProfiles:
             if let id = id {
                 url = URL(string: "\(baseURL)/person/\(id)/images\(apiKey)")
+            }
+        case .movieCreditsforPerson:
+            if let id = id {
+                url = URL(string: "\(baseURL)/person/\(id)\(endPoint.rawValue)\(apiKey)")
             }
             
         default:

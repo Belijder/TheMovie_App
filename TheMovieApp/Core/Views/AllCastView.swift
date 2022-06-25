@@ -41,7 +41,7 @@ struct AllCastView: View {
                     ForEach(vm.filteredCast) { castMember in
                         if let index = vm.findIndexForPersonDetails(id: castMember.id) {
                             NavigationLink {
-                                CastMemberDetailView(person: vm.personsDetailsWithCharacters[index])
+                                CastMemberDetailView(person: vm.personsDetailsWithCharacters[index], movieDataService: vm.movieDataService)
                             } label: {
                                 ZStack(alignment: .trailing) {
                                     ZStack(alignment: .bottomLeading) {

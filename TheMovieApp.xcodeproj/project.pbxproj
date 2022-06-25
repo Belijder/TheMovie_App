@@ -17,6 +17,10 @@
 		236D35D027CA49A100955726 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236D35CF27CA49A100955726 /* MainView.swift */; };
 		236D35D227CA49A400955726 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 236D35D127CA49A400955726 /* Assets.xcassets */; };
 		236D35D527CA49A400955726 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 236D35D427CA49A400955726 /* Preview Assets.xcassets */; };
+		236F402A2861865B0069542A /* CastMemberDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236F40292861865B0069542A /* CastMemberDetailViewModel.swift */; };
+		236F402C2862D40D0069542A /* BiographyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236F402B2862D40D0069542A /* BiographyView.swift */; };
+		236F402E2862E0070069542A /* FilmographyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236F402D2862E0070069542A /* FilmographyCell.swift */; };
+		236F403028671A9D0069542A /* MovieCredits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236F402F28671A9D0069542A /* MovieCredits.swift */; };
 		23A0DAC027E3AF9300F3D878 /* GenresCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A0DABF27E3AF9300F3D878 /* GenresCell.swift */; };
 		23A0DAC227E635F100F3D878 /* WatchlistShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A0DAC127E635F100F3D878 /* WatchlistShape.swift */; };
 		23C543582836F33700E28F45 /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = 23C543572836F33700E28F45 /* Introspect */; };
@@ -63,6 +67,10 @@
 		236D35CF27CA49A100955726 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		236D35D127CA49A400955726 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		236D35D427CA49A400955726 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		236F40292861865B0069542A /* CastMemberDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastMemberDetailViewModel.swift; sourceTree = "<group>"; };
+		236F402B2862D40D0069542A /* BiographyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiographyView.swift; sourceTree = "<group>"; };
+		236F402D2862E0070069542A /* FilmographyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilmographyCell.swift; sourceTree = "<group>"; };
+		236F402F28671A9D0069542A /* MovieCredits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCredits.swift; sourceTree = "<group>"; };
 		23A0DABF27E3AF9300F3D878 /* GenresCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenresCell.swift; sourceTree = "<group>"; };
 		23A0DAC127E635F100F3D878 /* WatchlistShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistShape.swift; sourceTree = "<group>"; };
 		23C543552836F2C000E28F45 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -189,6 +197,7 @@
 				23F9040627CFFE4C00A9FE58 /* WatchlistCornerButton.swift */,
 				23DF0D512854DCB60051A787 /* FavoriteButton.swift */,
 				23F9040227CEAB1D00A9FE58 /* HeadLineRow.swift */,
+				236F402D2862E0070069542A /* FilmographyCell.swift */,
 				23DB0A6627F64886003FFADF /* CastMemberCapsule.swift */,
 				23DB0A6A27F898F5003FFADF /* ShortReviewCell.swift */,
 				23DB0A6C27F89B6F003FFADF /* VoteAverageView.swift */,
@@ -208,6 +217,7 @@
 			isa = PBXGroup;
 			children = (
 				236D35CF27CA49A100955726 /* MainView.swift */,
+				236F402B2862D40D0069542A /* BiographyView.swift */,
 				23DF0D5F2857BCCA0051A787 /* CastMemberDetailView.swift */,
 				23F9043127D92AD500A9FE58 /* ShortDetailItemView.swift */,
 				23F9042B27D68C9500A9FE58 /* ShortDetailItemCell.swift */,
@@ -239,6 +249,7 @@
 				23F9042D27D68F7D00A9FE58 /* ItemDetails.swift */,
 				23DB0A6027E906C5003FFADF /* Credits.swift */,
 				23DB0A6827F65527003FFADF /* reviews.swift */,
+				236F402F28671A9D0069542A /* MovieCredits.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -249,6 +260,7 @@
 				23F903F427CA7A9900A9FE58 /* MainViewViewModel.swift */,
 				23F9042F27D91E2400A9FE58 /* ShortDetailItemViewViewModel.swift */,
 				23DF0D572854EF430051A787 /* AllCastViewModel.swift */,
+				236F40292861865B0069542A /* CastMemberDetailViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -347,6 +359,7 @@
 				23F9040927D130D200A9FE58 /* WatchlistViewSegment.swift in Sources */,
 				23DB0A6927F65527003FFADF /* reviews.swift in Sources */,
 				23DB0A6F27F89BCF003FFADF /* Double.swift in Sources */,
+				236F402A2861865B0069542A /* CastMemberDetailViewModel.swift in Sources */,
 				236D35D027CA49A100955726 /* MainView.swift in Sources */,
 				23DF0D522854DCB60051A787 /* FavoriteButton.swift in Sources */,
 				23DF0D562854E2660051A787 /* FavoritePersons.swift in Sources */,
@@ -360,7 +373,9 @@
 				23F903F527CA7A9900A9FE58 /* MainViewViewModel.swift in Sources */,
 				23DB0A6727F64886003FFADF /* CastMemberCapsule.swift in Sources */,
 				23DB0A6B27F898F5003FFADF /* ShortReviewCell.swift in Sources */,
+				236F402C2862D40D0069542A /* BiographyView.swift in Sources */,
 				236D35CE27CA49A100955726 /* TheMovieAppApp.swift in Sources */,
+				236F403028671A9D0069542A /* MovieCredits.swift in Sources */,
 				23DF0D582854EF430051A787 /* AllCastViewModel.swift in Sources */,
 				23DF0D602857BCCA0051A787 /* CastMemberDetailView.swift in Sources */,
 				23A0DAC027E3AF9300F3D878 /* GenresCell.swift in Sources */,
@@ -369,6 +384,7 @@
 				23A0DAC227E635F100F3D878 /* WatchlistShape.swift in Sources */,
 				23F9042E27D68F7D00A9FE58 /* ItemDetails.swift in Sources */,
 				230DA48A27FB641D0091EBCD /* MovieDataService.swift in Sources */,
+				236F402E2862E0070069542A /* FilmographyCell.swift in Sources */,
 				23DB0A6127E906C5003FFADF /* Credits.swift in Sources */,
 				2303DA7627E10F4200FF648F /* BackdropCell.swift in Sources */,
 				23F9043227D92AD500A9FE58 /* ShortDetailItemView.swift in Sources */,

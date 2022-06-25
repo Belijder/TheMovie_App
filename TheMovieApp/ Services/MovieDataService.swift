@@ -34,6 +34,21 @@ actor MovieDataService: ObservableObject {
         }
         return popularMoviesIDs
     }
+    
+    func fetchMovieDetails(id: Int) async -> ItemDetails? {
+        if let url = FetchManager.shared.makeURL(with: .details, id: id) {
+            do {
+                let response = try await URLSession.shared.decode(ItemDetails.self, from: url)
+                return response
+            } catch {
+                print("Error when try to fetch ItemDetails from id: \(id). ERROR: \(error)")
+                return nil
+            }
+        } else {
+            print("Bad URL to fetch Item Details for id: \(id): \(URLError.badURL)")
+            return nil
+        }
+    }
         
     func fetchPopularMoviesDetails(from popularMovies: [PopularMovie]) async -> [ItemDetails] {
         var result: [ItemDetails] = []
@@ -69,10 +84,13 @@ actor MovieDataService: ObservableObject {
                 
                 englishPosters.sort { $0.voteAverage > $1.voteAverage }
                 
-                
                 if englishPosters.isEmpty {
                     posters.sort { $0.voteAverage > $1.voteAverage }
-                    endpointPath = posters[0].filePath
+                    if posters.isEmpty {
+                        return nil
+                    } else {
+                        endpointPath = posters[0].filePath
+                    }
                 } else {
                     endpointPath = englishPosters[0].filePath
                 }
@@ -193,6 +211,7 @@ actor MovieDataService: ObservableObject {
             return url
             
         } else {
+            print("Images not find for id: \(id)")
             return nil
         }
     }
@@ -204,6 +223,21 @@ actor MovieDataService: ObservableObject {
                 return response
             } catch let error {
                 print(error.localizedDescription)
+                return nil
+            }
+        } else {
+            return nil
+        }
+    }
+    
+    func fetchMovieCreditsFor(personID: Int) async -> MovieCredits? {
+        if let url = FetchManager.shared.makeURL(with: .movieCreditsforPerson, id: personID) {
+            do {
+                print(url)
+                let response = try await URLSession.shared.decode(MovieCredits.self, from: url)
+                return response
+            } catch let error {
+                print("Error when try to fetch movie credits for: \(personID). ERROR: \(error)")
                 return nil
             }
         } else {
