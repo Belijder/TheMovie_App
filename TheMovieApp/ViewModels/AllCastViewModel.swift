@@ -57,16 +57,7 @@ class AllCastViewModel: ObservableObject {
         personsDetailsWithCharacters.firstIndex(where: { $0.id == id })
     }
     
-//    func filterTheCast() {
-//        if searchText.isEmpty {
-//            filteredCast = personsDetailsWithCharacters
-//        } else {
-//            filteredCast = personsDetailsWithCharacters.filter { $0.name.localizedCaseInsensitiveContains(searchText) }
-//        }
-//    }
-    
-    
-    
+
     func getPersonDetailsForCast() async {
         for person in self.cast {
             if let details = await movieDataService.fetchPersonDetailsfor(id: person.id) {

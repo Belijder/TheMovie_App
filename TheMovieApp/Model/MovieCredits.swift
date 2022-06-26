@@ -51,7 +51,9 @@ struct Crew: Codable, Identifiable, Equatable {
     let overview: String
     let voteCount: Int
     let video: Bool
-    let posterPath, backdropPath, title: String
+    let posterPath: String?
+    let backdropPath: String?
+    let title: String
     let popularity: Double
     let genreIDS: [Int]
     let voteAverage: Double

@@ -9,15 +9,199 @@ import SwiftUI
 
 struct LongDetailView: View {
     
-    let item: ItemDetails
+    @StateObject var vm: LongDetailViewModel
+    @EnvironmentObject var watchlistItems: WatchlistItems
+    
+    init(movieDataService: MovieDataService, topCastArray: [CastMember], backdropPath: String?, credits: Credits, itemDetails: ItemDetails, reviews: Reviews) {
+        self._vm = StateObject(wrappedValue: LongDetailViewModel(movieDataService: movieDataService, topCastArray: topCastArray, backdropPath: backdropPath, credits: credits, itemDetails: itemDetails, reviews: reviews))
+    }
+    
+    @State private var showVideoView = false
     
     var body: some View {
-        Text("Hello World")
+        ScrollView {
+            VStack(alignment: .leading) {
+                titleYearRuntime
+                backdrop
+                HStack(spacing: 10) {
+                    poster
+                    VStack(alignment: .leading) {
+                        GenresCell(genresNames: vm.itemDetails.makeGenresNamesArray())
+                        overview
+                    }
+                }
+                .padding(.horizontal, 10)
+                //addToWatchListButton
+                Divider()
+                voteAverageAndRateButtonRow
+            }
+            .padding(.vertical, 8)
+            .background(alignment: .center) {
+                Color.secondary.opacity(0.1)
+            }
+            
+            VStack(spacing: 10) {
+                HStack {
+                    HeadLineRow(context: "Cast")
+                    Spacer()
+                    NavigationLink {
+                        AllCastView(movieDataService: vm.movieDataService, cast: vm.credits.cast, crew: vm.credits.crew, title: vm.itemDetails.title, date: vm.itemDetails.releaseDate)
+                    } label: {
+                        Text("See All")
+                    }
+                }
+                ScrollView(.horizontal) {
+                    LazyHStack(alignment: .top, spacing: 5) {
+//                        ForEach(vm.credits.cast) { castMember in
+//                            CastCellVertical(movieDataService: vm.movieDataService, castMember: castMember)
+//                        }
+                        ForEach(vm.credits.cast) { castMember in
+                            if let index = vm.findIndexForPersonDetails(id: castMember.id) {
+                                NavigationLink {
+                                    CastMemberDetailView(person: vm.personsDetails[index], movieDataService: vm.movieDataService)
+                                } label: {
+                                    CastCellVertical(movieDataService: vm.movieDataService, castMember: castMember)
+                                }
+                            }
+                            
+                        }
+                    }
+                }
+                .task {
+                   await vm.getPersonDetailsForCastMembers()
+                }
+            }
+            .padding(.horizontal, 10)
+            
+            
+        }
+        .navigationTitle(vm.itemDetails.title)
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 
 struct LongDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        LongDetailView(item: ItemDetails.example)
+        LongDetailView(movieDataService: MovieDataService(), topCastArray: [dev.castMember, dev.castMember, dev.castMember], backdropPath: dev.backdropPath, credits: dev.credits, itemDetails: dev.itemDetails, reviews: dev.reviews)
+    }
+}
+
+extension LongDetailView {
+    private var titleYearRuntime: some View {
+        VStack(alignment: .leading, spacing: 5) {
+            Text(vm.itemDetails.title)
+                .font(.title)
+                .foregroundColor(.primary)
+            HStack(spacing: 20) {
+                Text(vm.itemDetails.releaseDate.prefix(4))
+                    .foregroundColor(.secondary)
+                    .font(.subheadline)
+                if vm.itemDetails.runtime != nil {
+                    Text("\(vm.itemDetails.runtime!) min")
+                        .foregroundColor(.secondary)
+                        .font(.subheadline)
+                }
+            }
+        }
+        .padding(.horizontal, 10)
+    }
+    private var backdrop: some View {
+        ZStack {
+            ZStack(alignment: .bottom) {
+                AsyncImage(url: URL(string: FetchManager.shared.imageBaseURL + vm.backdropPath!)) { image in
+                    image
+                        .resizable()
+                        .scaledToFit()
+                } placeholder: {
+                    ZStack {
+                        Rectangle()
+                            .foregroundColor(Color.secondary)
+                            .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width / 1.77777777777778)
+                        ProgressView()
+                    }
+                    
+                }
+                LinearGradient(colors: [.black.opacity(0.5), .clear], startPoint: .bottom, endPoint: .top)
+                    .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width / 1.77777777777778)
+            }
+        }
+    }
+    private var overview: some View {
+        VStack {
+            if vm.itemDetails.overview != nil {
+                NavigationLink {
+                    OverviewView(title: vm.itemDetails.title, overview: vm.itemDetails.overview!, year: String(vm.itemDetails.releaseDate.prefix(4)))
+                } label: {
+                    HStack(spacing: 10) {
+                        Text(vm.itemDetails.overview!)
+                            .font(.subheadline)
+                            .foregroundColor(.secondary)
+                            .lineLimit(5)
+                            .multilineTextAlignment(.leading)
+                        Image(systemName: "chevron.forward")
+                    
+                    }
+                }
+            } else {
+                Text("This material does not have a description added yet")
+                
+            }
+        }
+    }
+    private var poster: some View {
+        AsyncImage(url: vm.posterURL) { image in
+            image
+                .resizable()
+                .frame(width: UIScreen.main.bounds.width / 4, height: UIScreen.main.bounds.width / 4 * 1.5)
+                .scaledToFill()
+                .cornerRadius(5)
+        } placeholder: {
+            ZStack {
+                Rectangle()
+                    .foregroundColor(Color.secondary)
+                    .frame(width: UIScreen.main.bounds.width / 4, height: UIScreen.main.bounds.width / 4 * 1.5)
+                    .cornerRadius(5)
+                ProgressView()
+            }
+        }
+    }
+    
+    private var addToWatchListButton: some View {
+        Button {
+            if watchlistItems.checkIfItemIsInArray(id: vm.itemDetails.id) {
+                watchlistItems.removeFromWatchlist(item: vm.itemDetails)
+            } else {
+                watchlistItems.addToWatchlist(item: vm.itemDetails)
+            }
+        } label: {
+            HStack(spacing: 5) {
+                Image(systemName: watchlistItems.checkIfItemIsInArray(id: vm.itemDetails.id) ? "checkmark" : "plus")
+                    .foregroundColor(.white)
+                Text("WatchList")
+                    .font(.headline)
+                    .foregroundColor(.white)
+                    .padding(.vertical, 6)
+            }
+            .frame(maxWidth: .infinity)
+            .background(Color.gray.cornerRadius(5))
+            .padding(.horizontal)
+            .padding(.top, 8)
+        }
+    }
+    private var voteAverageAndRateButtonRow: some View {
+        ZStack(alignment: .center) {
+            VoteAverageView(voteAverage: vm.itemDetails.voteAverage, voteCount: vm.itemDetails.voteCount)
+            VStack() {
+                Button {
+                    //RateItemView
+                } label: {
+                    HStack(spacing: 5) {
+                        Image(systemName: "star")
+                        Text("Rate")
+                    }
+                }
+            }
+        }
+        .padding(.horizontal, 10)
     }
 }
