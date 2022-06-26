@@ -24,6 +24,7 @@
 		237B62C22868605200F83C39 /* LongDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237B62C12868605200F83C39 /* LongDetailViewModel.swift */; };
 		237B62C428687F7100F83C39 /* OverviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237B62C328687F7100F83C39 /* OverviewView.swift */; };
 		237B62C62868B0F200F83C39 /* CastCellVertical.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237B62C52868B0F200F83C39 /* CastCellVertical.swift */; };
+		237B62C82868C7E300F83C39 /* ComplexDataForLongDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237B62C72868C7E300F83C39 /* ComplexDataForLongDetailView.swift */; };
 		23A0DAC027E3AF9300F3D878 /* GenresCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A0DABF27E3AF9300F3D878 /* GenresCell.swift */; };
 		23A0DAC227E635F100F3D878 /* WatchlistShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A0DAC127E635F100F3D878 /* WatchlistShape.swift */; };
 		23C543582836F33700E28F45 /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = 23C543572836F33700E28F45 /* Introspect */; };
@@ -77,6 +78,7 @@
 		237B62C12868605200F83C39 /* LongDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LongDetailViewModel.swift; sourceTree = "<group>"; };
 		237B62C328687F7100F83C39 /* OverviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewView.swift; sourceTree = "<group>"; };
 		237B62C52868B0F200F83C39 /* CastCellVertical.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastCellVertical.swift; sourceTree = "<group>"; };
+		237B62C72868C7E300F83C39 /* ComplexDataForLongDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplexDataForLongDetailView.swift; sourceTree = "<group>"; };
 		23A0DABF27E3AF9300F3D878 /* GenresCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenresCell.swift; sourceTree = "<group>"; };
 		23A0DAC127E635F100F3D878 /* WatchlistShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistShape.swift; sourceTree = "<group>"; };
 		23C543552836F2C000E28F45 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -251,6 +253,7 @@
 			isa = PBXGroup;
 			children = (
 				23F903F227CA76FF00A9FE58 /* PopularMovies.swift */,
+				237B62C72868C7E300F83C39 /* ComplexDataForLongDetailView.swift */,
 				23DF0D532854DDAE0051A787 /* PersonDetails.swift */,
 				23F903F927CC036800A9FE58 /* Images.swift */,
 				23DF0D5B2855E5800051A787 /* Person.swift */,
@@ -388,6 +391,7 @@
 				236F403028671A9D0069542A /* MovieCredits.swift in Sources */,
 				23DF0D582854EF430051A787 /* AllCastViewModel.swift in Sources */,
 				23DF0D602857BCCA0051A787 /* CastMemberDetailView.swift in Sources */,
+				237B62C82868C7E300F83C39 /* ComplexDataForLongDetailView.swift in Sources */,
 				23A0DAC027E3AF9300F3D878 /* GenresCell.swift in Sources */,
 				23F903FA27CC036800A9FE58 /* Images.swift in Sources */,
 				23F9042C27D68C9600A9FE58 /* ShortDetailItemCell.swift in Sources */,
