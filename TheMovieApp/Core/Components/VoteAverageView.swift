@@ -22,6 +22,7 @@ struct VoteAverageView: View {
                     HStack(alignment: .bottom, spacing: 0) {
                         Text(voteAverage.asStringWith1DecimalPlace())
                             .font(.headline)
+                            .foregroundColor(.primary)
                         Text("/10")
                             .foregroundColor(.primary)
                             .font(.subheadline)
@@ -34,7 +35,7 @@ struct VoteAverageView: View {
                         .foregroundColor(.secondary)
                 }
             }
-            Spacer()
+            //Spacer()
         }
     }
 }

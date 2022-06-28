@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-class LongDetailViewModel: ObservableObject {
+@MainActor class LongDetailViewModel: ObservableObject {
     @EnvironmentObject var watchlistItems: WatchlistItems
     @ObservedObject var movieDataService: MovieDataService
     let topCastArray: [CastMember]

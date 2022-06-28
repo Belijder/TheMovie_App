@@ -23,25 +23,11 @@ class CastMemberDetailViewModel: ObservableObject {
         self._movieDataService = ObservedObject(wrappedValue: movieDataService)
         Task {
         self.profileURL = await movieDataService.getPathToProfileImageFor(id: personDetails.id)
-        await getMovieCredits()
+        await getComplexDetailsForCredits()
         }
     }
     
-//    func getMovieCredits() async {
-//        if let Credits = await movieDataService.fetchMovieCreditsFor(personID: personDetails.id) {
-//            let castCredits = Credits.cast
-//            for credit in castCredits {
-//                let character = credit.character
-//                let itemDetails = await movieDataService.fetchMovieDetails(id: credit.id)
-//
-//                if let itemDetails = itemDetails {
-//                    self.movieCredits.append((character,itemDetails))
-//                }
-//            }
-//        }
-//    }
-    
-    func getMovieCredits() async {
+    func getComplexDetailsForCredits() async {
         if let Credits = await movieDataService.fetchMovieCreditsFor(personID: personDetails.id) {
             let castCredits = Credits.cast
             for credit in castCredits {

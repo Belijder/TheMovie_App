@@ -12,6 +12,9 @@ struct PopularMovies: Decodable {
     let results: [PopularMovie]
 }
 
+typealias SearchedMovie = PopularMovie
+typealias SearchedMovies = PopularMovies
+
 struct PopularMovie: Decodable, Identifiable, Equatable {
     
     enum CodingKeys: String, CodingKey {
@@ -30,15 +33,15 @@ struct PopularMovie: Decodable, Identifiable, Equatable {
         case video
     }
     
-    let posterPath: String
+    let posterPath: String?
     let adult: Bool
     let overview: String
-    let releaseDate: String
+    let releaseDate: String?
     let genreIds: [Int]
     let id: Int
     let originalTitle: String
     let title: String
-    let backdropPath: String
+    let backdropPath: String?
     let popularity: Double
     let voteCount: Int
     let voteAverage: Double

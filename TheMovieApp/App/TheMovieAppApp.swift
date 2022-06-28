@@ -16,9 +16,23 @@ struct TheMovieAppApp: App {
     
     var body: some Scene {
         WindowGroup {
-            MainView(movieDataSerice: movieDataServis)
-                .environmentObject(favoritesItems)
-                .environmentObject(favoritePersons)
+            TabView {
+                MainView(movieDataSerice: movieDataServis)
+                    .tabItem {
+                        Image(systemName: "house.fill")
+                        Text("Home")
+                    }
+                    .tag(0)
+                SearchMovieView(movieDataService: movieDataServis)
+                    .tabItem {
+                        Image(systemName: "film")
+                        Text("Search Movie")
+                    }
+                    .tag(1)
+            }
+            .environmentObject(favoritesItems)
+            .environmentObject(favoritePersons)
+            .accentColor(.yellow)
         }
     }
 }

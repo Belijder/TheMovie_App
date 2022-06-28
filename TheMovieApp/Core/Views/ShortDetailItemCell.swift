@@ -197,7 +197,10 @@ extension ShortDetailItemCell {
     
     private var voteAverageAndRateButtonRow: some View {
         ZStack(alignment: .center) {
-            VoteAverageView(voteAverage: item.voteAverage, voteCount: nil)
+            HStack {
+                VoteAverageView(voteAverage: item.voteAverage, voteCount: nil)
+                Spacer()
+            }
             VStack() {
                 Button {
                     //RateItemView

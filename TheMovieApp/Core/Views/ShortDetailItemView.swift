@@ -88,9 +88,9 @@ struct ShortDetailItemView: View {
                 }
                 .navigationBarTitle("Recomended Films")
                 .navigationBarHidden(true)
+                // Zobaczyć czy to poniżej działa
                 .toolbar {
                     ToolbarItem(placement: .principal) {
-                                    // this sets the screen title in the navigation bar, when the screen is visible
                                     Text("dkd")
                                 }
                 }

@@ -50,10 +50,6 @@ struct CastMemberDetailView: View {
                     .font(.footnote)
                 ScrollView(.horizontal) {
                     LazyHStack(spacing: 0) {
-//                        ForEach(0..<vm.movieCredits.count, id: \.self) { index in
-//                            FilmographyCell(movieDataservice: vm.movieDataService, movie: vm.movieCredits[index].1, character: vm.movieCredits[index].0)
-//                        }
-                        
                         ForEach(0..<vm.complexDetailsForCredits.count, id: \.self) { index in
                             NavigationLink {
                                 LongDetailView(movieDataService: vm.movieDataService, topCastArray: vm.complexDetailsForCredits[index].topCastArray, backdropPath: vm.complexDetailsForCredits[index].backdropPath, credits: vm.complexDetailsForCredits[index].credits, itemDetails: vm.complexDetailsForCredits[index].itemDetails, reviews: vm.complexDetailsForCredits[index].reviews)

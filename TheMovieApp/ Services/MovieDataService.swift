@@ -233,7 +233,6 @@ actor MovieDataService: ObservableObject {
     func fetchMovieCreditsFor(personID: Int) async -> MovieCredits? {
         if let url = FetchManager.shared.makeURL(with: .movieCreditsforPerson, id: personID) {
             do {
-                print(url)
                 let response = try await URLSession.shared.decode(MovieCredits.self, from: url)
                 return response
             } catch let error {
@@ -244,4 +243,20 @@ actor MovieDataService: ObservableObject {
             return nil
         }
     }
+    
+    func searchForAMovieBasedOn(query: String) async -> [SearchedMovie] {
+        if let url = FetchManager.shared.makeSearchURL(with: .movieSearch, query: query) {
+            do {
+                let response = try await URLSession.shared.decode(SearchedMovies.self, from: url)
+                return response.results
+            } catch let error {
+                print("Error when try to search movies for query: \(query). ERROR: \(error)")
+                return []
+            }
+        } else {
+            print(URLError.badURL)
+            return []
+        }
+    }
+    
 }

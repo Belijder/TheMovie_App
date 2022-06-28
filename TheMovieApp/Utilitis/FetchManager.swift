@@ -24,6 +24,10 @@ final class FetchManager {
         case movieCreditsforPerson = "/movie_credits"
     }
     
+    enum SearchEndPoints: String {
+        case movieSearch = "/search/movie"
+    }
+    
     private let apiKey = "?api_key=1d1526d2d72c80f3656b73b8eeea4ee0"
     let baseURL = "https://api.themoviedb.org/3"
     
@@ -31,6 +35,17 @@ final class FetchManager {
     let youTubeBaseURL = "https://www.youtube.com/watch?v="
     let vimeoBaseURL = "https://vimeo.com/"
     
+    
+    func makeSearchURL(with endPoint: SearchEndPoints, query: String) -> URL? {
+        var url = URL(string: "")
+        if !query.isEmpty {
+            switch endPoint {
+            case .movieSearch:
+                url = URL(string: "\(baseURL + endPoint.rawValue + apiKey)&query=\(query)")
+            }
+        }
+        return url
+    }
     
     func makeURL(with endPoint: EndPoints, id: Int?) -> URL? {
         

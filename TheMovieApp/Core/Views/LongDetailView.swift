@@ -16,6 +16,56 @@ struct LongDetailView: View {
         self._vm = StateObject(wrappedValue: LongDetailViewModel(movieDataService: movieDataService, topCastArray: topCastArray, backdropPath: backdropPath, credits: credits, itemDetails: itemDetails, reviews: reviews))
     }
     
+//   init(movieDataService: MovieDataService, movie: SearchedMovie) {
+//
+//        var reviews = Reviews.example
+//
+//        Task {
+//            async let fetchReviews = movieDataService.fetchReviews(movieID: movie.id)
+//            async let fetchTopCast = movieDataService.makeTopCast(for: movie.id)
+//            async let fetchCredits = movieDataService.fetchCreditsfor(movieID: movie.id)
+//            async let fetchItemDetails = movieDataService.fetchMovieDetails(id: movie.id)
+//
+//            reviews = await fetchReviews
+//
+//        }
+        
+//        var complexData = ComplexDataForLongDetailView(topCastArray: [], backdropPath: [], credits: [], itemDetails: ItemDetails.example, reviews: Reviews.example, character: "")
+        
+//        var complexData: ComplexDataForLongDetailView {
+//            Task {
+//            async let fetchReviews = movieDataService.fetchReviews(movieID: movie.id)
+//            async let fetchTopCast = movieDataService.makeTopCast(for: movie.id)
+//            async let fetchCredits = movieDataService.fetchCreditsfor(movieID: movie.id)
+//            async let fetchItemDetails = movieDataService.fetchMovieDetails(id: movie.id)
+//
+//            let (reviews, cast, credits, details) = await (fetchReviews, fetchTopCast, fetchCredits, fetchItemDetails)
+//                let backdropPath = await fetchItemDetails?.backdropPath
+//
+//            return ComplexDataForLongDetailView(topCastArray: cast, backdropPath: backdropPath, credits: credits, itemDetails: details, reviews: reviews, character: "")
+//            }
+//        }
+//
+//        self._vm = StateObject(wrappedValue: LongDetailViewModel(movieDataService: movieDataService, topCastArray: complexData.topCastArray, backdropPath: complexData.backdropPath, credits: complexData.credits, itemDetails: complexData.itemDetails, reviews: complexData.reviews))
+        
+//        Task {
+//        async let fetchReviews = movieDataService.fetchReviews(movieID: movie.id)
+//        async let fetchTopCast = movieDataService.makeTopCast(for: movie.id)
+//        async let fetchCredits = movieDataService.fetchCreditsfor(movieID: movie.id)
+//        async let fetchItemDetails = movieDataService.fetchMovieDetails(id: movie.id)
+//
+//        let (reviews, cast, credits, details) = await (fetchReviews, fetchTopCast, fetchCredits, fetchItemDetails)
+//            let backdropPath = await fetchItemDetails?.backdropPath
+//            complexData.itemDetails = await fetchItemDetails
+//            complexData.credits = await fetchCredits
+//            complexData.reviews = await fetchReviews
+//            complexData.topCastArray = await fetchTopCast
+            
+//            self._vm = StateObject(wrappedValue: LongDetailViewModel(movieDataService: movieDataService, topCastArray: cast, backdropPath: backdropPath, credits: credits, itemDetails: details!, reviews: reviews))
+
+        
+//    }
+    
     @State private var showVideoView = false
     
     var body: some View {
@@ -97,9 +147,11 @@ extension LongDetailView {
                     .foregroundColor(.secondary)
                     .font(.subheadline)
                 if vm.itemDetails.runtime != nil {
-                    Text("\(vm.itemDetails.runtime!) min")
-                        .foregroundColor(.secondary)
-                        .font(.subheadline)
+                    if vm.itemDetails.runtime! > 0 {
+                        Text("\(vm.itemDetails.runtime!) min")
+                            .foregroundColor(.secondary)
+                            .font(.subheadline)
+                    }
                 }
             }
         }
@@ -108,18 +160,28 @@ extension LongDetailView {
     private var backdrop: some View {
         ZStack {
             ZStack(alignment: .bottom) {
-                AsyncImage(url: URL(string: FetchManager.shared.imageBaseURL + vm.backdropPath!)) { image in
-                    image
-                        .resizable()
-                        .scaledToFit()
-                } placeholder: {
+                if vm.backdropPath != nil {
+                    AsyncImage(url: URL(string: FetchManager.shared.imageBaseURL + vm.backdropPath!)) { image in
+                        image
+                            .resizable()
+                            .scaledToFit()
+                    } placeholder: {
+                        ZStack {
+                            Rectangle()
+                                .foregroundColor(Color.secondary)
+                                .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width / 1.77777777777778)
+                            ProgressView()
+                        }
+                        
+                    }
+                } else {
                     ZStack {
                         Rectangle()
                             .foregroundColor(Color.secondary)
                             .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width / 1.77777777777778)
-                        ProgressView()
+                        Image(systemName: "photo.fill")
+                            .font(.largeTitle)
                     }
-                    
                 }
                 LinearGradient(colors: [.black.opacity(0.5), .clear], startPoint: .bottom, endPoint: .top)
                     .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width / 1.77777777777778)
@@ -190,7 +252,10 @@ extension LongDetailView {
     }
     private var voteAverageAndRateButtonRow: some View {
         ZStack(alignment: .center) {
-            VoteAverageView(voteAverage: vm.itemDetails.voteAverage, voteCount: vm.itemDetails.voteCount)
+            HStack {
+                VoteAverageView(voteAverage: vm.itemDetails.voteAverage, voteCount: vm.itemDetails.voteCount)
+                Spacer()
+            }
             VStack() {
                 Button {
                     //RateItemView
