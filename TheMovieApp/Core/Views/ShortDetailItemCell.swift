@@ -183,16 +183,25 @@ extension ShortDetailItemCell {
                 VoteAverageView(voteAverage: item.voteAverage, voteCount: nil)
                 Spacer()
             }
-            VStack() {
-                Button {
-                    //RateItemView
-                } label: {
-                    HStack(spacing: 5) {
-                        Image(systemName: "star")
-                        Text("Rate")
-                    }
+//            VStack() {
+//                Button {
+//                    //RateItemView
+//                } label: {
+//                    HStack(spacing: 5) {
+//                        Image(systemName: "star")
+//                        Text("Rate")
+//                    }
+//                }
+//            }
+            NavigationLink {
+                RateView(movieDataService: movieDataService, movie: item)
+            } label: {
+                HStack(spacing: 5) {
+                    Image(systemName: "star")
+                    Text("Rate")
                 }
             }
+
         }
         .padding(.horizontal)
         .padding(.vertical, 8)

@@ -41,6 +41,6 @@ class DeveloperPreview {
     
     let searchedMovie = SearchedMovie(posterPath: "/cezWGskPY5x7GaglTTRN4Fugfb8.jpg", adult: false, overview: "When an unexpected enemy emerges and threatens global safety and security, Nick Fury, director of the international peacekeeping agency known as S.H.I.E.L.D., finds himself in need of a team to pull the world back from the brink of disaster.", releaseDate: "2012-04-25", genreIds: [878, 28, 23], id: 24428, originalTitle: "The Avengers", title: "The Avengers", backdropPath: "/hbn46fQaRmlpBuUrEiFqv0GDL6Y.jpg", popularity: 7.353212, voteCount: 8503, voteAverage: 7.33, video: false)
     
-    
+    let posterPath = "/e1mjopzAS2KNsvpbpahQ1a6SkSn.jpg"
 }
 

@@ -12,6 +12,7 @@ struct TheMovieAppApp: App {
     
     @StateObject var favoritesItems = WatchlistItems()
     @StateObject var favoritePersons = FavoritePersons()
+    @StateObject var ratedMovies = RatedMovies()
     @StateObject var movieDataServis = MovieDataService()
     
     var body: some Scene {
@@ -32,6 +33,7 @@ struct TheMovieAppApp: App {
             }
             .environmentObject(favoritesItems)
             .environmentObject(favoritePersons)
+            .environmentObject(ratedMovies)
             .accentColor(.yellow)
         }
     }
