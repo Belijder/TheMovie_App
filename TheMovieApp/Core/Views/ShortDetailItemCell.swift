@@ -40,22 +40,7 @@ struct ShortDetailItemCell: View {
                         addToWatchListButton
                         voteAverageAndRateButtonRow
                         Divider()
-                        NavigationLink(destination: {
-                            LongDetailView(movieDataService: movieDataService, topCastArray: topCastArray, backdropPath: backdropPath, credits: credits, itemDetails: item, reviews: reviews)
-                        }, label: {
-                            Text("See full details")
-                                .font(.headline)
-                                .foregroundColor(.black)
-                                .padding(.vertical, 6)
-                                .frame(maxWidth: .infinity)
-                                .background(Color.yellow.cornerRadius(5))
-                                .padding(.horizontal)
-                                .padding(.vertical, 8)
-                        })
-//                        seeFullDetailsButton
-//                            .fullScreenCover(isPresented: $showfullDetailView) {
-//                                LongDetailView(movieDataService: movieDataService, topCastArray: topCastArray, backdropPath: backdropPath, credits: credits, itemDetails: item, reviews: reviews)
-                            
+                        seeFullDetailsButton
                         Divider()
                         topCast
                         Divider()
@@ -76,7 +61,6 @@ struct ShortDetailItemCell: View {
         .fullScreenCover(isPresented: $showVideoView) {
             VideoView()
         }
-//        .navigationBarHidden(true)
     }
 }
 
@@ -86,8 +70,6 @@ struct ShortDetailItemCell_Previews: PreviewProvider {
         ShortDetailItemCell(movieDataService: MovieDataService(), topCastArray: [], backdropPath: "", credits: Credits.example, item: ItemDetails.example, reviews: Reviews.example)
     }
 }
-
-
 
 extension ShortDetailItemCell {
     
@@ -217,9 +199,9 @@ extension ShortDetailItemCell {
     }
     
     private var seeFullDetailsButton: some View {
-        Button {
-            showfullDetailView = true
-        } label: {
+        NavigationLink(destination: {
+            LongDetailView(movieDataService: movieDataService, topCastArray: topCastArray, backdropPath: backdropPath, credits: credits, itemDetails: item, reviews: reviews)
+        }, label: {
             Text("See full details")
                 .font(.headline)
                 .foregroundColor(.black)
@@ -228,7 +210,7 @@ extension ShortDetailItemCell {
                 .background(Color.yellow.cornerRadius(5))
                 .padding(.horizontal)
                 .padding(.vertical, 8)
-        }
+        })
     }
       
     

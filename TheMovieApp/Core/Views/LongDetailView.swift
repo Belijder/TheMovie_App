@@ -81,7 +81,7 @@ struct LongDetailView: View {
                     }
                 }
                 .padding(.horizontal, 10)
-                //addToWatchListButton
+                addToWatchListButton
                 Divider()
                 voteAverageAndRateButtonRow
             }
@@ -102,9 +102,6 @@ struct LongDetailView: View {
                 }
                 ScrollView(.horizontal) {
                     LazyHStack(alignment: .top, spacing: 5) {
-//                        ForEach(vm.credits.cast) { castMember in
-//                            CastCellVertical(movieDataService: vm.movieDataService, castMember: castMember)
-//                        }
                         ForEach(vm.credits.cast) { castMember in
                             if let index = vm.findIndexForPersonDetails(id: castMember.id) {
                                 NavigationLink {
@@ -264,6 +261,7 @@ extension LongDetailView {
                         Image(systemName: "star")
                         Text("Rate")
                     }
+                    .foregroundColor(.blue)
                 }
             }
         }
