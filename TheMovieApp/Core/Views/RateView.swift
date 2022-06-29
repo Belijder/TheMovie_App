@@ -17,7 +17,22 @@ struct RateView: View {
     
     var body: some View {
         VStack {
-            Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+            if vm.movie.posterPath != nil {
+                AsyncImage(url: URL(string: FetchManager.shared.imageBaseURL + vm.movie.posterPath!)) { image in
+                    image
+                        .resizable()
+                        .frame(width:UIScreen.main.bounds.width / 2, height: UIScreen.main.bounds.width / 2 * 1.5)
+                        .scaledToFit()
+                } placeholder: {
+                    Rectangle().fill(UITraitCollection.current.userInterfaceStyle == .dark ? .black : .white)
+                        .ignoresSafeArea()
+                }
+            }
+            Text("How would you rate \(vm.movie.title)?")
+                .font(.title3)
+                .bold()
+                .foregroundColor(.primary)
+            
         }
         .frame(maxWidth:.infinity, maxHeight: .infinity)
         .background(.regularMaterial)
