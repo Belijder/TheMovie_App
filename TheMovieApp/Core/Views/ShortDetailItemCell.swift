@@ -9,6 +9,7 @@ import SwiftUI
 struct ShortDetailItemCell: View {
     
     @EnvironmentObject var watchlistItems: WatchlistItems
+    @EnvironmentObject var ratedMovies: RatedMovies
     @ObservedObject var movieDataService: MovieDataService
     let topCastArray: [CastMember]
     let backdropPath: String?
@@ -18,6 +19,7 @@ struct ShortDetailItemCell: View {
     @State private var showVideoView = false
     @State private var showAllCastView = false
     @State private var showfullDetailView = false
+    @State private var showRatingView = false
 
     var body: some View {
         ZStack {
@@ -39,6 +41,9 @@ struct ShortDetailItemCell: View {
                         }
                         addToWatchListButton
                         voteAverageAndRateButtonRow
+                            .fullScreenCover(isPresented: $showRatingView) {
+                                RateView(movieDataService: movieDataService, movie: item, rating: 0).environmentObject(self.ratedMovies)
+                            }
                         Divider()
                         seeFullDetailsButton
                         Divider()
@@ -183,24 +188,24 @@ extension ShortDetailItemCell {
                 VoteAverageView(voteAverage: item.voteAverage, voteCount: nil)
                 Spacer()
             }
-//            VStack() {
-//                Button {
-//                    //RateItemView
-//                } label: {
-//                    HStack(spacing: 5) {
-//                        Image(systemName: "star")
-//                        Text("Rate")
-//                    }
-//                }
-//            }
-            NavigationLink {
-                RateView(movieDataService: movieDataService, movie: item)
-            } label: {
-                HStack(spacing: 5) {
-                    Image(systemName: "star")
-                    Text("Rate")
+            VStack() {
+                Button {
+                    showRatingView = true
+                } label: {
+                    HStack(spacing: 5) {
+                        Image(systemName: "star")
+                        Text("Rate")
+                    }
                 }
             }
+//            NavigationLink {
+//                RateView(movieDataService: movieDataService, movie: item, rating: 0)
+//            } label: {
+//                HStack(spacing: 5) {
+//                    Image(systemName: "star")
+//                    Text("Rate")
+//                }
+//            }
 
         }
         .padding(.horizontal)

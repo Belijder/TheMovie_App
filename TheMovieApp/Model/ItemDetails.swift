@@ -32,6 +32,7 @@ struct ItemDetails: Decodable, Identifiable, Equatable {
     let video: Bool
     let voteAverage: Double
     let voteCount: Int
+    var userRating: Int?
     
     enum CodingKeys: String, CodingKey {
         case adult
@@ -57,6 +58,7 @@ struct ItemDetails: Decodable, Identifiable, Equatable {
         case video
         case voteAverage = "vote_average"
         case voteCount = "vote_count"
+        //case userRating
     }
     
     func makeGenresNamesArray() -> [String] {
@@ -67,7 +69,7 @@ struct ItemDetails: Decodable, Identifiable, Equatable {
         return genresNames
     }
     
-    static let example = ItemDetails(adult: false, backdropPath: "BackdropPath", budget: 3000000, genres: [Genre(id: 1, name: "Horror")], homepage: "", id: 1, originalLanguage: "England", originalTitle: "Superman", overview: "Superman is best movie ever. Oh wait this is not true. The best movie is Harry Potter", popularity: 0.5, posterPath: nil, productionCompanies: [ProductionCompany(name: "Warner Bros", id: 1, logoPath: "logoPath", originCountry: "USA")], productionCountries: [Country(isoCode: "es_EN", name: "England")], releaseDate: "20.12.2022", revenue: 10000000, runtime: 134, spokenLanguages: [Language(isoCode: "en_EN", name: "England")], status: "Cancelled", tagline: "tagline", title: "Superman", video: false, voteAverage: 7.3, voteCount: 3245)
+    static let example = ItemDetails(adult: false, backdropPath: "BackdropPath", budget: 3000000, genres: [Genre(id: 1, name: "Horror")], homepage: "", id: 1, originalLanguage: "England", originalTitle: "Superman", overview: "Superman is best movie ever. Oh wait this is not true. The best movie is Harry Potter", popularity: 0.5, posterPath: nil, productionCompanies: [ProductionCompany(name: "Warner Bros", id: 1, logoPath: "logoPath", originCountry: "USA")], productionCountries: [Country(isoCode: "es_EN", name: "England")], releaseDate: "20.12.2022", revenue: 10000000, runtime: 134, spokenLanguages: [Language(isoCode: "en_EN", name: "England")], status: "Cancelled", tagline: "tagline", title: "Superman", video: false, voteAverage: 7.3, voteCount: 3245, userRating: nil)
     
     
 }

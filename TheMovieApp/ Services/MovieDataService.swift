@@ -245,7 +245,8 @@ actor MovieDataService: ObservableObject {
     }
     
     func searchForAMovieBasedOn(query: String) async -> [SearchedMovie] {
-        if let url = FetchManager.shared.makeSearchURL(with: .movieSearch, query: query) {
+        let encodedQuery = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+        if let url = FetchManager.shared.makeSearchURL(with: .movieSearch, query: encodedQuery!) {
             do {
                 let response = try await URLSession.shared.decode(SearchedMovies.self, from: url)
                 return response.results
