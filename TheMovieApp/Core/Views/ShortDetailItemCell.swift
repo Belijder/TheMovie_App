@@ -20,6 +20,8 @@ struct ShortDetailItemCell: View {
     @State private var showAllCastView = false
     @State private var showfullDetailView = false
     @State private var showRatingView = false
+    
+    
 
     var body: some View {
         ZStack {
@@ -42,7 +44,15 @@ struct ShortDetailItemCell: View {
                         addToWatchListButton
                         voteAverageAndRateButtonRow
                             .fullScreenCover(isPresented: $showRatingView) {
-                                RateView(movieDataService: movieDataService, movie: item, rating: 0).environmentObject(self.ratedMovies)
+                                if ratedMovies.items.firstIndex(where: { $0.id == item.id }) != nil {
+                                    RateView(
+                                        movieDataService: movieDataService,
+                                        movie: item,
+                                        rating: (ratedMovies.items.first(where: { $0.id == item.id })?.userRating)!
+                                    )
+                                } else {
+                                    RateView(movieDataService: movieDataService, movie: item, rating: 0)
+                                }
                             }
                         Divider()
                         seeFullDetailsButton
@@ -192,11 +202,30 @@ extension ShortDetailItemCell {
                 Button {
                     showRatingView = true
                 } label: {
-                    HStack(spacing: 5) {
-                        Image(systemName: "star")
-                        Text("Rate")
+                    if ratedMovies.items.contains(where: { $0.id == item.id }) {
+                        HStack(spacing: 5) {
+                            Image(systemName: "star.fill")
+                                .foregroundColor(.blue)
+                            HStack(alignment: .bottom, spacing: 0) {
+                                Text("\((ratedMovies.items.first(where: { $0.id == item.id })?.userRating)!)")
+                                    .font(.headline)
+                                    .bold()
+                                    .foregroundColor(.primary)
+                                Text("/10")
+                                    .font(.subheadline)
+                                    .fontWeight(.thin)
+                                    .foregroundColor(.primary)
+                            }
+                        }
+                    } else {
+                        HStack(spacing: 5) {
+                            Image(systemName: "star")
+                            Text("Rate")
+                        }
+                        .foregroundColor(.blue)
                     }
                 }
+                .buttonStyle(PlainButtonStyle())
             }
 //            NavigationLink {
 //                RateView(movieDataService: movieDataService, movie: item, rating: 0)

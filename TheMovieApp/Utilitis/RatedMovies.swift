@@ -50,7 +50,7 @@ class RatedMovies: ObservableObject {
                 return false
             }
         }) {
-            if let index = items.firstIndex(of: item) {
+            if let index = items.firstIndex(where: { $0.id == item.id }) {
                 items.remove(at: index)
             }
         } else {
