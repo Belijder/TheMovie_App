@@ -262,13 +262,13 @@ extension ShortDetailItemCell {
                     .bold()
                     .foregroundColor(.primary)
                 Spacer()
-                Button {
-                    // see all reviews
+                NavigationLink {
+                    ReviewsView(movie: item, reviews: reviews)
                 } label: {
                     Text("See All")
-                        .font(.headline)
-                        .foregroundColor(.blue)
-                        .fontWeight(.light)
+                            .font(.headline)
+                            .foregroundColor(.blue)
+                            .fontWeight(.light)
                 }
             }
             .padding(.horizontal)
