@@ -11,6 +11,7 @@ struct LongDetailView: View {
     
     @StateObject var vm: LongDetailViewModel
     @EnvironmentObject var watchlistItems: WatchlistItems
+    @EnvironmentObject var ratedMovies: RatedMovies
     
     init(movieDataService: MovieDataService, topCastArray: [CastMember], backdropPath: String?, credits: Credits, itemDetails: ItemDetails, reviews: Reviews) {
         self._vm = StateObject(wrappedValue: LongDetailViewModel(movieDataService: movieDataService, topCastArray: topCastArray, backdropPath: backdropPath, credits: credits, itemDetails: itemDetails, reviews: reviews))
@@ -84,6 +85,17 @@ struct LongDetailView: View {
                 addToWatchListButton
                 Divider()
                 voteAverageAndRateButtonRow
+                    .fullScreenCover(isPresented: $vm.showRatingView) {
+                        if ratedMovies.items.firstIndex(where: { $0.id == vm.itemDetails.id }) != nil {
+                            RateView(
+                                movieDataService: vm.movieDataService,
+                                movie: vm.itemDetails,
+                                rating: (ratedMovies.items.first(where: { $0.id == vm.itemDetails.id })?.userRating)!
+                            )
+                        } else {
+                            RateView(movieDataService: vm.movieDataService, movie: vm.itemDetails, rating: 0)
+                        }
+                    }
             }
             .padding(.vertical, 8)
             .background(alignment: .center) {
@@ -253,17 +265,7 @@ extension LongDetailView {
                 VoteAverageView(voteAverage: vm.itemDetails.voteAverage, voteCount: vm.itemDetails.voteCount)
                 Spacer()
             }
-            VStack() {
-                Button {
-                    //RateItemView
-                } label: {
-                    HStack(spacing: 5) {
-                        Image(systemName: "star")
-                        Text("Rate")
-                    }
-                    .foregroundColor(.blue)
-                }
-            }
+            RateButton(item: vm.itemDetails, showRatingView: $vm.showRatingView)
         }
         .padding(.horizontal, 10)
     }

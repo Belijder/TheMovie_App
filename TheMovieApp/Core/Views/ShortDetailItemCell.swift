@@ -198,44 +198,7 @@ extension ShortDetailItemCell {
                 VoteAverageView(voteAverage: item.voteAverage, voteCount: nil)
                 Spacer()
             }
-            VStack() {
-                Button {
-                    showRatingView = true
-                } label: {
-                    if ratedMovies.items.contains(where: { $0.id == item.id }) {
-                        HStack(spacing: 5) {
-                            Image(systemName: "star.fill")
-                                .foregroundColor(.blue)
-                            HStack(alignment: .bottom, spacing: 0) {
-                                Text("\((ratedMovies.items.first(where: { $0.id == item.id })?.userRating)!)")
-                                    .font(.headline)
-                                    .bold()
-                                    .foregroundColor(.primary)
-                                Text("/10")
-                                    .font(.subheadline)
-                                    .fontWeight(.thin)
-                                    .foregroundColor(.primary)
-                            }
-                        }
-                    } else {
-                        HStack(spacing: 5) {
-                            Image(systemName: "star")
-                            Text("Rate")
-                        }
-                        .foregroundColor(.blue)
-                    }
-                }
-                .buttonStyle(PlainButtonStyle())
-            }
-//            NavigationLink {
-//                RateView(movieDataService: movieDataService, movie: item, rating: 0)
-//            } label: {
-//                HStack(spacing: 5) {
-//                    Image(systemName: "star")
-//                    Text("Rate")
-//                }
-//            }
-
+            RateButton(item: item, showRatingView: $showRatingView)
         }
         .padding(.horizontal)
         .padding(.vertical, 8)

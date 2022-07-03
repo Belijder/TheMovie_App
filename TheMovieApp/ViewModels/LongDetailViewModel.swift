@@ -17,6 +17,7 @@ import SwiftUI
     let itemDetails: ItemDetails
     let reviews: Reviews
     @Published var personsDetails: [PersonDetails] = []
+    @Published var showRatingView = false
     
     @Published var posterURL = URL(string: "")
     
