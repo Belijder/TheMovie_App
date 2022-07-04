@@ -12,8 +12,8 @@ struct ReviewsView: View {
     @StateObject var vm: ReviewsViewModel
     @State private var showRatingView = false
     
-    init(movie: ItemDetails, reviews: Reviews) {
-        self._vm = StateObject(wrappedValue: ReviewsViewModel(movie: movie, reviews: reviews))
+    init(movie: ItemDetails, reviews: Reviews, movieDataService: MovieDataService) {
+        self._vm = StateObject(wrappedValue: ReviewsViewModel(movie: movie, reviews: reviews, movieDataService: movieDataService))
     }
     
     
@@ -21,6 +21,17 @@ struct ReviewsView: View {
         ScrollView() {
             movieTitleAndYearRow
             ratingsRow
+                .fullScreenCover(isPresented: $showRatingView) {
+                    if ratedMovies.items.firstIndex(where: { $0.id == vm.movie.id }) != nil {
+                        RateView(
+                            movieDataService: vm.movieDataService,
+                            movie: vm.movie,
+                            rating: (ratedMovies.items.first(where: { $0.id == vm.movie.id })?.userRating)!
+                        )
+                    } else {
+                        RateView(movieDataService: vm.movieDataService, movie: vm.movie, rating: 0)
+                    }
+                }
             Divider()
             if !vm.chartValues.isEmpty {
                 chart
@@ -51,7 +62,7 @@ struct ReviewsView: View {
 
 struct ReviewsView_Previews: PreviewProvider {
     static var previews: some View {
-        ReviewsView(movie: dev.itemDetails, reviews: dev.reviews)
+        ReviewsView(movie: dev.itemDetails, reviews: dev.reviews, movieDataService: MovieDataService())
     }
 }
 
@@ -79,7 +90,8 @@ extension ReviewsView {
             }
             VStack(alignment: .leading, spacing: 8) {
                 Text("Your rating")
-                RateButton(item: vm.movie, showRatingView: $showRatingView)
+                RateButton(item: vm.movie, showRatingView: $showRatingView, font1: .title, font2: .subheadline, noRatingFont: .title3)
+
             }
             Spacer()
         }
@@ -94,10 +106,10 @@ extension ReviewsView {
             HStack(alignment: .bottom, spacing: 5) {
                 ForEach(0..<10, id: \.self) { index in
                     VStack(spacing: 4) {
-                        //Color.secondary
                         Rectangle()
                             .frame(maxWidth: .infinity)
-                            .frame(height: CGFloat(vm.chartValues[index]) / CGFloat(vm.reviews.results.count) * CGFloat(100))
+                            .frame(height: vm.reviews.results.isEmpty ? 1 :
+                                    CGFloat(vm.chartValues[index]) / CGFloat(vm.reviews.results.count) * CGFloat(100))
                             .foregroundColor(vm.selectedRateNumber - 1 == index ? .yellow : .secondary)
                         Text("\(index + 1)")
                             .font(.subheadline)
@@ -114,7 +126,7 @@ extension ReviewsView {
                     }
                 }
             }
-            .frame(height: 110)
+            //.frame(height: 110)
         }
         .padding(.horizontal, 8)
         .padding(.bottom, 8)

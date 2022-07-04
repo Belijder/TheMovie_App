@@ -12,6 +12,25 @@ struct RateButton: View {
     @EnvironmentObject var ratedMovies: RatedMovies
     let item: ItemDetails
     @Binding var showRatingView: Bool
+    let font1: Font
+    let font2: Font
+    let noRatingFont: Font
+    
+    init(item: ItemDetails, showRatingView: Binding<Bool>) {
+        self.item = item
+        self._showRatingView = showRatingView
+        self.font1 = Font.headline
+        self.font2 = Font.subheadline
+        self.noRatingFont = font2
+    }
+    
+    init(item: ItemDetails, showRatingView: Binding<Bool>, font1: Font, font2: Font, noRatingFont: Font) {
+        self.item = item
+        self._showRatingView = showRatingView
+        self.font1 = font1
+        self.font2 = font2
+        self.noRatingFont = noRatingFont
+    }
     
     var body: some View {
         VStack() {
@@ -24,11 +43,10 @@ struct RateButton: View {
                             .foregroundColor(.blue)
                         HStack(alignment: .bottom, spacing: 0) {
                             Text("\((ratedMovies.items.first(where: { $0.id == item.id })?.userRating)!)")
-                                .font(.headline)
-                                .bold()
+                                .font(font1)
                                 .foregroundColor(.primary)
                             Text("/10")
-                                .font(.subheadline)
+                                .font(font2)
                                 .fontWeight(.thin)
                                 .foregroundColor(.primary)
                         }
@@ -38,6 +56,7 @@ struct RateButton: View {
                         Image(systemName: "star")
                         Text("Rate")
                     }
+                    .font(noRatingFont)
                     .foregroundColor(.blue)
                 }
             }

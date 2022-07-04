@@ -263,7 +263,7 @@ extension ShortDetailItemCell {
                     .foregroundColor(.primary)
                 Spacer()
                 NavigationLink {
-                    ReviewsView(movie: item, reviews: reviews)
+                    ReviewsView(movie: item, reviews: reviews, movieDataService: movieDataService)
                 } label: {
                     Text("See All")
                             .font(.headline)

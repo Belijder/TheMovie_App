@@ -7,6 +7,7 @@
 
 import Foundation
 import Combine
+import SwiftUI
 
 class ReviewsViewModel: ObservableObject {
     let title: String
@@ -14,18 +15,20 @@ class ReviewsViewModel: ObservableObject {
     let rating: Double
     let reviews: Reviews
     let movie: ItemDetails
+    @ObservedObject var movieDataService: MovieDataService
     @Published var chartValues: [Int] = []
     @Published var selectedRateNumber: Int = 0
     @Published var filteredReviews: [Review] = []
     var cancellables = Set<AnyCancellable>()
     
     
-    init(movie: ItemDetails, reviews: Reviews) {
+    init(movie: ItemDetails, reviews: Reviews, movieDataService: MovieDataService) {
         self.title = movie.title
         self.year = movie.releaseDate.first4characters()
         self.rating = movie.voteAverage
         self.reviews = reviews
         self.movie = movie
+        self._movieDataService = ObservedObject(wrappedValue: movieDataService)
         countChartValues()
         addSelectedRateNumberSubscriber()
     }
