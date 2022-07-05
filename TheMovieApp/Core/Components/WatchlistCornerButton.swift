@@ -10,6 +10,7 @@ import SwiftUI
 struct WatchlistCornerButton: View {
     
     @EnvironmentObject var watchlistItems: WatchlistItems
+    @EnvironmentObject var coreDataManager: CoreDataManager
     
     let item: ItemDetails
     
@@ -19,6 +20,8 @@ struct WatchlistCornerButton: View {
                 if watchlistItems.items.contains(item) {
                     Button {
                         watchlistItems.removeFromWatchlist(item: item)
+                        coreDataManager.addWatchlistEntity(id: item.id)
+                        print(coreDataManager.savedWatchlistEntities)
                     } label: {
                         ZStack {
                             WatchlistShape()
