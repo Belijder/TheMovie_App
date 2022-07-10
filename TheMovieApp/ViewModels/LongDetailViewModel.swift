@@ -9,7 +9,6 @@ import Foundation
 import SwiftUI
 
 @MainActor class LongDetailViewModel: ObservableObject {
-    @EnvironmentObject var watchlistItems: WatchlistItems
     @ObservedObject var movieDataService: MovieDataService
     let topCastArray: [CastMember]
     let backdropPath: String?

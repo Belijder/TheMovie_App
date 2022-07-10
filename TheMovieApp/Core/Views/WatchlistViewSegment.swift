@@ -13,7 +13,6 @@ struct WatchlistViewSegment: View {
         _movieDataService = ObservedObject(wrappedValue: movieDataService)
     }
     
-    @EnvironmentObject var watchlistItems: WatchlistItems
     @EnvironmentObject var coreDataManager: CoreDataManager
     @ObservedObject var movieDataService: MovieDataService
     

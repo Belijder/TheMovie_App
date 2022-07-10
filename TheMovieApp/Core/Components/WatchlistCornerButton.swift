@@ -8,8 +8,6 @@
 import SwiftUI
 
 struct WatchlistCornerButton: View {
-    
-    @EnvironmentObject var watchlistItems: WatchlistItems
     @EnvironmentObject var coreDataManager: CoreDataManager
     
     let item: WatchlistModel

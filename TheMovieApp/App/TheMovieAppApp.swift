@@ -10,7 +10,6 @@ import SwiftUI
 @main
 struct TheMovieAppApp: App {
     
-    @StateObject var favoritesItems = WatchlistItems()
     @StateObject var favoritePersons = FavoritePersons()
     @StateObject var ratedMovies = RatedMovies()
     @StateObject var movieDataServis = MovieDataService()
@@ -32,7 +31,6 @@ struct TheMovieAppApp: App {
                     }
                     .tag(1)
             }
-            .environmentObject(favoritesItems)
             .environmentObject(favoritePersons)
             .environmentObject(ratedMovies)
             .environmentObject(coreDataManager)
