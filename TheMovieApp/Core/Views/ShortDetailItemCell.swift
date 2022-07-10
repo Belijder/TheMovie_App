@@ -8,8 +8,9 @@ import SwiftUI
 
 struct ShortDetailItemCell: View {
     
-    @EnvironmentObject var watchlistItems: WatchlistItems
+    //@EnvironmentObject var watchlistItems: WatchlistItems
     @EnvironmentObject var ratedMovies: RatedMovies
+    @EnvironmentObject var coreDataManager: CoreDataManager
     @ObservedObject var movieDataService: MovieDataService
     let topCastArray: [CastMember]
     let backdropPath: String?
@@ -171,14 +172,14 @@ extension ShortDetailItemCell {
     
     private var addToWatchListButton: some View {
         Button {
-            if watchlistItems.checkIfItemIsInArray(id: item.id) {
-                watchlistItems.removeFromWatchlist(item: item)
+            if coreDataManager.savedWatchlistItems.contains(where: { $0.id == item.id }) {
+                coreDataManager.removeWatchlistEntity(id: item.id)
             } else {
-                watchlistItems.addToWatchlist(item: item)
+                coreDataManager.addWatchlistEntity(id: item.id, title: item.title, posterPath: item.posterPath ?? "", voteAverage: item.voteAverage)
             }
         } label: {
             HStack(spacing: 5) {
-                Image(systemName: watchlistItems.checkIfItemIsInArray(id: item.id) ? "checkmark" : "plus")
+                Image(systemName: coreDataManager.savedWatchlistItems.contains(where: { $0.id == item.id }) ? "checkmark" : "plus")
                     .foregroundColor(.white)
                 Text("WatchList")
                     .font(.headline)

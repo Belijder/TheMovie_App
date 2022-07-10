@@ -14,13 +14,14 @@ struct WatchlistViewSegment: View {
     }
     
     @EnvironmentObject var watchlistItems: WatchlistItems
+    @EnvironmentObject var coreDataManager: CoreDataManager
     @ObservedObject var movieDataService: MovieDataService
     
     var body: some View {
         VStack(spacing: 10) {
             HeadLineRow(context: "From your Watchlist")
                 .padding(.leading, 8)
-            if watchlistItems.items.isEmpty {
+            if coreDataManager.savedWatchlistItems.isEmpty {
                 VStack {
                     ZStack {
                         Image(systemName: "rectangle.portrait.fill")
@@ -62,8 +63,9 @@ struct WatchlistViewSegment: View {
             } else {
                 ScrollView(.horizontal) {
                     LazyHStack {
-                        ForEach(watchlistItems.items) { movie in
-                            PortraitStyleMovieCell(movie: movie, movieDataService: movieDataService)
+                        ForEach(coreDataManager.savedWatchlistItems) { movie in
+                            WatchlistPosterView(movie: movie, movieDataService: movieDataService)
+                            //PortraitStyleMovieCell(movie: movie, movieDataService: movieDataService)
                         }
                     }
                     .padding(.leading, 8)

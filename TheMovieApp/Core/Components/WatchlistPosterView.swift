@@ -1,28 +1,27 @@
 //
-//  PortraitStyleMovieCell.swift
+//  WatchlistPosterView.swift
 //  TheMovieApp
 //
-//  Created by Kamila Mroziewska on 28/02/2022.
+//  Created by Kamila Mroziewska on 10/07/2022.
 //
 
 import SwiftUI
-import AVKit
 
-struct PortraitStyleMovieCell: View {
+struct WatchlistPosterView: View {
     
-    init(movie: ItemDetails, movieDataService: MovieDataService) {
-        self.movie = movie
-        _movieDataService = ObservedObject(wrappedValue: movieDataService)
+    init(movie: WatchlistModel, movieDataService: MovieDataService) {
+        self._vm = StateObject(wrappedValue: WatchlistPosterViewModel(movie: movie, movieDataService: movieDataService))
     }
     
-    let movie: ItemDetails
-    @ObservedObject var movieDataService: MovieDataService
-    @State private var url = URL(string: "")
+    @StateObject var vm: WatchlistPosterViewModel
+//    let movie: WatchListEntity
+//    @ObservedObject var movieDataService: MovieDataService
+//    @State private var url = URL(string: "")
     
     var body: some View {
             ZStack {
                 VStack(spacing: 0) {
-                    AsyncImage(url: url) { image in
+                    AsyncImage(url: vm.url) { image in
                             image
                                 .resizable()
                                 .frame(width: 180, height: 270)
@@ -42,11 +41,11 @@ struct PortraitStyleMovieCell: View {
                                 Image(systemName: "star.fill")
                                     .foregroundColor(.yellow)
                                     .font(.caption)
-                                Text("\(String(format: "%.1f", movie.voteAverage))")
+                                Text("\(String(format: "%.1f", vm.movie.voteAverage))")
                                     .foregroundColor(.primary)
                                     .font(.footnote)
                             }
-                            Text(movie.title)
+                            Text(vm.movie.title)
                                 .foregroundColor(.primary)
                                 .font(.subheadline)
                                 .fontWeight(.bold)
@@ -65,21 +64,19 @@ struct PortraitStyleMovieCell: View {
                     }
                 }
                 
-                WatchlistCornerButton(item: WatchlistModel(id: movie.id, title: movie.title, posterPath: movie.posterPath ?? "", voteAverage: movie.voteAverage))
+                WatchlistCornerButton(item: vm.movie)
                 
             }
             .task {
-                url = await movieDataService.makePosterImageURL(movieId: movie.id)
+                vm.url = await vm.movieDataService.makePosterImageURL(movieId: vm.id)
             }
         
         
     }
 }
 
-struct PortraitStyleMovieCell_Previews: PreviewProvider {
+struct WatchlistPosterView_Previews: PreviewProvider {
     static var previews: some View {
-        PortraitStyleMovieCell(movie: ItemDetails.example, movieDataService: MovieDataService())
+        WatchlistPosterView(movie: dev.watchlistModel, movieDataService: MovieDataService())
     }
 }
-
-

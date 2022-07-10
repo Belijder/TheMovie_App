@@ -10,7 +10,7 @@ import SwiftUI
 struct LongDetailView: View {
     
     @StateObject var vm: LongDetailViewModel
-    @EnvironmentObject var watchlistItems: WatchlistItems
+    @EnvironmentObject var coreDataManager: CoreDataManager
     @EnvironmentObject var ratedMovies: RatedMovies
     
     init(movieDataService: MovieDataService, topCastArray: [CastMember], backdropPath: String?, credits: Credits, itemDetails: ItemDetails, reviews: Reviews) {
@@ -239,14 +239,14 @@ extension LongDetailView {
     
     private var addToWatchListButton: some View {
         Button {
-            if watchlistItems.checkIfItemIsInArray(id: vm.itemDetails.id) {
-                watchlistItems.removeFromWatchlist(item: vm.itemDetails)
+            if coreDataManager.savedWatchlistItems.contains(where: { $0.id == vm.itemDetails.id }) {
+                coreDataManager.removeWatchlistEntity(id: vm.itemDetails.id)
             } else {
-                watchlistItems.addToWatchlist(item: vm.itemDetails)
+                coreDataManager.addWatchlistEntity(id: vm.itemDetails.id, title: vm.itemDetails.title, posterPath: vm.itemDetails.posterPath ?? "", voteAverage: vm.itemDetails.voteAverage)
             }
         } label: {
             HStack(spacing: 5) {
-                Image(systemName: watchlistItems.checkIfItemIsInArray(id: vm.itemDetails.id) ? "checkmark" : "plus")
+                Image(systemName: coreDataManager.savedWatchlistItems.contains(where: { $0.id == vm.itemDetails.id })  ? "checkmark" : "plus")
                     .foregroundColor(.white)
                 Text("WatchList")
                     .font(.headline)

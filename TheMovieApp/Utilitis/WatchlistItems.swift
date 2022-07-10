@@ -6,10 +6,16 @@
 //
 
 import Foundation
+import CoreData
+import SwiftUI
+import Combine
 
 class WatchlistItems: ObservableObject {
     
+    @EnvironmentObject var coreDataManager: CoreDataManager
     @Published var items: [ItemDetails] = []
+//    var cancellables = Set<AnyCancellable>()
+    
                       
     func addToWatchlist(itemId: Int) async {
         let item = await fetchItemDetails(from: itemId)
@@ -23,23 +29,25 @@ class WatchlistItems: ObservableObject {
     }
     
     func addToWatchlist(item: ItemDetails) {
-            items.append(item)
+        //items.append(item)
+        coreDataManager.addWatchlistEntity(id: item.id, title: item.title, posterPath: item.posterPath ?? "", voteAverage: item.voteAverage)
     }
     
     func removeFromWatchlist(item: ItemDetails) {
-        if items.contains(where: { element in
-            if element.id == item.id {
-                return true
-            } else {
-                return false
-            }
-        }) {
-            if let index = items.firstIndex(of: item) {
-                items.remove(at: index)
-            }
-        } else {
-            return
-        }
+//        if items.contains(where: { element in
+//            if element.id == item.id {
+//                return true
+//            } else {
+//                return false
+//            }
+//        }) {
+//            if let index = items.firstIndex(of: item) {
+//                items.remove(at: index)
+//            }
+//        } else {
+//            return
+//        }
+        coreDataManager.removeWatchlistEntity(id: item.id)
     }
     
     func fetchItemDetails(from id: Int) async -> ItemDetails? {
@@ -65,4 +73,12 @@ class WatchlistItems: ObservableObject {
             }
         })
     }
+    
+//    func addWatchListSubscriber() {
+//        $coreDataManager.savedWatchlistItems
+//            .sink { value in
+//                self.items = value
+//            }
+//    }
+
 }

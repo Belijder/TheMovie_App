@@ -12,16 +12,15 @@ struct WatchlistCornerButton: View {
     @EnvironmentObject var watchlistItems: WatchlistItems
     @EnvironmentObject var coreDataManager: CoreDataManager
     
-    let item: ItemDetails
+    let item: WatchlistModel
     
     var body: some View {
         VStack {
             HStack {
-                if watchlistItems.items.contains(item) {
+                if coreDataManager.savedWatchlistItems.contains(item) {
                     Button {
-                        watchlistItems.removeFromWatchlist(item: item)
-                        coreDataManager.addWatchlistEntity(id: item.id)
-                        print(coreDataManager.savedWatchlistEntities)
+                        coreDataManager.removeWatchlistEntity(id: item.id)
+                        print(coreDataManager.savedWatchlistEntities.count)
                     } label: {
                         ZStack {
                             WatchlistShape()
@@ -41,9 +40,8 @@ struct WatchlistCornerButton: View {
 
                 } else {
                     Button  {
-                        Task {
-                            await watchlistItems.addToWatchlist(itemId: item.id)
-                        }
+                        coreDataManager.addWatchlistEntity(id: item.id, title: item.title, posterPath: item.posterPath, voteAverage: item.voteAverage)
+                        print(coreDataManager.savedWatchlistEntities.count)
                     } label: {
                         ZStack {
                             WatchlistShape()
@@ -71,6 +69,6 @@ struct WatchlistCornerButton: View {
 
 struct FavoriteCornerButton_Previews: PreviewProvider {
     static var previews: some View {
-        WatchlistCornerButton(item: ItemDetails.example)
+        WatchlistCornerButton(item: dev.watchlistModel)
     }
 }
