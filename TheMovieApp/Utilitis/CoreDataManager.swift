@@ -16,10 +16,11 @@ class CoreDataManager: ObservableObject {
     @Published var savedWatchlistItems: [WatchlistModel] = []
     @Published var savedUserRatingsEntites: [RatedMovieEntity] = []
     @Published var savedUserRatingsItems: [RatedItemModel] = []
+    @Published var savedFavoritePeopleEntities: [FavoritePeopleEntity] = []
+    @Published var savedFavoritePeopleItems: [FavoriteModel] = []
+    
     var movieDataService = MovieDataService()
-    
     var cancellables = Set<AnyCancellable>()
-    
     let container: NSPersistentContainer
     
     init() {
@@ -31,10 +32,13 @@ class CoreDataManager: ObservableObject {
         }
         addRatedItemSubscriber()
         addWatchListSubscriber()
+        addFavoriteItemsSubscriber()
         savedWatchlistEntities = fetchWatchlistEntities()
         savedUserRatingsEntites = fetchUserRatings()
+        savedFavoritePeopleEntities = fetchUserFavorites()
     }
     
+    //MARK: Watchlist
     
     func fetchWatchlistEntities() -> [WatchListEntity] {
         let request = NSFetchRequest<WatchListEntity>(entityName: "WatchListEntity")
@@ -45,6 +49,25 @@ class CoreDataManager: ObservableObject {
             return []
         }
     }
+    
+    func addWatchlistEntity(id: Int, title: String, posterPath: String, voteAverage: Double) {
+        let newEntity = WatchListEntity(context: container.viewContext)
+        newEntity.id = Int64(id)
+        newEntity.title = title
+        newEntity.voteAverage = voteAverage
+        newEntity.posterPath = posterPath
+        saveData()
+        savedWatchlistEntities = fetchWatchlistEntities()
+    }
+    
+    func removeWatchlistEntity(id: Int) {
+        guard let entity = savedWatchlistEntities.first(where: { $0.id == Int64(id) }) else { return }
+        container.viewContext.delete(entity)
+        saveData()
+        savedWatchlistEntities = fetchWatchlistEntities()
+    }
+    
+    //MARK: RatedItems
     
     func fetchUserRatings() -> [RatedMovieEntity] {
         let request = NSFetchRequest<RatedMovieEntity>(entityName: "RatedMovieEntity")
@@ -85,15 +108,36 @@ class CoreDataManager: ObservableObject {
         savedUserRatingsEntites = fetchUserRatings()
     }
     
-    func addWatchlistEntity(id: Int, title: String, posterPath: String, voteAverage: Double) {
-        let newEntity = WatchListEntity(context: container.viewContext)
-        newEntity.id = Int64(id)
-        newEntity.title = title
-        newEntity.voteAverage = voteAverage
-        newEntity.posterPath = posterPath
-        saveData()
-        savedWatchlistEntities = fetchWatchlistEntities()
+    //MARK: Favorites People
+    
+    func fetchUserFavorites() -> [FavoritePeopleEntity] {
+        let request = NSFetchRequest<FavoritePeopleEntity>(entityName: "FavoritePeopleEntity")
+        do {
+            return try container.viewContext.fetch(request)
+        } catch let error {
+            print("Error fetching FavoritePeopleEntity. \(error)")
+            return []
+        }
     }
+    
+    func addFavoritePeopleEntity(id: Int, name: String, profilePath: String, placeOfBirth: String) {
+        let newEntity = FavoritePeopleEntity(context: container.viewContext)
+        newEntity.id = Int32(id)
+        newEntity.name = name
+        newEntity.profilePath = profilePath
+        newEntity.placeOfBirth = placeOfBirth
+        saveData()
+        savedFavoritePeopleEntities = fetchUserFavorites()
+    }
+    
+    func removeFavoritePeopleEntity(id: Int) {
+        guard let entity = savedFavoritePeopleEntities.first(where: { $0.id == Int32(id) }) else { return }
+        container.viewContext.delete(entity)
+        saveData()
+        savedUserRatingsEntites = fetchUserRatings()
+    }
+    
+    //MARK: Others
     
     func saveData() {
         do {
@@ -101,13 +145,6 @@ class CoreDataManager: ObservableObject {
         } catch let error {
             print("Error saving. \(error)")
         }
-    }
-    
-    func removeWatchlistEntity(id: Int) {
-        guard let entity = savedWatchlistEntities.first(where: { $0.id == Int64(id) }) else { return }
-        container.viewContext.delete(entity)
-        saveData()
-        savedWatchlistEntities = fetchWatchlistEntities()
     }
     
     func removeAllEntities() {
@@ -124,6 +161,8 @@ class CoreDataManager: ObservableObject {
         saveData()
         
     }
+    
+    //MARK: Subscribers
     
     func addWatchListSubscriber() {
         $savedWatchlistEntities
@@ -154,13 +193,35 @@ class CoreDataManager: ObservableObject {
                         id: Int(ent.id),
                         title: ent.title ?? "",
                         posterPath: ent.posterPath ?? "",
-                        userRate: Int(ent.userRating))
+                        userRate: Int(ent.userRating)
+                    )
                     items.append(newItem)
                 }
                 return items
             }
             .sink { value in
                 self.savedUserRatingsItems = value
+            }
+            .store(in: &cancellables)
+    }
+    
+    func addFavoriteItemsSubscriber() {
+        $savedFavoritePeopleEntities
+            .map { (entities) -> [FavoriteModel] in
+                var items: [FavoriteModel] = []
+                for ent in entities {
+                    let newItem = FavoriteModel(
+                        id: Int(ent.id),
+                        name: ent.name ?? "",
+                        placeOfBirth: ent.placeOfBirth ?? "",
+                        profilePath: ent.profilePath ?? ""
+                    )
+                    items.append(newItem)
+                }
+                return items
+            }
+            .sink { value in
+                self.savedFavoritePeopleItems = value
             }
             .store(in: &cancellables)
     }
