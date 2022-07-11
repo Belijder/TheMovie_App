@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CastCellVertical: View {
     
-    @EnvironmentObject var favoritePersons: FavoritePersons
+    @EnvironmentObject var coreDataManager: CoreDataManager
     @ObservedObject var movieDataService: MovieDataService
     
     @State private var url = URL(string: "")

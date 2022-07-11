@@ -9,15 +9,15 @@ import SwiftUI
 
 struct FavoriteButton: View {
     
-    @EnvironmentObject var favoritePersons: FavoritePersons
+    @EnvironmentObject var coreDataManager: CoreDataManager
     
     let person: PersonDetails
     
     var body: some View {
         if person.id > 0 {
-            if favoritePersons.items.contains(person) {
+            if coreDataManager.savedFavoritePeopleItems.contains(where: { $0.id == person.id }) {
                 Button {
-                    favoritePersons.removeFromFavorite(item: person)
+                    coreDataManager.removeFavoritePeopleEntity(id: person.id)
                 } label: {
                     ZStack {
                         Circle()
@@ -31,9 +31,7 @@ struct FavoriteButton: View {
                 }
             } else {
                 Button  {
-                    Task {
-                        favoritePersons.addToFavorite(item: person)
-                    }
+                    coreDataManager.addFavoritePeopleEntity(id: person.id, name: person.name, profilePath: person.profilePath, placeOfBirth: person.placeOfBirth)
                 } label: {
                     ZStack {
                         Circle()

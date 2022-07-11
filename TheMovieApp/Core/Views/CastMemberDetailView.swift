@@ -10,7 +10,7 @@ import SwiftUI
 struct CastMemberDetailView: View {
     
     @StateObject var vm: CastMemberDetailViewModel
-    @EnvironmentObject var favoritePerons: FavoritePersons
+    @EnvironmentObject var coreDataManager: CoreDataManager
     
     init(person: PersonDetails, movieDataService: MovieDataService) {
         self._vm = StateObject(wrappedValue: CastMemberDetailViewModel(person: person, movieDataService: movieDataService))
@@ -143,9 +143,9 @@ extension CastMemberDetailView {
     }
     private var addToFavoriteButton: some View {
         VStack {
-            if favoritePerons.items.contains(vm.personDetails) {
+            if coreDataManager.savedFavoritePeopleItems.contains(where: { $0.id == vm.personDetails.id }) {
                 Button {
-                    favoritePerons.removeFromFavorite(item: vm.personDetails)
+                    coreDataManager.removeFavoritePeopleEntity(id: vm.personDetails.id)
                 } label: {
                     HStack(spacing: 15) {
                         Image(systemName: "checkmark")
@@ -164,7 +164,7 @@ extension CastMemberDetailView {
                 }
             } else {
                 Button {
-                    favoritePerons.addToFavorite(item: vm.personDetails)
+                    coreDataManager.addFavoritePeopleEntity(id: vm.personDetails.id, name: vm.personDetails.name, profilePath: vm.personDetails.profilePath, placeOfBirth: vm.personDetails.placeOfBirth)
                 } label: {
                     HStack(spacing: 15) {
                         Image(systemName: "plus")

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CastCellView: View {
     
-    @EnvironmentObject var favoritePersons: FavoritePersons
+    @EnvironmentObject var coreDataManager: CoreDataManager
     
     let movieDataService: MovieDataService
     let person: CastMember
