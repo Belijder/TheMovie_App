@@ -10,7 +10,7 @@ import SwiftUI
 struct RateView: View {
     
     @Environment(\.dismiss) var dismiss
-    @EnvironmentObject var ratedMovies: RatedMovies
+    @EnvironmentObject var coreDataManager: CoreDataManager
     @ObservedObject var movieDataService: MovieDataService
     let movie: ItemDetails
     @State var rating: Int
@@ -106,7 +106,7 @@ extension RateView {
     
     private var rateButton: some View {
         Button {
-            ratedMovies.addToRated(movie: movie, rating: rating)
+            coreDataManager.addRatedMovieEntity(id: movie.id, title: movie.title, posterPath: movie.posterPath ?? "", rate: rating)
             dismiss()
         } label: {
             if rating == 0 {
@@ -157,9 +157,9 @@ extension RateView {
     
     private var removeButton: some View {
         ZStack {
-            if ratedMovies.items.contains(where: { $0.id == movie.id}) {
+            if coreDataManager.savedUserRatingsItems.contains(where: { $0.id == movie.id}) {
                 Button {
-                    ratedMovies.removeFromRated(item: movie)
+                    coreDataManager.removeRatedMovieEntity(id: movie.id)
                     dismiss()
                 } label: {
                     Text("Remove Rating")

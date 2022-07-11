@@ -9,7 +9,7 @@ import SwiftUI
 
 struct RateButton: View {
     
-    @EnvironmentObject var ratedMovies: RatedMovies
+    @EnvironmentObject var coreDataManager: CoreDataManager
     let item: ItemDetails
     @Binding var showRatingView: Bool
     let font1: Font
@@ -37,12 +37,12 @@ struct RateButton: View {
             Button {
                 showRatingView = true
             } label: {
-                if ratedMovies.items.contains(where: { $0.id == item.id }) {
+                if coreDataManager.savedUserRatingsItems.contains(where: { $0.id == item.id }) {
                     HStack(spacing: 5) {
                         Image(systemName: "star.fill")
                             .foregroundColor(.blue)
                         HStack(alignment: .bottom, spacing: 0) {
-                            Text("\((ratedMovies.items.first(where: { $0.id == item.id })?.userRating)!)")
+                            Text("\((coreDataManager.savedUserRatingsItems.first(where: { $0.id == item.id })?.userRate)!)")
                                 .font(font1)
                                 .foregroundColor(.primary)
                             Text("/10")

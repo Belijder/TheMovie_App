@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ReviewsView: View {
-    @EnvironmentObject var ratedMovies: RatedMovies
+    @EnvironmentObject var coreDataManager: CoreDataManager
     @StateObject var vm: ReviewsViewModel
     @State private var showRatingView = false
     
@@ -22,11 +22,11 @@ struct ReviewsView: View {
             movieTitleAndYearRow
             ratingsRow
                 .fullScreenCover(isPresented: $showRatingView) {
-                    if ratedMovies.items.firstIndex(where: { $0.id == vm.movie.id }) != nil {
+                    if coreDataManager.savedUserRatingsItems.firstIndex(where: { $0.id == vm.movie.id }) != nil {
                         RateView(
                             movieDataService: vm.movieDataService,
                             movie: vm.movie,
-                            rating: (ratedMovies.items.first(where: { $0.id == vm.movie.id })?.userRating)!
+                            rating: (coreDataManager.savedUserRatingsItems.first(where: { $0.id == vm.movie.id })?.userRate)!
                         )
                     } else {
                         RateView(movieDataService: vm.movieDataService, movie: vm.movie, rating: 0)

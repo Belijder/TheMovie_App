@@ -8,8 +8,6 @@ import SwiftUI
 
 struct ShortDetailItemCell: View {
     
-    //@EnvironmentObject var watchlistItems: WatchlistItems
-    @EnvironmentObject var ratedMovies: RatedMovies
     @EnvironmentObject var coreDataManager: CoreDataManager
     @ObservedObject var movieDataService: MovieDataService
     let topCastArray: [CastMember]
@@ -45,11 +43,11 @@ struct ShortDetailItemCell: View {
                         addToWatchListButton
                         voteAverageAndRateButtonRow
                             .fullScreenCover(isPresented: $showRatingView) {
-                                if ratedMovies.items.firstIndex(where: { $0.id == item.id }) != nil {
+                                if coreDataManager.savedUserRatingsItems.firstIndex(where: { $0.id == item.id }) != nil {
                                     RateView(
                                         movieDataService: movieDataService,
                                         movie: item,
-                                        rating: (ratedMovies.items.first(where: { $0.id == item.id })?.userRating)!
+                                        rating: (coreDataManager.savedUserRatingsItems.first(where: { $0.id == item.id })?.userRate)!
                                     )
                                 } else {
                                     RateView(movieDataService: movieDataService, movie: item, rating: 0)

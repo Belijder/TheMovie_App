@@ -11,7 +11,6 @@ import SwiftUI
 struct TheMovieAppApp: App {
     
     @StateObject var favoritePersons = FavoritePersons()
-    @StateObject var ratedMovies = RatedMovies()
     @StateObject var movieDataServis = MovieDataService()
     @StateObject var coreDataManager = CoreDataManager()
     
@@ -32,7 +31,6 @@ struct TheMovieAppApp: App {
                     .tag(1)
             }
             .environmentObject(favoritePersons)
-            .environmentObject(ratedMovies)
             .environmentObject(coreDataManager)
             .accentColor(.yellow)
         }
