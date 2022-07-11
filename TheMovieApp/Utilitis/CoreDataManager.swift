@@ -14,6 +14,8 @@ class CoreDataManager: ObservableObject {
     
     @Published var savedWatchlistEntities: [WatchListEntity] = []
     @Published var savedWatchlistItems: [WatchlistModel] = []
+    @Published var savedUserRatingsEntites: [RatedMovieEntity] = []
+    @Published var savedUserRatingsItems: [RatedItemModel] = []
     var movieDataService = MovieDataService()
     
     var cancellables = Set<AnyCancellable>()
@@ -27,8 +29,10 @@ class CoreDataManager: ObservableObject {
                 print("ERROR LOADING CORE DATA> \(error)")
             }
         }
+        addRatedItemSubscriber()
         addWatchListSubscriber()
         savedWatchlistEntities = fetchWatchlistEntities()
+        savedUserRatingsEntites = fetchUserRatings()
     }
     
     
@@ -37,9 +41,48 @@ class CoreDataManager: ObservableObject {
         do {
             return try container.viewContext.fetch(request)
         } catch let error {
-            print("Error Fetching WatchlistEntities. \(error)")
+            print("Error fetching WatchlistEntities. \(error)")
             return []
         }
+    }
+    
+    func fetchUserRatings() -> [RatedMovieEntity] {
+        let request = NSFetchRequest<RatedMovieEntity>(entityName: "RatedMovieEntity")
+        do {
+            return try container.viewContext.fetch(request)
+        } catch let error {
+            print("Error fetching RatedMovieEntity. \(error)")
+            return []
+        }
+    }
+    
+    func addRatedMovieEntity(id: Int, title: String, posterPath: String, rate: Int) {
+        if savedUserRatingsEntites.contains(where: { $0.id == Int64(id) }) {
+            guard let entity = savedUserRatingsEntites.first(where: { $0.id == Int64(id) }) else { return }
+            container.viewContext.delete(entity)
+            let newEntity = RatedMovieEntity(context: container.viewContext)
+            newEntity.id = Int64(id)
+            newEntity.title = title
+            newEntity.posterPath = posterPath
+            newEntity.userRating = Int16(rate)
+            saveData()
+            savedUserRatingsEntites = fetchUserRatings()
+        } else {
+            let newEntity = RatedMovieEntity(context: container.viewContext)
+            newEntity.id = Int64(id)
+            newEntity.title = title
+            newEntity.posterPath = posterPath
+            newEntity.userRating = Int16(rate)
+            saveData()
+            savedUserRatingsEntites = fetchUserRatings()
+        }
+    }
+    
+    func removeRatedMovieEntity(id: Int) {
+        guard let entity = savedUserRatingsEntites.first(where: { $0.id == Int64(id) }) else { return }
+        container.viewContext.delete(entity)
+        saveData()
+        savedUserRatingsEntites = fetchUserRatings()
     }
     
     func addWatchlistEntity(id: Int, title: String, posterPath: String, voteAverage: Double) {
@@ -98,6 +141,26 @@ class CoreDataManager: ObservableObject {
             }
             .sink { value in
                 self.savedWatchlistItems = value
+            }
+            .store(in: &cancellables)
+    }
+    
+    func addRatedItemSubscriber() {
+        $savedUserRatingsEntites
+            .map { (entities) -> [RatedItemModel] in
+                var items: [RatedItemModel] = []
+                for ent in entities {
+                    let newItem = RatedItemModel(
+                        id: Int(ent.id),
+                        title: ent.title ?? "",
+                        posterPath: ent.posterPath ?? "",
+                        userRate: Int(ent.userRating))
+                    items.append(newItem)
+                }
+                return items
+            }
+            .sink { value in
+                self.savedUserRatingsItems = value
             }
             .store(in: &cancellables)
     }
