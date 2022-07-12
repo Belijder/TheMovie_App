@@ -64,7 +64,6 @@ struct WatchlistViewSegment: View {
                     LazyHStack {
                         ForEach(coreDataManager.savedWatchlistItems) { movie in
                             WatchlistPosterView(movie: movie, movieDataService: movieDataService)
-                            //PortraitStyleMovieCell(movie: movie, movieDataService: movieDataService)
                         }
                     }
                     .padding(.leading, 8)

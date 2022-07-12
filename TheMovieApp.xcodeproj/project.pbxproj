@@ -238,7 +238,6 @@
 				23A0DABF27E3AF9300F3D878 /* GenresCell.swift */,
 				23F903FB27CD422D00A9FE58 /* PortraitStyleMovieCell.swift */,
 				238D0FF5287B526500F79A20 /* WatchlistPosterView.swift */,
-				238D0FF7287B52F700F79A20 /* WatchlistPosterViewModel.swift */,
 				23F9040627CFFE4C00A9FE58 /* WatchlistCornerButton.swift */,
 				23DF0D512854DCB60051A787 /* FavoriteButton.swift */,
 				23F9040227CEAB1D00A9FE58 /* HeadLineRow.swift */,
@@ -320,6 +319,7 @@
 				236F40292861865B0069542A /* CastMemberDetailViewModel.swift */,
 				239C6D20286A235A0032C032 /* SearchMovieViewModel.swift */,
 				239C6D24286B8E1C0032C032 /* SearchMovieCellViewModel.swift */,
+				238D0FF7287B52F700F79A20 /* WatchlistPosterViewModel.swift */,
 				239C6D3628717CE30032C032 /* ReviewsViewModel.swift */,
 			);
 			path = ViewModels;

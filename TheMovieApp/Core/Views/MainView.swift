@@ -22,35 +22,43 @@ struct MainView: View {
     @State var showShortDetailItemView = false
     
     var body: some View {
-        ScrollView {
-            WatchlistViewSegment(movieDataService: movieDataService)
-                .padding(.bottom, 10)
-            VStack(spacing: 10) {
-                HeadLineRow(context: "Popular Movies")
-                    .padding(.leading, 8)
-                    ScrollView(.horizontal) {
-                        LazyHStack {
-                            ForEach(0..<mainViewVM.popularMovies.count, id: \.self) { index in
-                                PortraitStyleMovieCell(movie: mainViewVM.popularMovies[index], movieDataService: movieDataService)
-                                    .onTapGesture {
-                                        selectedItem = index
-                                        showShortDetailItemView = true
-                                    }
-                            }
-                            .fullScreenCover(isPresented: $showShortDetailItemView) {
-                                ShortDetailItemView(title: "Popular Movies", items: mainViewVM.popularMovies, currentItem: selectedItem, movieDataService: movieDataService)
-                            }
-                        }
+        NavigationView {
+        VStack(spacing: 0) {
+            Divider()
+                .foregroundColor(.clear)
+            ScrollView {
+                WatchlistViewSegment(movieDataService: movieDataService)
+                    .padding(.bottom, 10)
+                VStack(spacing: 10) {
+                    HeadLineRow(context: "Popular Movies")
                         .padding(.leading, 8)
-                    }
-            }
-            .padding(.init(top: 5, leading: 0, bottom: 15, trailing: 0))
-            .background(alignment: .center) {
-                Color.secondary.opacity(0.1)
+                        ScrollView(.horizontal) {
+                            LazyHStack {
+                                ForEach(0..<mainViewVM.popularMovies.count, id: \.self) { index in
+                                    PortraitStyleMovieCell(movie: mainViewVM.popularMovies[index], movieDataService: movieDataService)
+                                        .onTapGesture {
+                                            selectedItem = index
+                                            showShortDetailItemView = true
+                                        }
+                                }
+                                .fullScreenCover(isPresented: $showShortDetailItemView) {
+                                    ShortDetailItemView(title: "Popular Movies", items: mainViewVM.popularMovies, currentItem: selectedItem, movieDataService: movieDataService)
+                                }
+                            }
+                            .padding(.leading, 8)
+                        }
+                }
+                .padding(.init(top: 5, leading: 0, bottom: 15, trailing: 0))
+                .background(alignment: .center) {
+                    Color.secondary.opacity(0.1)
+                }
             }
         }
         .task {
             await mainViewVM.getPopularMovies()
+        }
+        .navigationBarTitle("Home")
+        .navigationBarHidden(true)
         }
     }
 }
