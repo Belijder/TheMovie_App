@@ -10,24 +10,30 @@ import SwiftUI
 @main
 struct TheMovieAppApp: App {
     
-    @StateObject var movieDataServis = MovieDataService()
+    @StateObject var movieDataService = MovieDataService()
     @StateObject var coreDataManager = CoreDataManager()
     
     var body: some Scene {
         WindowGroup {
             TabView {
-                MainView(movieDataSerice: movieDataServis)
+                MainView(movieDataSerice: movieDataService)
                     .tabItem {
                         Image(systemName: "house.fill")
                         Text("Home")
                     }
                     .tag(0)
-                SearchMovieView(movieDataService: movieDataServis)
+                SearchMovieView(movieDataService: movieDataService)
                     .tabItem {
-                        Image(systemName: "film")
-                        Text("Search Movie")
+                        Image(systemName: "magnifyingglass")
+                        Text("Search")
                     }
                     .tag(1)
+                UserItemsView(coreDataManager: coreDataManager, movieDataService: movieDataService)
+                    .tabItem {
+                        Image(systemName: "person.fill")
+                        Text("You")
+                    }
+                    .tag(2)
             }
             .environmentObject(coreDataManager)
             .accentColor(.yellow)
