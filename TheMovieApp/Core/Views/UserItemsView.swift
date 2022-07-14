@@ -15,10 +15,16 @@ struct UserItemsView: View {
     @StateObject var vm: UserItemsViewModel
     
     var body: some View {
-        ScrollView() {
-            VStack(spacing: 10) {
-            WatchlistViewSegment(movieDataService: vm.movieDataService)
+        NavigationView {
+            VStack {
+                ScrollView() {
+                    VStack(spacing: 10) {
+                        WatchlistViewSegment(movieDataService: vm.movieDataService)
+                        FavoritePersonsSegment(movieDataService: vm.movieDataService, persons: vm.favoritePersons)
+                    }
+                }
             }
+            .navigationBarHidden(true)
         }
     }
 }
