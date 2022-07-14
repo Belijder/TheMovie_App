@@ -134,7 +134,7 @@ class CoreDataManager: ObservableObject {
         guard let entity = savedFavoritePeopleEntities.first(where: { $0.id == Int32(id) }) else { return }
         container.viewContext.delete(entity)
         saveData()
-        savedUserRatingsEntites = fetchUserRatings()
+        savedFavoritePeopleEntities = fetchUserFavorites()
     }
     
     //MARK: Others

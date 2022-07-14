@@ -11,13 +11,17 @@ struct FavoriteButton: View {
     
     @EnvironmentObject var coreDataManager: CoreDataManager
     
-    let person: PersonDetails
+    //let person: PersonDetails
+    let id: Int
+    let name: String
+    let profilePath: String
+    let placeOfBirth: String
     
     var body: some View {
-        if person.id > 0 {
-            if coreDataManager.savedFavoritePeopleItems.contains(where: { $0.id == person.id }) {
+        if id > 0 {
+            if coreDataManager.savedFavoritePeopleItems.contains(where: { $0.id == id }) {
                 Button {
-                    coreDataManager.removeFavoritePeopleEntity(id: person.id)
+                    coreDataManager.removeFavoritePeopleEntity(id: id)
                 } label: {
                     ZStack {
                         Circle()
@@ -31,7 +35,7 @@ struct FavoriteButton: View {
                 }
             } else {
                 Button  {
-                    coreDataManager.addFavoritePeopleEntity(id: person.id, name: person.name, profilePath: person.profilePath, placeOfBirth: person.placeOfBirth)
+                    coreDataManager.addFavoritePeopleEntity(id: id, name: name, profilePath: profilePath, placeOfBirth: placeOfBirth)
                 } label: {
                     ZStack {
                         Circle()
@@ -51,7 +55,7 @@ struct FavoriteButton: View {
 
 struct FavoriteButton_Previews: PreviewProvider {
     static var previews: some View {
-        FavoriteButton(person: dev.person)
+        FavoriteButton(id: dev.person.id, name: dev.person.name, profilePath: dev.person.profilePath, placeOfBirth: dev.person.placeOfBirth)
     }
 }
 }

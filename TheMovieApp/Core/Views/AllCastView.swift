@@ -46,7 +46,11 @@ struct AllCastView: View {
                                 ZStack(alignment: .trailing) {
                                     ZStack(alignment: .bottomLeading) {
                                         CastCellView(movieDataService: vm.movieDataService, person: castMember)
-                                        FavoriteButton(person: vm.personsDetailsWithCharacters[index])
+                                        FavoriteButton(id: vm.personsDetailsWithCharacters[index].id,
+                                                       name: vm.personsDetailsWithCharacters[index].name,
+                                                       profilePath: vm.personsDetailsWithCharacters[index].profilePath,
+                                                       placeOfBirth: vm.personsDetailsWithCharacters[index].placeOfBirth
+                                        )
                                             .padding(5)
                                     }
                                     Image(systemName: "chevron.forward")

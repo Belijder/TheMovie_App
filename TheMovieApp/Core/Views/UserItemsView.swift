@@ -15,8 +15,10 @@ struct UserItemsView: View {
     @StateObject var vm: UserItemsViewModel
     
     var body: some View {
-        VStack {
-
+        ScrollView() {
+            VStack(spacing: 10) {
+            WatchlistViewSegment(movieDataService: vm.movieDataService)
+            }
         }
     }
 }
