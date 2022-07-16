@@ -51,13 +51,13 @@ extension FavoritePersonView {
         AsyncImage(url: vm.url) { image in
                 image
                     .resizable()
-                    .frame(width: 180, height: 270)
+                    .frame(width: 160, height: 240)
                     .scaledToFill()
         } placeholder: {
             ZStack {
                 Rectangle()
                     .foregroundColor(Color.secondary)
-                    .frame(width: 180, height: 270)
+                    .frame(width: 160, height: 240)
                 Image(systemName: "person.fill")
                     .font(.largeTitle)
                     .foregroundColor(.primary)
@@ -70,7 +70,6 @@ extension FavoritePersonView {
             ZStack(alignment: .bottomLeading) {
                 profileImage
                 FavoriteButton(id: vm.person.id, name: vm.person.name, profilePath: vm.person.profilePath, placeOfBirth: vm.person.placeOfBirth)
-                    .scaleEffect(1.2)
                     .padding(5)
             }
             HStack {
@@ -88,7 +87,7 @@ extension FavoritePersonView {
                 .padding(.horizontal, 8)
                 Spacer()
             }
-            .frame(width: 180)
+            .frame(width: 160)
             .background(alignment: .center) {
                 Rectangle()
                     .cornerRadius(10, corners: [.bottomLeft, .bottomRight])

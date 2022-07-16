@@ -25,13 +25,13 @@ struct PortraitStyleMovieCell: View {
                     AsyncImage(url: url) { image in
                             image
                                 .resizable()
-                                .frame(width: 180, height: 270)
+                                .frame(width: 160, height: 240)
                                 .scaledToFill()
                     } placeholder: {
                         ZStack {
                             Rectangle()
                                 .foregroundColor(Color.secondary)
-                                .frame(width: 180, height: 270)
+                                .frame(width: 160, height: 240)
                             ProgressView()
                         }
                         
@@ -57,7 +57,7 @@ struct PortraitStyleMovieCell: View {
                         .padding(.vertical, 8)
                         Spacer()
                     }
-                    .frame(width: 180)
+                    .frame(width: 160)
                     .background(alignment: .center) {
                         Rectangle()
                             .cornerRadius(10, corners: [.bottomLeft, .bottomRight])
