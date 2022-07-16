@@ -1,0 +1,89 @@
+//
+//  RatingsBanner.swift
+//  TheMovieApp
+//
+//  Created by Kamila Mroziewska on 14/07/2022.
+//
+
+import SwiftUI
+
+struct RatingsBanner: View {
+    
+    @EnvironmentObject var coreDataManager: CoreDataManager
+    @ObservedObject var movieDataService: MovieDataService
+    
+    
+    var body: some View {
+        HStack(spacing: 10) {
+            posters
+            VStack(alignment: .leading) {
+                Text("Ratings")
+                    .foregroundColor(.primary)
+                Text("\(coreDataManager.savedUserRatingsItems.count)")
+                    .foregroundColor(.secondary)
+            }
+            Spacer()
+        }
+        .padding(.leading, 20)
+        .frame(maxWidth: .infinity)
+        .frame(height: 120)
+        .background(Color.secondary.opacity(0.2))
+        .clipShape(RoundedRectangle(cornerRadius: 10))
+        .padding(.horizontal, 8)
+        .padding(.vertical, 10)
+        .background(Color.secondary.opacity(0.1))
+    }
+}
+
+struct RatingsBanner_Previews: PreviewProvider {
+    static var previews: some View {
+        RatingsBanner(movieDataService: MovieDataService())
+    }
+}
+
+extension RatingsBanner {
+    private var posters: some View {
+        ZStack {
+            HStack {
+                Spacer()
+                ZStack {
+                    Poster(movieDataService: movieDataService,
+                           movieID: coreDataManager.savedUserRatingsItems[coreDataManager.savedUserRatingsItems.count - 3].id
+                    )
+                    Color.black.opacity(0.4)
+                        .frame(width: 60, height: 90)
+                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                }
+                
+            }
+            ZStack {
+                Color.black
+                    .frame(width: 60, height: 90)
+                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                    .offset(x: 1, y: 0)
+                Poster(movieDataService: movieDataService,
+                       movieID: coreDataManager.savedUserRatingsItems[coreDataManager.savedUserRatingsItems.count - 2].id
+                )
+                Color.black.opacity(0.2)
+                    .frame(width: 60, height: 90)
+                    .clipShape(RoundedRectangle(cornerRadius: 10))
+            }
+            
+            
+            HStack {
+                ZStack{
+                    Color.black
+                        .frame(width: 60, height: 90)
+                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                        .offset(x: 1, y: 0)
+                    Poster(movieDataService: movieDataService,
+                           movieID: coreDataManager.savedUserRatingsItems[coreDataManager.savedUserRatingsItems.count - 1].id
+                    )
+                }
+                Spacer()
+            }
+        }
+        .frame(width: 110)
+    }
+}
+
