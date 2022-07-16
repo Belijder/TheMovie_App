@@ -35,11 +35,11 @@ class CastMemberDetailViewModel: ObservableObject {
                 let itemDetails = await movieDataService.fetchMovieDetails(id: credit.id)
         
                 if let itemDetails = itemDetails {
-                    let topCast = await movieDataService.makeTopCast(for: credit.id)
-                    let reviews = await movieDataService.fetchReviews(movieID: credit.id)
-                    let credits = await movieDataService.fetchCreditsfor(movieID: credit.id)
+                    async let topCast =  movieDataService.makeTopCast(for: credit.id)
+                    async let reviews =  movieDataService.fetchReviews(movieID: credit.id)
+                    async let credits =  movieDataService.fetchCreditsfor(movieID: credit.id)
                     let backdropPath = itemDetails.backdropPath
-                    let newCompexDetail = ComplexDataForLongDetailView(topCastArray: topCast, backdropPath: backdropPath, credits: credits, itemDetails: itemDetails, reviews: reviews, character: character)
+                    let newCompexDetail = await ComplexDataForLongDetailView(topCastArray: topCast, backdropPath: backdropPath, credits: credits, itemDetails: itemDetails, reviews: reviews, character: character)
                     complexDetailsForCredits.append(newCompexDetail)
                 }
             }

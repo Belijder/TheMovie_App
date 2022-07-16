@@ -33,14 +33,6 @@ class AllCastViewModel: ObservableObject {
     }
     
     
-//    var filteredCast: [PersonDetails] {
-//        if searchText.isEmpty {
-//            return personsDetailsWithCharacters
-//        } else {
-//            return personsDetailsWithCharacters.filter { $0.name.localizedCaseInsensitiveContains(searchText) }
-//        }
-//    }
-    
     var filteredCast: [CastMember] {
         if searchText.isEmpty {
             return cast

@@ -36,31 +36,33 @@ struct AllCastView: View {
                 TextField("Search person...", text: $vm.searchText)
                     .padding(.horizontal)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
-                
                 ScrollView {
-                    ForEach(vm.filteredCast) { castMember in
-                        if let index = vm.findIndexForPersonDetails(id: castMember.id) {
-                            NavigationLink {
-                                CastMemberDetailView(person: vm.personsDetailsWithCharacters[index], movieDataService: vm.movieDataService)
-                            } label: {
-                                ZStack(alignment: .trailing) {
-                                    ZStack(alignment: .bottomLeading) {
-                                        CastCellView(movieDataService: vm.movieDataService, person: castMember)
-                                        FavoriteButton(id: vm.personsDetailsWithCharacters[index].id,
-                                                       name: vm.personsDetailsWithCharacters[index].name,
-                                                       profilePath: vm.personsDetailsWithCharacters[index].profilePath,
-                                                       placeOfBirth: vm.personsDetailsWithCharacters[index].placeOfBirth
-                                        )
+                    LazyVStack {
+                        ForEach(vm.filteredCast) { castMember in
+                            if let index = vm.findIndexForPersonDetails(id: castMember.id) {
+                                NavigationLink {
+                                    CastMemberDetailView(person: vm.personsDetailsWithCharacters[index], movieDataService: vm.movieDataService)
+                                } label: {
+                                    ZStack(alignment: .trailing) {
+                                        ZStack(alignment: .bottomLeading) {
+                                            CastCellView(movieDataService: vm.movieDataService, person: castMember)
+                                            FavoriteButton(id: vm.personsDetailsWithCharacters[index].id,
+                                                           name: vm.personsDetailsWithCharacters[index].name,
+                                                           profilePath: vm.personsDetailsWithCharacters[index].profilePath,
+                                                           placeOfBirth: vm.personsDetailsWithCharacters[index].placeOfBirth
+                                            )
                                             .padding(5)
+                                        }
+                                        Image(systemName: "chevron.forward")
+                                            .font(.headline)
+                                            .foregroundColor(.primary)
+                                            .padding()
                                     }
-                                    Image(systemName: "chevron.forward")
-                                        .font(.headline)
-                                        .foregroundColor(.primary)
-                                        .padding()
                                 }
                             }
-                        } else {
-                            CastCellView(movieDataService: vm.movieDataService, person: castMember)
+                            else {
+                                CastCellView(movieDataService: vm.movieDataService, person: castMember)
+                            }
                         }
                     }
                 }
