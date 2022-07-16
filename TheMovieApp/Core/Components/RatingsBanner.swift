@@ -15,6 +15,7 @@ struct RatingsBanner: View {
     
     var body: some View {
         HStack(spacing: 10) {
+            
             posters
             VStack(alignment: .leading) {
                 Text("Ratings")
@@ -47,9 +48,13 @@ extension RatingsBanner {
             HStack {
                 Spacer()
                 ZStack {
-                    Poster(movieDataService: movieDataService,
-                           movieID: coreDataManager.savedUserRatingsItems[coreDataManager.savedUserRatingsItems.count - 3].id
-                    )
+                    if coreDataManager.savedUserRatingsItems.count > 2 {
+                        Poster(movieDataService: movieDataService,
+                               movieID: coreDataManager.savedUserRatingsItems[coreDataManager.savedUserRatingsItems.count - 3].id
+                        )
+                    } else {
+                        placeholder
+                    }
                     Color.black.opacity(0.4)
                         .frame(width: 60, height: 90)
                         .clipShape(RoundedRectangle(cornerRadius: 10))
@@ -57,13 +62,14 @@ extension RatingsBanner {
                 
             }
             ZStack {
-                Color.black
-                    .frame(width: 60, height: 90)
-                    .clipShape(RoundedRectangle(cornerRadius: 10))
-                    .offset(x: 1, y: 0)
-                Poster(movieDataService: movieDataService,
-                       movieID: coreDataManager.savedUserRatingsItems[coreDataManager.savedUserRatingsItems.count - 2].id
-                )
+                posterShadow
+                if coreDataManager.savedUserRatingsItems.count > 1 {
+                    Poster(movieDataService: movieDataService,
+                           movieID: coreDataManager.savedUserRatingsItems[coreDataManager.savedUserRatingsItems.count - 2].id
+                    )
+                } else {
+                    placeholder
+                }
                 Color.black.opacity(0.2)
                     .frame(width: 60, height: 90)
                     .clipShape(RoundedRectangle(cornerRadius: 10))
@@ -72,18 +78,38 @@ extension RatingsBanner {
             
             HStack {
                 ZStack{
-                    Color.black
-                        .frame(width: 60, height: 90)
-                        .clipShape(RoundedRectangle(cornerRadius: 10))
-                        .offset(x: 1, y: 0)
-                    Poster(movieDataService: movieDataService,
-                           movieID: coreDataManager.savedUserRatingsItems[coreDataManager.savedUserRatingsItems.count - 1].id
-                    )
+                    posterShadow
+                    if coreDataManager.savedUserRatingsItems.count > 0 {
+                        Poster(movieDataService: movieDataService,
+                               movieID: coreDataManager.savedUserRatingsItems[coreDataManager.savedUserRatingsItems.count - 1].id
+                        )
+                    } else {
+                        placeholder
+                    }
                 }
                 Spacer()
             }
         }
         .frame(width: 110)
     }
+    
+    private var placeholder: some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: 10)
+                .fill(Color.secondary)
+                .frame(width: 60, height: 90)
+            Image(systemName: "photo.fill")
+                .foregroundColor(.primary)
+        }
+    }
+    
+    private var posterShadow: some View {
+        Color.black
+            .frame(width: 60, height: 90)
+            .clipShape(RoundedRectangle(cornerRadius: 10))
+            .offset(x: 1, y: 0)
+    }
 }
+
+
 

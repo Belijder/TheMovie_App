@@ -12,4 +12,10 @@ struct RatedItemModel: Identifiable, Equatable, Hashable {
     let title: String
     let posterPath: String
     let userRate: Int
+    let runtime: Int
+    let releaseDate: String
+    let voteAverage: Double
+    let ratingDate: Date
+    
+    
 }

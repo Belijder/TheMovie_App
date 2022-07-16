@@ -79,7 +79,7 @@ class CoreDataManager: ObservableObject {
         }
     }
     
-    func addRatedMovieEntity(id: Int, title: String, posterPath: String, rate: Int) {
+    func addRatedMovieEntity(id: Int, title: String, posterPath: String, rate: Int, date: Date, voteAverage: Double, runtime: Int, releaseDate: String) {
         if savedUserRatingsEntites.contains(where: { $0.id == Int64(id) }) {
             guard let entity = savedUserRatingsEntites.first(where: { $0.id == Int64(id) }) else { return }
             container.viewContext.delete(entity)
@@ -88,6 +88,10 @@ class CoreDataManager: ObservableObject {
             newEntity.title = title
             newEntity.posterPath = posterPath
             newEntity.userRating = Int16(rate)
+            newEntity.voteAverage = voteAverage
+            newEntity.ratingDate = date
+            newEntity.runtime = Int16(runtime)
+            newEntity.releaseDate = releaseDate
             saveData()
             savedUserRatingsEntites = fetchUserRatings()
         } else {
@@ -96,6 +100,10 @@ class CoreDataManager: ObservableObject {
             newEntity.title = title
             newEntity.posterPath = posterPath
             newEntity.userRating = Int16(rate)
+            newEntity.voteAverage = voteAverage
+            newEntity.ratingDate = date
+            newEntity.runtime = Int16(runtime)
+            newEntity.releaseDate = releaseDate
             saveData()
             savedUserRatingsEntites = fetchUserRatings()
         }
@@ -147,8 +155,29 @@ class CoreDataManager: ObservableObject {
         }
     }
     
-    func removeAllEntities() {
-        let fetchRequest = NSFetchRequest<WatchListEntity>(entityName: "WatchListEntity")
+    
+    enum Entities: String {
+        case watchlist = "WatchListEntity"
+        case ratings = "RatedMovieEntity"
+        case favorites = "FavoritePeopleEntity"
+    }
+    
+//    func removeAllEntities {
+//        let fetchRequest = NSFetchRequest<WatchListEntity>(entityName: "WatchListEntity")
+//        fetchRequest.includesPropertyValues = false
+//        do {
+//            let items = try container.viewContext.fetch(fetchRequest) as [NSManagedObject]
+//            for item in items {
+//                container.viewContext.delete(item)
+//            }
+//        } catch let error {
+//            print("Error when try to delete. \(error)")
+//        }
+//        saveData()
+//    }
+    
+    func removeAllEntities(name: Entities) {
+        let fetchRequest = NSFetchRequest<WatchListEntity>(entityName: name.rawValue)
         fetchRequest.includesPropertyValues = false
         do {
             let items = try container.viewContext.fetch(fetchRequest) as [NSManagedObject]
@@ -159,7 +188,6 @@ class CoreDataManager: ObservableObject {
             print("Error when try to delete. \(error)")
         }
         saveData()
-        
     }
     
     //MARK: Subscribers
@@ -193,7 +221,11 @@ class CoreDataManager: ObservableObject {
                         id: Int(ent.id),
                         title: ent.title ?? "",
                         posterPath: ent.posterPath ?? "",
-                        userRate: Int(ent.userRating)
+                        userRate: Int(ent.userRating),
+                        runtime: Int(ent.runtime),
+                        releaseDate: ent.releaseDate ?? "",
+                        voteAverage: ent.voteAverage,
+                        ratingDate: ent.ratingDate ?? Date.now
                     )
                     items.append(newItem)
                 }

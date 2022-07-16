@@ -106,7 +106,7 @@ extension RateView {
     
     private var rateButton: some View {
         Button {
-            coreDataManager.addRatedMovieEntity(id: movie.id, title: movie.title, posterPath: movie.posterPath ?? "", rate: rating)
+            coreDataManager.addRatedMovieEntity(id: movie.id, title: movie.title, posterPath: movie.posterPath ?? "", rate: rating, date: Date.now, voteAverage: movie.voteAverage, runtime: movie.runtime ?? 0, releaseDate: movie.releaseDate)
             dismiss()
         } label: {
             if rating == 0 {

@@ -25,6 +25,7 @@ struct Poster: View {
                 ZStack {
                     RoundedRectangle(cornerRadius: 10)
                         .fill(Color.secondary)
+                        .frame(width: 60, height: 90)
                     Image(systemName: "photo.fill")
                         .foregroundColor(.primary)
                 }

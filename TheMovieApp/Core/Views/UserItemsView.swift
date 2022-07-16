@@ -19,7 +19,11 @@ struct UserItemsView: View {
             VStack {
                 ScrollView() {
                     VStack(spacing: 10) {
-                        RatingsBanner(movieDataService: vm.movieDataService)
+                        NavigationLink {
+                            RatingsView(movieDataService: vm.movieDataService)
+                        } label: {
+                            RatingsBanner(movieDataService: vm.movieDataService)
+                        }
                         WatchlistViewSegment(movieDataService: vm.movieDataService)
                         FavoritePersonsSegment(movieDataService: vm.movieDataService, persons: vm.favoritePersons)
                     }
