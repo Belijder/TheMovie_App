@@ -13,9 +13,15 @@ struct HorizontalStyleMovieCell: View {
     
     var body: some View {
         ZStack {
-            if vm.details != nil {
+            if vm.complexdetails != nil {
                 NavigationLink {
-                    Text(vm.title)
+                    LongDetailView(movieDataService: vm.movieDataService,
+                                   topCastArray: vm.complexdetails!.topCastArray,
+                                   backdropPath: vm.complexdetails!.backdropPath,
+                                   credits: vm.complexdetails!.credits,
+                                   itemDetails: vm.complexdetails!.itemDetails,
+                                   reviews: vm.complexdetails!.reviews
+                    )
                 } label: {
                     HStack(spacing: 10) {
                         ZStack {
@@ -71,7 +77,7 @@ struct HorizontalStyleMovieCell: View {
             await vm.getURL()
         }
         .task {
-            await vm.getDetails()
+            await vm.getComplexDetails()
         }
         
     }

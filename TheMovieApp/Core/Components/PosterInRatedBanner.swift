@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct Poster: View {
+struct PosterInRatedBanner: View {
     
     @EnvironmentObject var coreDataManager: CoreDataManager
     @ObservedObject var movieDataService: MovieDataService
@@ -40,6 +40,6 @@ struct Poster: View {
 
 struct Poster_Previews: PreviewProvider {
     static var previews: some View {
-        Poster(movieDataService: MovieDataService(), movieID: dev.itemDetails.id)
+        PosterInRatedBanner(movieDataService: MovieDataService(), movieID: dev.itemDetails.id)
     }
 }

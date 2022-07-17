@@ -26,7 +26,9 @@ struct FilmographyCell: View {
                         Rectangle()
                             .foregroundColor(Color.secondary)
                             .frame(width: 90, height: 135)
-                        ProgressView()
+                        Image(systemName: "photo")
+                            .foregroundColor(.primary)
+                            .font(.title)
                     }
                 }
                 Text(movie.title)

@@ -22,14 +22,14 @@ class HorizontalStyleMovieCellViewModel: ObservableObject {
     @ObservedObject var movieDataService: MovieDataService
     
     @Published var url = URL(string: "")
-    @Published var details: ItemDetails?
+    @Published var complexdetails: ComplexDataForLongDetailView?
     
     func getURL() async {
         url = await movieDataService.makePosterImageURL(movieId: id)
     }
     
-    func getDetails() async {
-        details = await movieDataService.fetchMovieDetails(id: id)
+    func getComplexDetails() async {
+        complexdetails = await movieDataService.fetchComplexDataForLongDetailView(id: id)
     }
 
     

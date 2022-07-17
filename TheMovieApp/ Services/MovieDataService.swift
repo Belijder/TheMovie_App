@@ -49,6 +49,33 @@ actor MovieDataService: ObservableObject {
             return nil
         }
     }
+    
+    func fetchTopRatedMovies() async -> [TopRatedMovie] {
+        var movies = [TopRatedMovie]()
+        if let url = FetchManager.shared.makeURL(with: .topRatedMovies, id: nil) {
+            do {
+                let response = try await URLSession.shared.decode(TopRatedMovies.self, from: url)
+                movies = response.results
+                return movies
+            } catch let error {
+                print("Error when try to fetch Top Rated Movies. ERROR: \(error)")
+                return movies
+            }
+        }
+        return movies
+    }
+    
+    func fetchComplexDataForLongDetailView(id: Int) async -> ComplexDataForLongDetailView? {
+        async let topCastArray = makeTopCast(for: id)
+        async let credits = fetchCreditsfor(movieID: id)
+        async let itemDetails = fetchMovieDetails(id: id)
+        async let reviews = fetchReviews(movieID: id)
+        if let itemDetails = await itemDetails {
+            let data = await ComplexDataForLongDetailView(topCastArray: topCastArray, backdropPath: itemDetails.backdropPath, credits: credits, itemDetails: itemDetails, reviews: reviews, character: "")
+            return data
+        }
+        return nil
+    }
         
     func fetchPopularMoviesDetails(from popularMovies: [PopularMovie]) async -> [ItemDetails] {
         var result: [ItemDetails] = []

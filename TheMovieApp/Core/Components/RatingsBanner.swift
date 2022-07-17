@@ -49,7 +49,7 @@ extension RatingsBanner {
                 Spacer()
                 ZStack {
                     if coreDataManager.savedUserRatingsItems.count > 2 {
-                        Poster(movieDataService: movieDataService,
+                        PosterInRatedBanner(movieDataService: movieDataService,
                                movieID: coreDataManager.savedUserRatingsItems[coreDataManager.savedUserRatingsItems.count - 3].id
                         )
                     } else {
@@ -64,7 +64,7 @@ extension RatingsBanner {
             ZStack {
                 posterShadow
                 if coreDataManager.savedUserRatingsItems.count > 1 {
-                    Poster(movieDataService: movieDataService,
+                    PosterInRatedBanner(movieDataService: movieDataService,
                            movieID: coreDataManager.savedUserRatingsItems[coreDataManager.savedUserRatingsItems.count - 2].id
                     )
                 } else {
@@ -80,7 +80,7 @@ extension RatingsBanner {
                 ZStack{
                     posterShadow
                     if coreDataManager.savedUserRatingsItems.count > 0 {
-                        Poster(movieDataService: movieDataService,
+                        PosterInRatedBanner(movieDataService: movieDataService,
                                movieID: coreDataManager.savedUserRatingsItems[coreDataManager.savedUserRatingsItems.count - 1].id
                         )
                     } else {
