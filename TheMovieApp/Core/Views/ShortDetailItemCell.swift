@@ -16,7 +16,6 @@ struct ShortDetailItemCell: View {
     let item: ItemDetails
     let reviews: Reviews
     @State private var showVideoView = false
-    @State private var showAllCastView = false
     @State private var showfullDetailView = false
     @State private var showRatingView = false
     
@@ -227,17 +226,14 @@ extension ShortDetailItemCell {
                     .bold()
                     .foregroundColor(.primary)
                 Spacer()
-                Button {
-                    //Show all cast
-                    self.showAllCastView = true
+                
+                NavigationLink {
+                    AllCastView(movieDataService: movieDataService, cast: credits.cast, crew: credits.crew, title: item.title, date: item.releaseDate)
                 } label: {
                     Text("See All")
                         .font(.headline)
                         .foregroundColor(.blue)
                         .fontWeight(.light)
-                }
-                .fullScreenCover(isPresented: $showAllCastView) {
-                    AllCastView(movieDataService: movieDataService, cast: credits.cast, crew: credits.crew, title: item.title, date: item.releaseDate)
                 }
             }
             .padding(.horizontal)
