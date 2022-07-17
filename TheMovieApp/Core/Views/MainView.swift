@@ -35,14 +35,11 @@ struct MainView: View {
                         ScrollView(.horizontal) {
                             LazyHStack {
                                 ForEach(0..<mainViewVM.popularMovies.count, id: \.self) { index in
-                                    PortraitStyleMovieCell(movie: mainViewVM.popularMovies[index], movieDataService: movieDataService)
-                                        .onTapGesture {
-                                            selectedItem = index
-                                            showShortDetailItemView = true
-                                        }
-                                }
-                                .fullScreenCover(isPresented: $showShortDetailItemView) {
-                                    ShortDetailItemView(title: "Popular Movies", items: mainViewVM.popularMovies, currentItem: selectedItem, movieDataService: movieDataService)
+                                    NavigationLink  {
+                                        ShortDetailItemView(title: "Popular Movies", items: mainViewVM.popularMovies, currentItem: index, movieDataService: movieDataService)
+                                    } label: {
+                                        PortraitStyleMovieCell(movie: mainViewVM.popularMovies[index], movieDataService: movieDataService)
+                                    }
                                 }
                             }
                             .padding(.leading, 8)

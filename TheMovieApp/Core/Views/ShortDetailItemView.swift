@@ -9,6 +9,39 @@ import SwiftUI
 import Introspect
 
 struct ShortDetailItemView: View {
+    @Environment(\.dismiss) var dismiss
+    @ObservedObject var movieDataService: MovieDataService
+    @StateObject var shortDetailItemViewViewModel: ShortDetailItemViewViewModel
+    
+    let title: String
+    let items: [ItemDetails]
+    @State var currentItem: Int
+    @State var scrolltoItem = 0
+
+    var body: some View {
+        ZStack {
+            Color.secondary.opacity(0.1)
+            VStack {
+                if shortDetailItemViewViewModel.isProgresViewEnabled {
+                    ProgressView()
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                } else {
+                    TabView(selection: $currentItem) {
+                        ForEach(0..<20) { index in
+                            ShortDetailItemCell(movieDataService: movieDataService, topCastArray: shortDetailItemViewViewModel.topCasts[index], backdropPath: items[index].backdropPath, credits: shortDetailItemViewViewModel.credits[index], item: items[index], reviews: shortDetailItemViewViewModel.reviews[items[index].id] ?? Reviews.example
+                            )
+                            .tag(index)
+                        }
+                    }
+                    .tabViewStyle(PageTabViewStyle(indexDisplayMode: .automatic))
+                }
+            }.task {
+                await shortDetailItemViewViewModel.fetchCastAndReviews()
+            }
+            .navigationBarTitle(title)
+            .navigationBarTitleDisplayMode(.inline)
+        }
+    }
     
     init(title: String, items: [ItemDetails], currentItem: Int, movieDataService: MovieDataService) {
         self.title = title
@@ -16,86 +49,6 @@ struct ShortDetailItemView: View {
         _currentItem = State(wrappedValue: currentItem)
         _shortDetailItemViewViewModel = StateObject(wrappedValue: ShortDetailItemViewViewModel(items: items))
         _movieDataService = ObservedObject(wrappedValue: movieDataService)
-        
-    }
-    @ObservedObject var movieDataService: MovieDataService
-    let title: String
-    
-    let items: [ItemDetails]
-    @State var currentItem: Int
-    @State var scrolltoItem = 0
-    @Environment(\.dismiss) var dismiss
-    
-    
-    @StateObject var shortDetailItemViewViewModel: ShortDetailItemViewViewModel
-
-    var body: some View {
-        NavigationView {
-            ZStack {
-                Color.secondary.opacity(0.1)
-                    .ignoresSafeArea(.all)
-                VStack {
-                    ZStack(alignment: .leading) {
-                        HStack {
-                            Spacer()
-                            Text(title)
-                                .foregroundColor(.primary)
-                                .font(.headline)
-                                .frame(maxWidth: .infinity)
-                                .padding(6)
-                            Spacer()
-                        }
-                        
-                        Button {
-                            dismiss()
-                        } label: {
-                            Image(systemName: "xmark")
-                                .foregroundColor(.primary)
-                                .font(.title3)
-                                .padding(.leading)
-                        }
-                        
-                    }
-                    if shortDetailItemViewViewModel.isProgresViewEnabled {
-                        ProgressView()
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    } else {
-                        ScrollView(.horizontal) {
-                            ScrollViewReader { proxy in
-                                LazyHStack(spacing:0) {
-                                    ForEach(0..<20) { index in
-                                        ShortDetailItemCell(movieDataService: movieDataService, topCastArray: shortDetailItemViewViewModel.topCasts[index], backdropPath: items[index].backdropPath, credits: shortDetailItemViewViewModel.credits[index], item: items[index], reviews: shortDetailItemViewViewModel.reviews[items[index].id] ?? Reviews.example)
-                                            .id(index)
-                                    }
-                                    .onChange(of: scrolltoItem) { value in
-                                        proxy.scrollTo(value, anchor: .center)
-                                    }
-                                    .onAppear {
-                                        scrolltoItem = currentItem
-                                    }
-                                    .padding(.horizontal, UIScreen.main.bounds.width * 0.05)
-                                    
-                                }
-                                
-                            }
-                        }
-                        .introspectScrollView { scrollView in
-                            scrollView.isPagingEnabled = true
-                        }
-                    }
-                }.task {
-                    await shortDetailItemViewViewModel.fetchCastAndReviews()
-                }
-                .navigationBarTitle("Recomended Films")
-                .navigationBarHidden(true)
-                // Zobaczyć czy to poniżej działa
-                .toolbar {
-                    ToolbarItem(placement: .principal) {
-                                    Text("dkd")
-                                }
-                }
-            }
-        }
         
     }
 }
