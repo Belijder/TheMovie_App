@@ -23,6 +23,7 @@ final class FetchManager {
         case personProfiles
         case movieCreditsforPerson = "/movie_credits"
         case topRatedMovies = "/movie/top_rated"
+        case recommendations = "/recommendations"
     }
     
     enum SearchEndPoints: String {
@@ -89,6 +90,11 @@ final class FetchManager {
             
         case .topRatedMovies:
             url = URL(string: baseURL + endPoint.rawValue + apiKey)
+            
+        case .recommendations:
+            if let id = id {
+                url = URL(string: "\(baseURL)/movie/\(id)\(endPoint.rawValue)\(apiKey)" )
+            }
             
         default:
             url = URL(string:"\(baseURL + endPoint.rawValue + apiKey)")!

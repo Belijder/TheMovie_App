@@ -65,6 +65,20 @@ actor MovieDataService: ObservableObject {
         return movies
     }
     
+    func fetchRecommendationsFor(id: Int) async -> [Recommendation] {
+        var movies = [Recommendation]()
+        if let url = FetchManager.shared.makeURL(with: .recommendations, id: id) {
+            do {
+                let response = try await URLSession.shared.decode(Recommendations.self, from: url)
+                movies = response.results
+            } catch let error {
+                print("Error when try to fetch recommendations for id: \(id). ERROR \(error)")
+                return movies
+            }
+        }
+        return movies
+    }
+    
     func fetchComplexDataForLongDetailView(id: Int) async -> ComplexDataForLongDetailView? {
         async let topCastArray = makeTopCast(for: id)
         async let credits = fetchCreditsfor(movieID: id)

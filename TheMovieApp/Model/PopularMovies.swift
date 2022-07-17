@@ -14,8 +14,10 @@ struct PopularMovies: Decodable {
 
 typealias SearchedMovie = PopularMovie
 typealias TopRatedMovie = PopularMovie
+typealias Recommendation = PopularMovie
 typealias SearchedMovies = PopularMovies
 typealias TopRatedMovies = PopularMovies
+typealias Recommendations = PopularMovies
 
 struct PopularMovie: Decodable, Identifiable, Equatable {
     

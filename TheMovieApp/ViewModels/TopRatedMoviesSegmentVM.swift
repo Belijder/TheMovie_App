@@ -11,7 +11,6 @@ import SwiftUI
 class TopRatedMoviesSegmentVM: ObservableObject {
     
     @Published var selectedItem = 0
-    @Published var showShortDetailItemView = false
     @Published var showProgressView = false
     @Published var topRatedMoviesDetails = [ItemDetails]()
     @ObservedObject var movieDataService: MovieDataService

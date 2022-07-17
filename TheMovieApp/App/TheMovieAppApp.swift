@@ -16,7 +16,7 @@ struct TheMovieAppApp: App {
     var body: some Scene {
         WindowGroup {
             TabView {
-                MainView(movieDataSerice: movieDataService)
+                MainView(movieDataSerice: movieDataService, coreDataManager: coreDataManager)
                     .tabItem {
                         Image(systemName: "house.fill")
                         Text("Home")

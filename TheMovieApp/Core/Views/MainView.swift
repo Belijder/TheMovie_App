@@ -8,14 +8,9 @@
 import SwiftUI
 
 struct MainView: View {
-    
-    init(movieDataSerice: MovieDataService) {
-        _mainViewVM = StateObject(wrappedValue: MainViewViewModel(movieDataService: movieDataSerice))
-        _movieDataService = ObservedObject(wrappedValue: movieDataSerice)
-    }
-    
     @StateObject var mainViewVM: MainViewViewModel
     @ObservedObject var movieDataService: MovieDataService
+    @ObservedObject var coreDataManager: CoreDataManager
     
     @State var url = URL(string: "")
     @State var selectedItem = 1
@@ -27,7 +22,7 @@ struct MainView: View {
             Divider()
                 .foregroundColor(.clear)
             ScrollView {
-                LazyVStack(spacing: 0) {
+                LazyVStack(spacing: 10) {
                     WatchlistViewSegment(movieDataService: movieDataService)
                         .padding(.bottom, 10)
                     VStack(spacing: 10) {
@@ -51,6 +46,9 @@ struct MainView: View {
                         Color.secondary.opacity(0.1)
                     }
                     TopRatedMoviesSegment(movieDataService: movieDataService)
+                    if coreDataManager.savedUserRatingsItems.contains(where: { $0.userRate > 7 }) {
+                        RecommendationsSegment(movieDataService: movieDataService, coreDataManager: coreDataManager)
+                    }
                 }
             }
         }
@@ -61,10 +59,16 @@ struct MainView: View {
         .navigationBarHidden(true)
         }
     }
+    
+    init(movieDataSerice: MovieDataService, coreDataManager: CoreDataManager) {
+        _mainViewVM = StateObject(wrappedValue: MainViewViewModel(movieDataService: movieDataSerice))
+        _movieDataService = ObservedObject(wrappedValue: movieDataSerice)
+        _coreDataManager = ObservedObject(wrappedValue: coreDataManager)
+    }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        MainView(movieDataSerice: MovieDataService())
+        MainView(movieDataSerice: MovieDataService(), coreDataManager: CoreDataManager())
     }
 }
