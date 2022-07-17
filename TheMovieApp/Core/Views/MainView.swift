@@ -27,29 +27,31 @@ struct MainView: View {
             Divider()
                 .foregroundColor(.clear)
             ScrollView {
-                WatchlistViewSegment(movieDataService: movieDataService)
-                    .padding(.bottom, 10)
-                VStack(spacing: 10) {
-                    HeadLineRow(context: "Popular Movies")
-                        .padding(.leading, 8)
-                        ScrollView(.horizontal) {
-                            LazyHStack {
-                                ForEach(0..<mainViewVM.popularMovies.count, id: \.self) { index in
-                                    NavigationLink  {
-                                        ShortDetailItemView(title: "Popular Movies", items: mainViewVM.popularMovies, currentItem: index, movieDataService: movieDataService)
-                                    } label: {
-                                        PortraitStyleMovieCell(movie: mainViewVM.popularMovies[index], movieDataService: movieDataService)
+                LazyVStack(spacing: 0) {
+                    WatchlistViewSegment(movieDataService: movieDataService)
+                        .padding(.bottom, 10)
+                    VStack(spacing: 10) {
+                        HeadLineRow(context: "Popular Movies")
+                            .padding(.leading, 8)
+                            ScrollView(.horizontal) {
+                                LazyHStack {
+                                    ForEach(0..<mainViewVM.popularMovies.count, id: \.self) { index in
+                                        NavigationLink  {
+                                            ShortDetailItemView(title: "Popular Movies", items: mainViewVM.popularMovies, currentItem: index, movieDataService: movieDataService)
+                                        } label: {
+                                            PortraitStyleMovieCell(movie: mainViewVM.popularMovies[index], movieDataService: movieDataService)
+                                        }
                                     }
                                 }
+                                .padding(.leading, 8)
                             }
-                            .padding(.leading, 8)
-                        }
+                    }
+                    .padding(.init(top: 5, leading: 0, bottom: 15, trailing: 0))
+                    .background(alignment: .center) {
+                        Color.secondary.opacity(0.1)
+                    }
+                    TopRatedMoviesSegment(movieDataService: movieDataService)
                 }
-                .padding(.init(top: 5, leading: 0, bottom: 15, trailing: 0))
-                .background(alignment: .center) {
-                    Color.secondary.opacity(0.1)
-                }
-                TopRatedMoviesSegment(movieDataService: movieDataService)
             }
         }
         .task {

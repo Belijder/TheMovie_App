@@ -19,14 +19,11 @@ struct TopRatedMoviesSegment: View {
                 ScrollView(.horizontal) {
                     LazyHStack {
                         ForEach(0..<vm.topRatedMoviesDetails.count, id: \.self) { index in
-                            PortraitStyleMovieCell(movie: vm.topRatedMoviesDetails[index], movieDataService: vm.movieDataService)
-                                .onTapGesture {
-                                    vm.selectedItem = index
-                                    vm.showShortDetailItemView = true
-                                }
-                        }
-                        .fullScreenCover(isPresented: $vm.showShortDetailItemView) {
-                            ShortDetailItemView(title: "Top Rated Movies", items: vm.topRatedMoviesDetails, currentItem: vm.selectedItem, movieDataService: vm.movieDataService)
+                            NavigationLink {
+                                ShortDetailItemView(title: "Top Rated Movies", items: vm.topRatedMoviesDetails, currentItem: index, movieDataService: vm.movieDataService)
+                            } label: {
+                                PortraitStyleMovieCell(movie: vm.topRatedMoviesDetails[index], movieDataService: vm.movieDataService)
+                            }
                         }
                     }
                     .padding(.leading, 8)
