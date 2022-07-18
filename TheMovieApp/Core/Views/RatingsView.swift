@@ -8,16 +8,14 @@
 import SwiftUI
 
 struct RatingsView: View {
-    
-    @ObservedObject var movieDataService: MovieDataService
-    @EnvironmentObject var coreDataManager: CoreDataManager
+    @StateObject var vm: RatingsViewModel
     
     var body: some View {
         VStack{
             ScrollView {
                 LazyVStack(alignment: .leading) {
-                    ForEach(coreDataManager.savedUserRatingsItems) { movie in
-                        HorizontalStyleMovieCell(id: movie.id, title: movie.title, releaseDate: movie.releaseDate, voteAverage: movie.voteAverage, userRating: movie.userRate, ratingDate: movie.ratingDate, posterPath: movie.posterPath, runtime: movie.runtime, movieDataService: movieDataService)
+                    ForEach(vm.ratedMovies) { movie in
+                        HorizontalStyleMovieCell(id: movie.id, title: movie.title, releaseDate: movie.releaseDate, voteAverage: movie.voteAverage, userRating: movie.userRate, ratingDate: movie.ratingDate, posterPath: movie.posterPath, runtime: movie.runtime, movieDataService: vm.movieDataService)
                     }
                 }
             }
@@ -27,13 +25,13 @@ struct RatingsView: View {
         .navigationBarTitleDisplayMode(.inline)
     }
     
-    init(movieDataService: MovieDataService) {
-        self._movieDataService = ObservedObject(wrappedValue: movieDataService)
+    init(coreDataManager: CoreDataManager, movieDataService: MovieDataService) {
+        _vm = StateObject(wrappedValue: RatingsViewModel(coreDataManager: coreDataManager, movieDataService: movieDataService))
     }
 }
 
 struct RatingsView_Previews: PreviewProvider {
     static var previews: some View {
-        RatingsView(movieDataService: MovieDataService())
+        RatingsView(coreDataManager: CoreDataManager(), movieDataService: MovieDataService())
     }
 }

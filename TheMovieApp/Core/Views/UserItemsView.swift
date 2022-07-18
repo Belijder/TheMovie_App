@@ -20,7 +20,7 @@ struct UserItemsView: View {
                 ScrollView() {
                     VStack(spacing: 10) {
                         NavigationLink {
-                            RatingsView(movieDataService: vm.movieDataService)
+                            RatingsView(coreDataManager: vm.coreDataManager, movieDataService: vm.movieDataService)
                         } label: {
                             RatingsBanner(movieDataService: vm.movieDataService)
                         }

@@ -8,9 +8,6 @@
 import Foundation
 
 actor MovieDataService: ObservableObject {
-    
-    //static let shared = MovieDataService()
-    
     func fetchPopularMovies() async -> [PopularMovie] {
         var movies = [PopularMovie]()
         if let url = FetchManager.shared.makeURL(with: .popularMovies, id: nil) {
@@ -108,7 +105,7 @@ actor MovieDataService: ObservableObject {
         }
         return result
     }
-    
+
     /**
             This function fetch all posters from endpoint path. Then filters them linguistically, selecting only the ones in English, then sorts them from the highest ranked and returns the first result. If there is no poster in English, it returns the highest ranked poster in any language.
      */
@@ -197,7 +194,6 @@ actor MovieDataService: ObservableObject {
     }
     
     func fetchReviews(movieID: Int) async -> Reviews {
-        
         if let url = FetchManager.shared.makeURL(with: .reviews, id: movieID) {
             do {
                 let response = try await URLSession.shared.decode(Reviews.self, from: url)

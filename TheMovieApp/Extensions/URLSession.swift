@@ -16,12 +16,10 @@ extension URLSession {
         dateDecodingStrategy: JSONDecoder.DateDecodingStrategy = .deferredToDate
     ) async throws -> T {
         let (data, _) = try await data(from: url)
-
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = keyDecodingStrategy
         decoder.dataDecodingStrategy = dataDecodingStrategy
         decoder.dateDecodingStrategy = dateDecodingStrategy
-
         let decoded = try decoder.decode(T.self, from: data)
         return decoded
     }
