@@ -28,6 +28,13 @@ struct MainView: View {
                     VStack(spacing: 10) {
                         HeadLineRow(context: "Popular Movies")
                             .padding(.leading, 8)
+                        if mainViewVM.popularMovies.isEmpty {
+                            VStack {
+                                ProgressView()
+                                    .frame(maxWidth: .infinity)
+                                    .frame(height: 240)
+                            }
+                        } else {
                             ScrollView(.horizontal) {
                                 LazyHStack {
                                     ForEach(0..<mainViewVM.popularMovies.count, id: \.self) { index in
@@ -40,6 +47,7 @@ struct MainView: View {
                                 }
                                 .padding(.leading, 8)
                             }
+                        }
                     }
                     .padding(.init(top: 5, leading: 0, bottom: 15, trailing: 0))
                     .background(alignment: .center) {

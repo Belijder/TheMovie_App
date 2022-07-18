@@ -17,16 +17,24 @@ struct TopRatedMoviesSegment: View {
             HeadLineRow(context: "Top Rated Movies")
                 .padding(.leading, 8)
                 ScrollView(.horizontal) {
-                    LazyHStack {
-                        ForEach(0..<vm.topRatedMoviesDetails.count, id: \.self) { index in
-                            NavigationLink {
-                                ShortDetailItemView(title: "Top Rated Movies", items: vm.topRatedMoviesDetails, currentItem: index, movieDataService: vm.movieDataService)
-                            } label: {
-                                PortraitStyleMovieCell(movie: vm.topRatedMoviesDetails[index], movieDataService: vm.movieDataService)
+                    if vm.topRatedMoviesDetails.isEmpty {
+                        VStack {
+                            ProgressView()
+                                .frame(maxWidth: .infinity)
+                                .frame(height: 240)
+                        }
+                    } else {
+                        LazyHStack {
+                            ForEach(0..<vm.topRatedMoviesDetails.count, id: \.self) { index in
+                                NavigationLink {
+                                    ShortDetailItemView(title: "Top Rated Movies", items: vm.topRatedMoviesDetails, currentItem: index, movieDataService: vm.movieDataService)
+                                } label: {
+                                    PortraitStyleMovieCell(movie: vm.topRatedMoviesDetails[index], movieDataService: vm.movieDataService)
+                                }
                             }
                         }
+                        .padding(.leading, 8)
                     }
-                    .padding(.leading, 8)
                 }
         }
         .padding(.init(top: 5, leading: 0, bottom: 15, trailing: 0))
