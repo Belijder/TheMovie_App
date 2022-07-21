@@ -10,8 +10,6 @@ import SwiftUI
 struct BackdropCell: View {
     
     let backdropPath: String?
-    @Binding var showVideoView: Bool
-    let isVideoAnable: Bool
     
     var body: some View {
         VStack {
@@ -34,17 +32,6 @@ struct BackdropCell: View {
                         LinearGradient(colors: [.black.opacity(0.5), .clear], startPoint: .bottom, endPoint: .top)
                             .frame(width: UIScreen.main.bounds.width * 0.9, height: UIScreen.main.bounds.width * 0.9 / 1.77777777777778 / 2)
                     }
-                    if isVideoAnable {
-                        Button {
-                            showVideoView = true
-                        } label: {
-                            Image(systemName: "play.circle")
-                                .font(.largeTitle)
-                                .foregroundColor(.white)
-                                .scaleEffect(1.5)
-                        }
-                        
-                    }
                 }
                 .cornerRadius(20, corners: [.topLeft, .topRight])
             }
@@ -54,6 +41,6 @@ struct BackdropCell: View {
 }
 struct BackdropCell_Previews: PreviewProvider {
     static var previews: some View {
-        BackdropCell(backdropPath: "", showVideoView: .constant(true), isVideoAnable: true)
+        BackdropCell(backdropPath: "")
     }
 }

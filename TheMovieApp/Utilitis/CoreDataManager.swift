@@ -82,17 +82,7 @@ class CoreDataManager: ObservableObject {
     func addRatedMovieEntity(id: Int, title: String, posterPath: String, rate: Int, date: Date, voteAverage: Double, runtime: Int, releaseDate: String) {
         if savedUserRatingsEntites.contains(where: { $0.id == Int64(id) }) {
             guard let entity = savedUserRatingsEntites.first(where: { $0.id == Int64(id) }) else { return }
-//            container.viewContext.delete(entity)
             entity.userRating = Int16(rate)
-//            let newEntity = RatedMovieEntity(context: container.viewContext)
-//            newEntity.id = Int64(id)
-//            newEntity.title = title
-//            newEntity.posterPath = posterPath
-//            newEntity.userRating = Int16(rate)
-//            newEntity.voteAverage = voteAverage
-//            newEntity.ratingDate = date
-//            newEntity.runtime = Int16(runtime)
-//            newEntity.releaseDate = releaseDate
             saveData()
             savedUserRatingsEntites = fetchUserRatings()
         } else {

@@ -9,30 +9,24 @@ import SwiftUI
 struct ShortDetailItemCell: View {
     
     @EnvironmentObject var coreDataManager: CoreDataManager
-    @ObservedObject var movieDataService: MovieDataService
-    let topCastArray: [CastMember]
-    let backdropPath: String?
-    let credits: Credits
-    let item: ItemDetails
-    let reviews: Reviews
-    @State private var showVideoView = false
-    @State private var showfullDetailView = false
+    @StateObject var vm: ShortDetailItemCellViewModel
     @State private var showRatingView = false
     
-    
-
+    init(topCastArray: [CastMember], backdropPath: String?, credits: Credits, item: ItemDetails, reviews: Reviews, movieDataService: MovieDataService) {
+        self._vm = StateObject(wrappedValue: ShortDetailItemCellViewModel(topCastArray: topCastArray, backdropPath: backdropPath, credits: credits, item: item, reviews: reviews, movieDataService: movieDataService))
+    }
     var body: some View {
         ZStack {
             ScrollView() {
                 ZStack {
                     VStack(alignment: .leading, spacing: 10) {
                         Group {
-                            BackdropCell(backdropPath: backdropPath, showVideoView: $showVideoView, isVideoAnable: item.video)
+                            BackdropCell(backdropPath: vm.backdropPath)
                             basicInforation
                             HStack(spacing: 15) {
                                 poster
                                 VStack(alignment: .leading) {
-                                    GenresCell(genresNames: item.makeGenresNamesArray())
+                                    GenresCell(genresNames: vm.item.makeGenresNamesArray())
                                     overview
                                     Spacer()
                                 }
@@ -42,14 +36,14 @@ struct ShortDetailItemCell: View {
                         addToWatchListButton
                         voteAverageAndRateButtonRow
                             .fullScreenCover(isPresented: $showRatingView) {
-                                if coreDataManager.savedUserRatingsItems.firstIndex(where: { $0.id == item.id }) != nil {
+                                if coreDataManager.savedUserRatingsItems.firstIndex(where: { $0.id == vm.item.id }) != nil {
                                     RateView(
-                                        movieDataService: movieDataService,
-                                        movie: item,
-                                        rating: (coreDataManager.savedUserRatingsItems.first(where: { $0.id == item.id })?.userRate)!
+                                        movieDataService: vm.movieDataService,
+                                        movie: vm.item,
+                                        rating: (coreDataManager.savedUserRatingsItems.first(where: { $0.id == vm.item.id })?.userRate)!
                                     )
                                 } else {
-                                    RateView(movieDataService: movieDataService, movie: item, rating: 0)
+                                    RateView(movieDataService: vm.movieDataService, movie: vm.item, rating: 0)
                                 }
                             }
                         Divider()
@@ -71,25 +65,21 @@ struct ShortDetailItemCell: View {
         }
         .clipShape(RoundedRectangle(cornerRadius: 20))
         .padding(.bottom)
-        .fullScreenCover(isPresented: $showVideoView) {
-            VideoView()
-        }
     }
 }
 
 
 struct ShortDetailItemCell_Previews: PreviewProvider {
     static var previews: some View {
-        ShortDetailItemCell(movieDataService: MovieDataService(), topCastArray: [], backdropPath: "", credits: Credits.example, item: ItemDetails.example, reviews: Reviews.example)
+        ShortDetailItemCell(topCastArray: [dev.castMember], backdropPath: dev.backdropPath, credits: dev.credits, item: dev.itemDetails, reviews: dev.reviews, movieDataService: MovieDataService())
     }
 }
 
 extension ShortDetailItemCell {
-    
     private var background: some View {
         VStack {
-            if item.posterPath != nil {
-                AsyncImage(url: URL(string: FetchManager.shared.imageBaseURL + item.posterPath!)) { image in
+            if vm.item.posterPath != nil {
+                AsyncImage(url: URL(string: FetchManager.shared.imageBaseURL + vm.item.posterPath!)) { image in
                     image
                         .resizable()
                         .frame(width: UIScreen.main.bounds.size.width * 0.9)
@@ -102,23 +92,22 @@ extension ShortDetailItemCell {
     }
     
     private var basicInforation: some View {
-        
         VStack(alignment: .leading, spacing: 0) {
-            Text(item.title)
+            Text(vm.item.title)
                 .font(.largeTitle)
                 .fontWeight(.light)
                 .foregroundColor(.primary)
                 .multilineTextAlignment(.leading)
-            if item.title != item.originalTitle {
-                Text(item.originalTitle + " (original title)")
+            if vm.item.title != vm.item.originalTitle {
+                Text(vm.item.originalTitle + " (original title)")
                     .font(.caption)
                     .foregroundColor(.secondary)
             }
             HStack {
-                Text(item.releaseDate.prefix(4))
+                Text(vm.item.releaseDate.prefix(4))
                     .font(.footnote)
                     .foregroundColor(.secondary)
-                if let runtime = item.runtime {
+                if let runtime = vm.item.runtime {
                     Text("\(runtime) min")
                         .font(.footnote)
                         .foregroundColor(.secondary)
@@ -132,8 +121,8 @@ extension ShortDetailItemCell {
     
     private var overview: some View {
         VStack {
-            if item.overview != nil {
-                Text(item.overview!)
+            if vm.item.overview != nil {
+                Text(vm.item.overview!)
                     .font(.subheadline)
                     .foregroundColor(.secondary)
                     .lineLimit(5)
@@ -146,8 +135,8 @@ extension ShortDetailItemCell {
     
     private var poster: some View {
         VStack {
-            if item.posterPath != nil {
-                AsyncImage(url: URL(string: FetchManager.shared.imageBaseURL + item.posterPath!)) { image in
+            if vm.item.posterPath != nil {
+                AsyncImage(url: URL(string: FetchManager.shared.imageBaseURL + vm.item.posterPath!)) { image in
                         image
                             .resizable()
                             .frame(width: UIScreen.main.bounds.width / 4, height: UIScreen.main.bounds.width / 4 * 1.5)
@@ -169,14 +158,14 @@ extension ShortDetailItemCell {
     
     private var addToWatchListButton: some View {
         Button {
-            if coreDataManager.savedWatchlistItems.contains(where: { $0.id == item.id }) {
-                coreDataManager.removeWatchlistEntity(id: item.id)
+            if coreDataManager.savedWatchlistItems.contains(where: { $0.id == vm.item.id }) {
+                coreDataManager.removeWatchlistEntity(id: vm.item.id)
             } else {
-                coreDataManager.addWatchlistEntity(id: item.id, title: item.title, posterPath: item.posterPath ?? "", voteAverage: item.voteAverage)
+                coreDataManager.addWatchlistEntity(id: vm.item.id, title: vm.item.title, posterPath: vm.item.posterPath ?? "", voteAverage: vm.item.voteAverage)
             }
         } label: {
             HStack(spacing: 5) {
-                Image(systemName: coreDataManager.savedWatchlistItems.contains(where: { $0.id == item.id }) ? "checkmark" : "plus")
+                Image(systemName: coreDataManager.savedWatchlistItems.contains(where: { $0.id == vm.item.id }) ? "checkmark" : "plus")
                     .foregroundColor(.white)
                 Text("WatchList")
                     .font(.headline)
@@ -193,10 +182,10 @@ extension ShortDetailItemCell {
     private var voteAverageAndRateButtonRow: some View {
         ZStack(alignment: .center) {
             HStack {
-                VoteAverageView(voteAverage: item.voteAverage, voteCount: nil)
+                VoteAverageView(voteAverage: vm.item.voteAverage, voteCount: nil)
                 Spacer()
             }
-            RateButton(item: item, showRatingView: $showRatingView)
+            RateButton(item: vm.item, showRatingView: $showRatingView)
         }
         .padding(.horizontal)
         .padding(.vertical, 8)
@@ -204,7 +193,7 @@ extension ShortDetailItemCell {
     
     private var seeFullDetailsButton: some View {
         NavigationLink(destination: {
-            LongDetailView(movieDataService: movieDataService, topCastArray: topCastArray, backdropPath: backdropPath, credits: credits, itemDetails: item, reviews: reviews)
+            LongDetailView(movieDataService: vm.movieDataService, topCastArray: vm.topCastArray, backdropPath: vm.backdropPath, credits: vm.credits, itemDetails: vm.item, reviews: vm.reviews)
         }, label: {
             Text("See full details")
                 .font(.headline)
@@ -228,7 +217,7 @@ extension ShortDetailItemCell {
                 Spacer()
                 
                 NavigationLink {
-                    AllCastView(movieDataService: movieDataService, cast: credits.cast, crew: credits.crew, title: item.title, date: item.releaseDate)
+                    AllCastView(movieDataService: vm.movieDataService, cast: vm.credits.cast, crew: vm.credits.crew, title: vm.item.title, date: vm.item.releaseDate)
                 } label: {
                     Text("See All")
                         .font(.headline)
@@ -240,7 +229,7 @@ extension ShortDetailItemCell {
             
             ScrollView(.horizontal) {
                 LazyHStack {
-                    ForEach(topCastArray) { castMember in
+                    ForEach(vm.topCastArray) { castMember in
                         CastMemberCapsule(castMember: castMember)
                     }
                 }
@@ -258,7 +247,7 @@ extension ShortDetailItemCell {
                     .foregroundColor(.primary)
                 Spacer()
                 NavigationLink {
-                    ReviewsView(movie: item, reviews: reviews, movieDataService: movieDataService)
+                    ReviewsView(movie: vm.item, reviews: vm.reviews, movieDataService: vm.movieDataService)
                 } label: {
                     Text("See All")
                             .font(.headline)
@@ -268,7 +257,7 @@ extension ShortDetailItemCell {
             }
             .padding(.horizontal)
             
-            if reviews.results.isEmpty {
+            if vm.reviews.results.isEmpty {
                 Text("This movie has no reviews yet")
                     .foregroundColor(.secondary)
                     .font(.subheadline)
@@ -276,7 +265,7 @@ extension ShortDetailItemCell {
             } else {
                 ScrollView(.horizontal) {
                     LazyHStack(spacing: 10) {
-                        ForEach(reviews.results) { review in
+                        ForEach(vm.reviews.results) { review in
                             ShortReviewCell(review: review)
                         }
                     }

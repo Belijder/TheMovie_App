@@ -11,7 +11,7 @@ import Introspect
 struct ShortDetailItemView: View {
     @Environment(\.dismiss) var dismiss
     @ObservedObject var movieDataService: MovieDataService
-    @StateObject var shortDetailItemViewViewModel: ShortDetailItemViewViewModel
+    @StateObject var vm: ShortDetailItemViewViewModel
     
     let title: String
     let items: [ItemDetails]
@@ -22,13 +22,18 @@ struct ShortDetailItemView: View {
         ZStack {
             Color.secondary.opacity(0.1)
             VStack {
-                if shortDetailItemViewViewModel.isProgresViewEnabled {
+                if vm.isProgresViewEnabled {
                     ProgressView()
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                 } else {
                     TabView(selection: $currentItem) {
                         ForEach(0..<20) { index in
-                            ShortDetailItemCell(movieDataService: movieDataService, topCastArray: shortDetailItemViewViewModel.topCasts[index], backdropPath: items[index].backdropPath, credits: shortDetailItemViewViewModel.credits[index], item: items[index], reviews: shortDetailItemViewViewModel.reviews[items[index].id] ?? Reviews.example
+                            ShortDetailItemCell(topCastArray: vm.topCasts[index],
+                                                backdropPath: items[index].backdropPath,
+                                                credits: vm.credits[index],
+                                                item: items[index],
+                                                reviews: vm.reviews[index] ?? Reviews.example,
+                                                movieDataService: vm.movieDataService
                             )
                             .tag(index)
                         }
@@ -36,7 +41,7 @@ struct ShortDetailItemView: View {
                     .tabViewStyle(PageTabViewStyle(indexDisplayMode: .automatic))
                 }
             }.task {
-                await shortDetailItemViewViewModel.fetchCastAndReviews()
+                await vm.fetchCastAndReviews()
             }
             .navigationBarTitle(title)
             .navigationBarTitleDisplayMode(.inline)
@@ -47,7 +52,7 @@ struct ShortDetailItemView: View {
         self.title = title
         self.items = items
         _currentItem = State(wrappedValue: currentItem)
-        _shortDetailItemViewViewModel = StateObject(wrappedValue: ShortDetailItemViewViewModel(items: items))
+        _vm = StateObject(wrappedValue: ShortDetailItemViewViewModel(items: items))
         _movieDataService = ObservedObject(wrappedValue: movieDataService)
         
     }

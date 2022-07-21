@@ -36,6 +36,7 @@
 		2382D0DC28843A36009E58DC /* RecommendationsSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2382D0DB28843A36009E58DC /* RecommendationsSegment.swift */; };
 		2382D0DE28843AD6009E58DC /* RecommendationsSegmentVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2382D0DD28843AD6009E58DC /* RecommendationsSegmentVM.swift */; };
 		2382D0E02885D748009E58DC /* RatingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2382D0DF2885D748009E58DC /* RatingsViewModel.swift */; };
+		2382D0E22889B611009E58DC /* ShortDetailItemCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2382D0E12889B611009E58DC /* ShortDetailItemCellViewModel.swift */; };
 		238D0FF6287B526600F79A20 /* WatchlistPosterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238D0FF5287B526500F79A20 /* WatchlistPosterView.swift */; };
 		238D0FF8287B52F700F79A20 /* WatchlistPosterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238D0FF7287B52F700F79A20 /* WatchlistPosterViewModel.swift */; };
 		238D0FFA287B5ABC00F79A20 /* WatchlistModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238D0FF9287B5ABC00F79A20 /* WatchlistModel.swift */; };
@@ -86,7 +87,6 @@
 		23F9042E27D68F7D00A9FE58 /* ItemDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F9042D27D68F7D00A9FE58 /* ItemDetails.swift */; };
 		23F9043027D91E2400A9FE58 /* ShortDetailItemViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F9042F27D91E2400A9FE58 /* ShortDetailItemViewViewModel.swift */; };
 		23F9043227D92AD500A9FE58 /* ShortDetailItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F9043127D92AD500A9FE58 /* ShortDetailItemView.swift */; };
-		23F9045B27DFAEF800A9FE58 /* VideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F9045A27DFAEF700A9FE58 /* VideoView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -120,6 +120,7 @@
 		2382D0DB28843A36009E58DC /* RecommendationsSegment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendationsSegment.swift; sourceTree = "<group>"; };
 		2382D0DD28843AD6009E58DC /* RecommendationsSegmentVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendationsSegmentVM.swift; sourceTree = "<group>"; };
 		2382D0DF2885D748009E58DC /* RatingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingsViewModel.swift; sourceTree = "<group>"; };
+		2382D0E12889B611009E58DC /* ShortDetailItemCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortDetailItemCellViewModel.swift; sourceTree = "<group>"; };
 		238D0FF5287B526500F79A20 /* WatchlistPosterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistPosterView.swift; sourceTree = "<group>"; };
 		238D0FF7287B52F700F79A20 /* WatchlistPosterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistPosterViewModel.swift; sourceTree = "<group>"; };
 		238D0FF9287B5ABC00F79A20 /* WatchlistModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistModel.swift; sourceTree = "<group>"; };
@@ -170,7 +171,6 @@
 		23F9042D27D68F7D00A9FE58 /* ItemDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetails.swift; sourceTree = "<group>"; };
 		23F9042F27D91E2400A9FE58 /* ShortDetailItemViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortDetailItemViewViewModel.swift; sourceTree = "<group>"; };
 		23F9043127D92AD500A9FE58 /* ShortDetailItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortDetailItemView.swift; sourceTree = "<group>"; };
-		23F9045A27DFAEF700A9FE58 /* VideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -310,7 +310,6 @@
 				2382D0D7288404CF009E58DC /* TopRatedMoviesSegment.swift */,
 				2382D0DB28843A36009E58DC /* RecommendationsSegment.swift */,
 				238D100328808C3100F79A20 /* FavoritePersonsSegment.swift */,
-				23F9045A27DFAEF700A9FE58 /* VideoView.swift */,
 				239C6D34287178410032C032 /* ReviewsView.swift */,
 				2382D0CF2882BE02009E58DC /* RatingsView.swift */,
 			);
@@ -353,6 +352,7 @@
 				2382D0DD28843AD6009E58DC /* RecommendationsSegmentVM.swift */,
 				2382D0D32882BF37009E58DC /* HorizontalStyleMovieCellViewModel.swift */,
 				23F9042F27D91E2400A9FE58 /* ShortDetailItemViewViewModel.swift */,
+				2382D0E12889B611009E58DC /* ShortDetailItemCellViewModel.swift */,
 				237B62C12868605200F83C39 /* LongDetailViewModel.swift */,
 				239C6D20286A235A0032C032 /* SearchMovieViewModel.swift */,
 				239C6D24286B8E1C0032C032 /* SearchMovieCellViewModel.swift */,
@@ -473,12 +473,12 @@
 				239C6D2F286EB2C50032C032 /* String.swift in Sources */,
 				230DA48E27FB669F0091EBCD /* AllCastView.swift in Sources */,
 				238D0FFA287B5ABC00F79A20 /* WatchlistModel.swift in Sources */,
+				2382D0E22889B611009E58DC /* ShortDetailItemCellViewModel.swift in Sources */,
 				237B62C428687F7100F83C39 /* OverviewView.swift in Sources */,
 				239C6D33287172F60032C032 /* RateButton.swift in Sources */,
 				238D100E2880B69C00F79A20 /* RatingsBanner.swift in Sources */,
 				230DA48727FB5F8E0091EBCD /* LongDetailView.swift in Sources */,
 				2382D0DE28843AD6009E58DC /* RecommendationsSegmentVM.swift in Sources */,
-				23F9045B27DFAEF800A9FE58 /* VideoView.swift in Sources */,
 				239C6D21286A235A0032C032 /* SearchMovieViewModel.swift in Sources */,
 				238D1006288091ED00F79A20 /* FavoritePersonView.swift in Sources */,
 				23DF0D5C2855E5800051A787 /* Person.swift in Sources */,
