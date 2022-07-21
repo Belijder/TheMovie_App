@@ -16,7 +16,6 @@ struct ShortDetailItemView: View {
     let title: String
     let items: [ItemDetails]
     @State var currentItem: Int
-    @State var scrolltoItem = 0
 
     var body: some View {
         ZStack {
@@ -38,7 +37,7 @@ struct ShortDetailItemView: View {
                             .tag(index)
                         }
                     }
-                    .tabViewStyle(PageTabViewStyle(indexDisplayMode: .automatic))
+                    .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
                 }
             }.task {
                 await vm.fetchCastAndReviews()

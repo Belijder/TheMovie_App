@@ -8,26 +8,9 @@
 import SwiftUI
 
 struct AllCastView: View {
-    
     @Environment(\.dismiss) var dismiss
-   
-    
     @StateObject var vm: AllCastViewModel
-    
-    init(movieDataService: MovieDataService, cast: [CastMember], crew: [CrewMember], title: String, date: String) {
-        self.cast = cast
-        self.crew = crew
-        self.title = title
-        self.date = date
-        self._vm = StateObject(wrappedValue: AllCastViewModel(movieDataService: movieDataService, cast: cast, crew: crew, date: date))
-    
-    }
-    
-    let cast: [CastMember]
-    let crew: [CrewMember]
-    let title: String
-    let date: String
-    
+
     var body: some View {
         VStack {
             navigationBar
@@ -69,6 +52,10 @@ struct AllCastView: View {
         .navigationBarTitle("All Cast")
         .navigationBarHidden(true)
     }
+    
+    init(movieDataService: MovieDataService, cast: [CastMember], crew: [CrewMember], title: String, date: String) {
+        self._vm = StateObject(wrappedValue: AllCastViewModel(movieDataService: movieDataService, cast: cast, crew: crew, date: date))
+    }
 }
 
 struct AllCastView_Previews: PreviewProvider {
@@ -99,7 +86,7 @@ extension AllCastView {
     private var peopleCounter: some View {
         HStack(alignment: .center) {
             VStack(alignment: .leading) {
-            Text("\(cast.count) People")
+                Text("\(vm.cast.count) People")
                     .foregroundColor(.primary)
                 .font(.headline)
             Text("Sorted by Credit Order")
