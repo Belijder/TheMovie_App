@@ -57,6 +57,9 @@ struct MainView: View {
                     if coreDataManager.savedUserRatingsItems.contains(where: { $0.userRate > 7 }) {
                         RecommendationsSegment(movieDataService: movieDataService, coreDataManager: coreDataManager)
                     }
+                    if !coreDataManager.savedFavoritePeopleItems.isEmpty {
+                        RecommendationsFromFavoritesSegment(movieDataService: movieDataService, coreDataManager: coreDataManager)
+                    }
                 }
             }
         }

@@ -87,6 +87,8 @@
 		23F9042E27D68F7D00A9FE58 /* ItemDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F9042D27D68F7D00A9FE58 /* ItemDetails.swift */; };
 		23F9043027D91E2400A9FE58 /* ShortDetailItemViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F9042F27D91E2400A9FE58 /* ShortDetailItemViewViewModel.swift */; };
 		23F9043227D92AD500A9FE58 /* ShortDetailItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F9043127D92AD500A9FE58 /* ShortDetailItemView.swift */; };
+		42BD3AB4288DE216002A3498 /* RecommendationsFromFavoritesSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42BD3AB3288DE216002A3498 /* RecommendationsFromFavoritesSegment.swift */; };
+		42BD3AB6288DE242002A3498 /* RecommendationsFromFavoritesSegmentVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42BD3AB5288DE242002A3498 /* RecommendationsFromFavoritesSegmentVM.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -171,6 +173,8 @@
 		23F9042D27D68F7D00A9FE58 /* ItemDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetails.swift; sourceTree = "<group>"; };
 		23F9042F27D91E2400A9FE58 /* ShortDetailItemViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortDetailItemViewViewModel.swift; sourceTree = "<group>"; };
 		23F9043127D92AD500A9FE58 /* ShortDetailItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortDetailItemView.swift; sourceTree = "<group>"; };
+		42BD3AB3288DE216002A3498 /* RecommendationsFromFavoritesSegment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendationsFromFavoritesSegment.swift; sourceTree = "<group>"; };
+		42BD3AB5288DE242002A3498 /* RecommendationsFromFavoritesSegmentVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendationsFromFavoritesSegmentVM.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -309,6 +313,7 @@
 				23F9040827D130D200A9FE58 /* WatchlistViewSegment.swift */,
 				2382D0D7288404CF009E58DC /* TopRatedMoviesSegment.swift */,
 				2382D0DB28843A36009E58DC /* RecommendationsSegment.swift */,
+				42BD3AB3288DE216002A3498 /* RecommendationsFromFavoritesSegment.swift */,
 				238D100328808C3100F79A20 /* FavoritePersonsSegment.swift */,
 				239C6D34287178410032C032 /* ReviewsView.swift */,
 				2382D0CF2882BE02009E58DC /* RatingsView.swift */,
@@ -350,6 +355,7 @@
 				23F903F427CA7A9900A9FE58 /* MainViewViewModel.swift */,
 				2382D0D928840A2C009E58DC /* TopRatedMoviesSegmentVM.swift */,
 				2382D0DD28843AD6009E58DC /* RecommendationsSegmentVM.swift */,
+				42BD3AB5288DE242002A3498 /* RecommendationsFromFavoritesSegmentVM.swift */,
 				2382D0D32882BF37009E58DC /* HorizontalStyleMovieCellViewModel.swift */,
 				23F9042F27D91E2400A9FE58 /* ShortDetailItemViewViewModel.swift */,
 				2382D0E12889B611009E58DC /* ShortDetailItemCellViewModel.swift */,
@@ -467,12 +473,14 @@
 				23DB0A6927F65527003FFADF /* reviews.swift in Sources */,
 				23DB0A6F27F89BCF003FFADF /* Double.swift in Sources */,
 				236F402A2861865B0069542A /* CastMemberDetailViewModel.swift in Sources */,
+				42BD3AB6288DE242002A3498 /* RecommendationsFromFavoritesSegmentVM.swift in Sources */,
 				2377DA8128737625001996CA /* CoreDataManager.swift in Sources */,
 				236D35D027CA49A100955726 /* MainView.swift in Sources */,
 				23DF0D522854DCB60051A787 /* FavoriteButton.swift in Sources */,
 				239C6D2F286EB2C50032C032 /* String.swift in Sources */,
 				230DA48E27FB669F0091EBCD /* AllCastView.swift in Sources */,
 				238D0FFA287B5ABC00F79A20 /* WatchlistModel.swift in Sources */,
+				42BD3AB4288DE216002A3498 /* RecommendationsFromFavoritesSegment.swift in Sources */,
 				2382D0E22889B611009E58DC /* ShortDetailItemCellViewModel.swift in Sources */,
 				237B62C428687F7100F83C39 /* OverviewView.swift in Sources */,
 				239C6D33287172F60032C032 /* RateButton.swift in Sources */,

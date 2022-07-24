@@ -22,7 +22,6 @@ class RecommendationsSegmentVM: ObservableObject {
         let filteredMovies = ratedMovies.filter { $0.userRate > 7 }
         let sortedMovies = filteredMovies.sorted(by: { $0.ratingDate < $1.ratingDate })
         recommendationItem = sortedMovies[0]
-        print("Recommended id: \(String(describing: recommendationItem))")
     }
     
     func getRecommendations() async {
