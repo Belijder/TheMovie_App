@@ -10,6 +10,7 @@ import SwiftUI
 struct SearchMovieView: View {
     
     @StateObject var vm: SearchMovieViewModel
+    @FocusState private var searchFieldIsFocused: Bool
     
     init(movieDataService: MovieDataService) {
         self._vm = StateObject(wrappedValue: SearchMovieViewModel(movieDataService: movieDataService))
@@ -19,6 +20,7 @@ struct SearchMovieView: View {
         NavigationView {
             VStack{
                 TextField(" Search Movie", text: $vm.query)
+                    .focused($searchFieldIsFocused)
                     .padding()
                     .textFieldStyle(.roundedBorder)
                     .background(Color.primary.opacity(0.15))
@@ -40,6 +42,9 @@ struct SearchMovieView: View {
                     }
                     .padding(.horizontal, 8)
 
+                }
+                .onTapGesture {
+                    searchFieldIsFocused = false
                 }
                 Spacer()
             }
