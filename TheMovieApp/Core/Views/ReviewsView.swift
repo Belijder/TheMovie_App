@@ -16,7 +16,6 @@ struct ReviewsView: View {
         self._vm = StateObject(wrappedValue: ReviewsViewModel(movie: movie, reviews: reviews, movieDataService: movieDataService))
     }
     
-    
     var body: some View {
         ScrollView() {
             movieTitleAndYearRow

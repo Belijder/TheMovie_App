@@ -28,7 +28,11 @@ struct FavoritePersonsSegment: View {
                     .padding(.leading, 8)
                 }
             } else {
-                //Nie ma zapisanych
+                Text("You don't have favorite actors. Add some")
+                    .foregroundColor(.primary)
+                    .padding(20)
+                    .multilineTextAlignment(.center)
+                    .background(Color.secondary)
             }
         }
         .padding(.init(top: 5, leading: 0, bottom: 15, trailing: 0))
