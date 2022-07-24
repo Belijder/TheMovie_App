@@ -8,10 +8,8 @@
 import SwiftUI
 
 struct FavoritePersonsSegment: View {
-    
     @EnvironmentObject var coreDataManager: CoreDataManager
     @ObservedObject var movieDataService: MovieDataService
-    
     let persons: [FavoriteModel]
     
     var body: some View {
