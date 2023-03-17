@@ -25,20 +25,22 @@ The application allows to:
 
 Browse the most popular and top-rated movies from the TMDB database.
 
-![browse-popular-movies](https://github.com/Belijder/TheMovie_App/blob/master/BrowsePopular.gif)
+![MAMockupVideo1GIF](https://user-images.githubusercontent.com/66012735/225885085-3d6ef734-088c-42f4-8084-81bfa0d4ef9a.gif)
+
 
 Search the database for a specific movie.
 
-![search-movie](https://github.com/Belijder/TheMovie_App/blob/master/BrowseTopRated.gif)
+![MAMockupVideo2GIF](https://user-images.githubusercontent.com/66012735/225885192-a3c24938-50a4-404a-b4ea-ef7169901bd7.gif)
+
 
 Save the movies that users want to watch, save their favorite actors, and rate the videos they've watched. 
 That data is stored in the device memory by using Core Data.
 
-![saved-items](https://github.com/Belijder/TheMovie_App/blob/master/SavedItems.gif)
+![MAMockupVideo3GIF](https://user-images.githubusercontent.com/66012735/225885240-6defbb8e-4562-4428-917a-c9cf8ebbe3ca.gif)
 
 Based on the user's film ratings and saved favorite actors, the app recommends films that may be of interest to the user.
 
-![recommendation1](https://github.com/Belijder/TheMovie_App/blob/master/YouMightAlsoLike.gif)
+![MAMockupVideo4GIF](https://user-images.githubusercontent.com/66012735/225885290-390129be-a5c5-481c-b571-164d9cb06cc4.gif)
 
 ## User Interface
 The UI of the app tries to imitate the UI of an existing app from the AppStore called IMDb.
